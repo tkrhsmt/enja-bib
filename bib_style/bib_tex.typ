@@ -201,3 +201,111 @@
 
   return biblist
 }
+
+//---------- 文献リストを文献に変換 ---------- //
+#let bibtex-to-bib(biblist, lang: "en") = {
+
+  let output_list_bef = ()//出力リスト(仮)
+  let interval_str = ""//要素間の文字列
+  let bef_element = ""//前の要素
+  let element_num = 0//要素の数
+  let element_total_num = 0//全要素数
+  let element_function = none
+
+  if biblist.target == "article"{//articleの場合
+    // 全要素数の取得
+    element_total_num = bibtex-article-en.len()
+    element_function = bibtex-article-en
+  }
+
+  for bibitem in element_function{// 各要素に対して処理
+    element_num += 1
+    if biblist.at(bibitem.at(0), default: none) != none{// 要素が存在する場合
+
+      //条件を満たすとき，前の要素間文字列を新しい文字列に置き換える
+      if bibitem.at(1).at(5).contains(bef_element) and bibitem.at(1).at(0) != none{
+        interval_str = bibitem.at(1).at(0)
+      }
+      //先頭に文字列を追加
+      interval_str += bibitem.at(1).at(1)
+      output_list_bef.push(interval_str)
+
+      //要素を追加
+      output_list_bef.push(bibitem.at(1).at(2)(biblist, bibitem.at(0)))
+
+      //要素後に文字列を追加
+      if element_num != element_total_num{//最後の要素でないとき
+        output_list_bef.push(bibitem.at(1).at(3))
+        interval_str = bibitem.at(1).at(4)
+      }
+      else{//最後の要素のとき
+        output_list_bef.push(bibitem.at(1).at(6))
+      }
+
+      //前の要素を更新
+      bef_element = bibitem.at(0)
+    }
+  }
+
+  element_num = 0
+  let bef_str = false//直前の要素が文字列かどうか
+  let contain_str = ""
+  let output_list = ()
+
+  for value in output_list_bef{
+    if value != ""{
+      let outputvalue = value
+
+      if bef_str or type(outputvalue) == str{
+        if type(outputvalue) == str{
+          contain_str += outputvalue
+        }
+        else {
+          output_list.push(contain_str)
+          output_list.push(outputvalue)
+          contain_str = ""
+        }
+      }
+      else{
+        output_list.push(outputvalue)
+      }
+
+      if type(outputvalue) == str{
+        bef_str = true
+      }
+      else{
+        bef_str = false
+      }
+    }
+
+    element_num += 1
+  }
+
+  if bef_str{
+      output_list.push(contain_str)
+      contain_str = ""
+  }
+
+  let outputlist = ()
+  output_list_bef = ()
+  for value in output_list{
+    if type(value) == str{
+      let tmp = value.split(year-doubling)
+      if tmp.len() == 1{
+        output_list_bef.push(eval(value, mode: "markup"))
+      }
+      else{
+        output_list_bef.push(eval(tmp.at(0), mode: "markup"))
+        outputlist.push(output_list_bef)
+        output_list_bef = ()
+        output_list_bef.push(eval(tmp.at(1), mode: "markup"))
+      }
+    }
+    else{
+      output_list_bef.push(value)
+    }
+  }
+  outputlist.push(output_list_bef)
+
+  return outputlist
+}

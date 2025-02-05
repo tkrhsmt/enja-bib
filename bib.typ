@@ -1,16 +1,19 @@
 #import "bib_style/bib_style.typ": *
 
+#set text(font: ("Times New Roman", "Harano Aji Mincho"))
 #bib-tex[
-  @article{室田:2003,
-      author={室田,知也},title = {エネルギー伝達の局所スケール間平衡近似から導出されたダイナミック渦粘性モデル},
-      journal = {理論応用力学講演会 講演
-      論文集},
-      publisher={日本学術会議 「機械工学委員会・土木工学・建築学委員会合同IUTAM分科会」},
-      year={2003},
-      volume={52},
-      pages={430},
-      DOI={10.11345/japannctam.52.0.430.0},
-      URL={https://cir.nii.ac.jp/crid/1390282680565636864},
-      yomi={Murota, Tomoya}
-  }
+@article{Kobayashi:2005,
+    author = {Kobayashi, Hiromichi},
+    title = {The subgrid-scale models based on coherent structures for rotating homogeneous turbulence and turbulent channel flow},
+    journal = {Physics of Fluids},
+    volume = {17},
+    number = {4},
+    note = {045104},
+    year = {2005},
+    month = {03},
+    issn = {1070-6631},
+    doi = {10.1063/1.1874212},
+    url = {https://doi.org/10.1063/1.1874212},
+    eprint = {https://pubs.aip.org/aip/pof/article-pdf/doi/10.1063/1.1874212/13557554/045104\_1\_online.pdf},
+}
 ]
