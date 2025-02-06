@@ -385,14 +385,19 @@
 }
 
 //---------- 文献リストを文献に変換 ---------- //
-#let bibtex-to-bib(biblist) = {
+#let bibtex-to-bib(biblist, element_function) = {
 
   let output_list_bef = ()//出力リスト(仮)
   let interval_str = ""//要素間の文字列
   let bef_element = ""//前の要素
   let element_num = 0//要素の数
-  let element_function = get_element_function(biblist)//要素の関数
-  let element_total_num = bibtex-article-ja.len()//全要素数
+  let element_total_num = 0//全要素数
+
+  for bibitem in element_function{
+    if biblist.at(bibitem.at(0), default: "") != ""{//要素が存在する場合
+      element_total_num += 1
+    }
+  }
 
   for bibitem in element_function{// 各要素に対して処理
     element_num += 1
@@ -484,4 +489,16 @@
   outputlist.push(output_list_bef)
 
   return outputlist
+}
+
+#let bibtex-to-cite(biblist) = {
+
+  let cite_list = ()
+
+  //citet
+  cite_list.push(bibtex-to-bib(biblist, bib-citet))
+  //citep
+  cite_list.push(bibtex-to-bib(biblist, bib-citep))
+
+  return cite_list
 }

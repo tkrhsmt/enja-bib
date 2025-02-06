@@ -97,11 +97,50 @@
       }
       num += 1
     }
+    author_str += ", "
   }
   for value in an_author{
     author_str += " "
     if value.len() != 0{
       author_str += upper(value.at(0)) + "."
+    }
+  }
+
+  return author_str
+
+}
+
+// ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Reynolds)に変換 ---------- //
+#let author-en2(author_arr) = {
+
+  let an_author = author_arr
+  let author_str = ""
+  let author_first = an_author.remove(0)
+
+  if author_first.len() != 0{
+    let brace_num = 0
+    let num = 0
+    for value in author_first{
+      if value == "{"{
+        brace_num += 1
+      }
+      else if value == "}"{
+        brace_num -= 1
+      }
+      else{
+        if brace_num == 0{
+          if num == 0{
+            author_str += upper(value)
+          }
+          else{
+            author_str += lower(value)
+          }
+        }
+        else{
+          author_str += value
+        }
+      }
+      num += 1
     }
   }
 
@@ -119,6 +158,10 @@
 #let author-set(biblist, name) = {
 
   let author_str = biblist.at(name).sum()
+  if type(author_str) == content{
+      author_str = contents-to-str(author_str)
+  }
+
   let author_arr = author_str.split("and")
   let author_arr2 = ()
   for value in author_arr{
@@ -161,6 +204,77 @@
   }
   else{
     return author_arr.join(", ", last: " and ")
+  }
+}
+
+// ---------- 項目をciteの著者型にして返す関数 ---------- //
+#let author-set-cite(biblist, name) = {
+
+  let author_str = biblist.at(name).sum()
+  if type(author_str) == content{
+      author_str = contents-to-str(author_str)
+  }
+
+  let author_arr = author_str.split("and")
+  let author_arr2 = ()
+  for value in author_arr{
+    let arr = value.split(",")
+    for num in range(arr.len()){
+      arr.at(num) = remove-space(arr.at(num))
+    }
+    author_str = arr.at(0)
+    if arr.len() > 1{
+      arr = arr.at(1).split(" ")
+      arr.insert(0, author_str)
+    }
+    author_arr2.push(arr)
+  }
+
+  author_arr = ()
+
+  for author in author_arr2{
+
+    let authorsum = author.sum()
+    let check = false
+    for value in authorsum{
+      let tmp = codepoint(value).block.name
+      if tmp == "Hiragana" or tmp == "Katakana" or tmp == "CJK Unified Ideographs" or tmp == "Halfwidth and Fullwidth Forms"{
+        check = true
+        break
+      }
+    }
+
+    if check{
+      author_arr.push(author.at(0))
+    }
+    else{
+      author_arr.push(author-en2(author))
+    }
+  }
+
+  if biblist.lang == "ja"{// 日本語の場合
+    if author_arr.len() == 1{// 著者が1人の場合
+      return author_arr.sum()
+    }
+    else if author_arr.len() == 2{// 著者が2人の場合
+      return author_arr.join(", ")
+    }
+    else{// 著者が3人以上の場合
+      let tmp = (author_arr.at(0), "他")
+      return tmp.sum()
+    }
+  }
+  else{// 英語の場合
+    if author_arr.len() == 1{// 著者が1人の場合
+      return author_arr.sum()
+    }
+    else if author_arr.len() == 2{// 著者が2人の場合
+      return author_arr.join(" and ")
+    }
+    else{// 著者が3人以上の場合
+      let tmp = (author_arr.at(0), " et al.")
+      return tmp.sum()
+    }
   }
 }
 
@@ -240,6 +354,22 @@
     return "p.~" + pagestr
   }
 }
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// 引用スタイル設定
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+#let bib-citet = (
+  ("author", (none,"",author-set-cite, "", "", (), "")),
+  ("year", (none," (",all_return, "%year-doubling)", "", (), "%year-doubling)"))
+)
+
+#let bib-citep = (
+  ("author", (none,"(",author-set-cite, "", ", ", (), "")),
+  ("year", (none,"",all_return, "%year-doubling)", "", (), "%year-doubling)"))
+)
+
+#let bib-vancouver = "(1)"
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // 各要素の表示形式設定
@@ -536,25 +666,25 @@
 
 // -------------------- inproceedings (日本語) --------------------
 
-#let bibtex-inproceedings-author-jp = (none,"",author-set, "", ", ", (), ".")
+#let bibtex-inproceedings-author-ja = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-inproceedings-title-jp = (none,"",all_return, "", ", ", (), ".")
+#let bibtex-inproceedings-title-ja = (none,"",all_return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-booktitle-jp = (none,"",all_return, "", ", ", (), ".")
+#let bibtex-inproceedings-booktitle-ja = (none,"",all_return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-year-jp = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","booktitle"), "%year-doubling).")
+#let bibtex-inproceedings-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","booktitle"), "%year-doubling).")
 
-#let bibtex-inproceedings-note-jp = (none,"",all_return, "", ", ", (), ".")
+#let bibtex-inproceedings-note-ja = (none,"",all_return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
-#let bibtex-inproceedings-jp = (
-  ("author", bibtex-inproceedings-author-jp),
-  ("title", bibtex-inproceedings-title-jp),
-  ("booktitle", bibtex-inproceedings-booktitle-jp),
-  ("year", bibtex-inproceedings-year-jp),
-  ("note", bibtex-inproceedings-note-jp)
+#let bibtex-inproceedings-ja = (
+  ("author", bibtex-inproceedings-author-ja),
+  ("title", bibtex-inproceedings-title-ja),
+  ("booktitle", bibtex-inproceedings-booktitle-ja),
+  ("year", bibtex-inproceedings-year-ja),
+  ("note", bibtex-inproceedings-note-ja)
 )
 
 // -------------------- manual (英語) --------------------
