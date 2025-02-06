@@ -119,6 +119,67 @@
   return (name_list, contents, num, num_list, brace_num)
 }
 
+//---------- 文字列に日本語が含まれるかを判定する関数 ---------- //
+
+#let check_japanese_tex_str(str) = {
+  let arr = str.clusters()//一文字ずつ取得
+  let tmp = ""
+  for value in arr{//一文字ずつ判定
+    tmp = codepoint(value).block.name//文字の種類を取得
+    if tmp == "Hiragana" or tmp == "Katakana" or tmp == "CJK Unified Ideographs" or tmp == "Halfwidth and Fullwidth Forms"{//日本語の場合
+      return true
+    }
+  }
+  return false
+}
+
+//---------- 文献リストに日本語が含まれるかを判定する関数 ---------- //
+
+#let check_japanese_tex(bibtex) = {
+
+  let bib_arr = bibtex.pairs()
+
+  for value in bib_arr{
+    if value.at(0) != "label" {
+      let tmp = value.at(1)
+
+      if type(tmp) == array{
+        tmp = tmp.sum()
+      }
+
+      if type(tmp) == content{
+        tmp = contents-to-str(tmp)
+      }
+
+      if check_japanese_tex_str(tmp){
+        return true
+      }
+    }
+  }
+  return false
+}
+
+//---------- 文献リストにlang要素を加える関数 ---------- //
+
+#let add_dict_lang(biblist, lang) = {
+
+  let output_list = biblist
+
+  if lang == auto or lang != "ja" or lang != "en"{
+    if check_japanese_tex(biblist){
+      output_list.insert("lang", "ja")
+    }
+    else{
+      output_list.insert("lang", "en")
+    }
+  }
+  else{
+    output_list.insert("lang", lang)
+  }
+
+  return output_list
+}
+
 //---------- bibtexの文字列から辞書型を返す関数 ---------- //
 
 #let bibtex_to_dict(bibtex) = {
@@ -202,21 +263,136 @@
   return biblist
 }
 
+//---------- 要素の関数を取得 ---------- //
+#let get_element_function(biblist) = {
+
+  let element_function = none
+
+  if biblist.target == "article"{//articleの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-article-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-article-ja
+    }
+  }
+  else if biblist.target == "book"{//bookの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-book-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-book-ja
+    }
+  }
+  else if biblist.target == "booklet"{//bookletの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-booklet-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-booklet-ja
+    }
+  }
+  else if biblist.target == "inbook"{//inbookの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-inbook-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-inbook-ja
+    }
+  }
+  else if biblist.target == "incollection"{//incollectionの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-incollection-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-incollection-ja
+    }
+  }
+  else if biblist.target == "inproceedings"{//inproceedingsの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-inproceedings-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-inproceedings-ja
+    }
+  }
+  else if biblist.target == "manual"{//manualの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-manual-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-manual-ja
+    }
+  }
+  else if biblist.target == "mastersthesis"{//mastersthesisの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-mastersthesis-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-mastersthesis-ja
+    }
+  }
+  else if biblist.target == "misc"{//miscの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-misc-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-misc-ja
+    }
+  }
+  else if biblist.target == "online"{//onlineの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-online-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-online-ja
+    }
+  }
+  else if biblist.target == "phdthesis"{//phdthesisの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-phdthesis-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-phdthesis-ja
+    }
+  }
+  else if biblist.target == "proceedings"{//proceedingsの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-proceedings-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-proceedings-ja
+    }
+  }
+  else if biblist.target == "techreport"{//techreportの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-techreport-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-techreport-ja
+    }
+  }
+  else if biblist.target == "unpublished"{//unpublishedの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-unpublished-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-unpublished-ja
+    }
+  }
+
+  return element_function
+}
+
 //---------- 文献リストを文献に変換 ---------- //
-#let bibtex-to-bib(biblist, lang: "en") = {
+#let bibtex-to-bib(biblist) = {
 
   let output_list_bef = ()//出力リスト(仮)
   let interval_str = ""//要素間の文字列
   let bef_element = ""//前の要素
   let element_num = 0//要素の数
-  let element_total_num = 0//全要素数
-  let element_function = none
-
-  if biblist.target == "article"{//articleの場合
-    // 全要素数の取得
-    element_total_num = bibtex-article-en.len()
-    element_function = bibtex-article-en
-  }
+  let element_function = get_element_function(biblist)//要素の関数
+  let element_total_num = bibtex-article-ja.len()//全要素数
 
   for bibitem in element_function{// 各要素に対して処理
     element_num += 1
