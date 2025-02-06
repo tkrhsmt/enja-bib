@@ -491,14 +491,50 @@
   return outputlist
 }
 
+//---------- citeを作成する関数 ---------- //
 #let bibtex-to-cite(biblist) = {
 
   let cite_list = ()
 
   //citet
-  cite_list.push(bibtex-to-bib(biblist, bib-citet))
+  cite_list.push(bib-cite-author(biblist, "author"))
   //citep
-  cite_list.push(bibtex-to-bib(biblist, bib-citep))
+  cite_list.push(bib-cite-year(biblist, "year"))
 
   return cite_list
+}
+
+//---------- 並び替えのための読み仮名 ---------- //
+#let bibtex-yomi(biblist) = {
+
+  let yomi = ""
+
+  if biblist.at("yomi", default: "") != ""{
+    yomi = biblist.at("yomi").sum()
+  }
+  else if biblist.at("author", default: "") != ""{
+    yomi = biblist.at("author").sum()
+  }
+  else if biblist.at("editor", default: "") != ""{
+    yomi = biblist.at("editor").sum()
+  }
+  else if biblist.at("title", default: "") != ""{
+    yomi = biblist.at("title").sum()
+  }
+  else if biblist.at("booktitle", default: "") != ""{
+    yomi = biblist.at("booktitle").sum()
+  }
+  else{
+    panic("yomiに相当する要素が存在しないため，yomiフィールドを追加してください")
+  }
+
+  if type(yomi) == content{
+    yomi = contents-to-str(yomi)
+  }
+
+  yomi = yomi.replace("{", "")
+  yomi = yomi.replace("}", "")
+  yomi = lower(yomi)
+
+  return yomi
 }

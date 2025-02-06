@@ -8,6 +8,7 @@
 
 
 // ---------- contentsをstringsに変換する関数 ---------- //
+// !! この関数はbib_tex.typで使用されているため，関数名・および中身を変更しないように注意 !!
 #let contents-to-str(content) = {
   let str = ""
   if content.has("text") {
@@ -359,17 +360,25 @@
 // 引用スタイル設定
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#let bib-citet = (
-  ("author", (none,"",author-set-cite, "", "", (), "")),
-  ("year", (none," (",all_return, "%year-doubling)", "", (), "%year-doubling)"))
-)
+// アルファベット順にソートを行うか
+#let bib-sort = true
 
-#let bib-citep = (
-  ("author", (none,"(",author-set-cite, "", ", ", (), "")),
-  ("year", (none,"",all_return, "%year-doubling)", "", (), "%year-doubling)"))
-)
+// 引用されている順番にソートを行うか
+#let bib-sort-ref = true
 
+// 引用されている文献だけでなく全ての文献を表示するか
+#let bib-full = false
+
+// citeのスタイル設定
+#let bib-cite-author = author-set-cite
+#let bib-cite-year = all_return
+
+// vancouverスタイル設定
 #let bib-vancouver = "(1)"
+#let vancouver_style = false
+
+
+
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // 各要素の表示形式設定
