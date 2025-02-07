@@ -106,6 +106,41 @@
       }
     }
 
+    // ----- 重複文献に記号を挿入 ----- //
+
+    if vancouver_style == false{//ハーバード方式のとき
+      let cite-arr = ()
+      for value in output_contents{
+        cite-arr.push(value.at(1).join(", "))
+      }
+      let num = 0
+      for value in cite-arr{
+        let num2 = num + 1
+        let double_arr = ()
+        for value2 in cite-arr.slice(num2){
+          if value == value2{
+            double_arr.push(num2)
+          }
+          num2 += 1
+        }
+
+        if double_arr != (){//重複があるとき
+
+          double_arr.insert(0, num)
+          let num2 = 1
+
+          for value2 in double_arr{
+            let add_character = numbering(bib-year-doubling, num2)
+            output_contents.at(value2).at(0).insert(1, (add_character, ))
+            output_contents.at(value2).at(1).at(1) = output_contents.at(value2).at(1).at(1) + add_character
+            num2 += 1
+          }
+        }
+
+        num += 1
+      }
+    }
+
     // ----- リストを出力形式に変換 ----- //
 
     let num = 1
@@ -129,7 +164,7 @@
         cite-arr.push(num)
         output_bib.push([#figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
 
-        if num != bibnum - 1{
+        if num != bibnum{
           output_bib.push(linebreak())
         }
 

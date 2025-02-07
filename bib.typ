@@ -2,7 +2,7 @@
 
 #show: bib_init
 
-#citen(<Lozano:2022>)
+#citet(<Lozano:2022>)
 
 #citep(<ahrendt-1951>)
 
@@ -33,5 +33,21 @@
       language  ={English},
       url       ={https://nla.gov.au/nla.cat-vn2276067},
     }
-  ]
+  ],
+  bib-tex[
+  @article{Lozano2:2022,
+        title = {information-theoretic formulation of dynamical systems: Causality, modeling, and control},
+        author = {Lozano-{Durán}, Adrián and Arranz, Gonzalo},
+        journal = {Physical Review Research},
+        volume = {4},
+        issue = {2},
+        note = {023195},
+        numpages = {24},
+        year = {2022},
+        month = {Jun},
+        publisher = {American Physical Society},
+        doi = {10.1103/PhysRevResearch.4.023195},
+        url = {https://link.aps.org/doi/10.1103/PhysRevResearch.4.023195}
+      }
+  ],
 )
