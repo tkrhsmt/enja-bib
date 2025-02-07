@@ -1,9 +1,5 @@
 #import "bib_style/bib_style.typ": *
 
-#show: bib_init
-
-#set text(font: ("Times New Roman", "Harano Aji Mincho"))
-
 #bibliography-list(
   bib-tex[
   @article{Reynolds:PhilTransRoySoc1883,

@@ -407,7 +407,7 @@
 #let bib-sort = true
 
 // 引用されている順番にソートを行うか
-#let bib-sort-ref = true
+#let bib-sort-ref = false
 
 // 引用されている文献だけでなく全ての文献を表示するか
 #let bib-full = true

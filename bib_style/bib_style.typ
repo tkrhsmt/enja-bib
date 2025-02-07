@@ -94,12 +94,20 @@
       }
     }
     else{
-      for value in range(contents.len()){
-        output_contents.push(contents.at(value))
+      if bib-full{
+        for value in range(contents.len()){
+          output_contents.push(contents.at(value))
+        }
+      }
+      else{
+        bib-cite-turn-arr = bib-cite-turn-arr.sorted()
+        for value in bib-cite-turn-arr{
+          output_contents.push(contents.at(value))
+        }
       }
     }
 
-    if bib-full{//全文献を出力
+    if bib-full and bib-sort-ref{//全文献を出力
       let num = 0
       for value in contents{
         if bib-cite-turn-arr.contains(num) == false{
@@ -194,9 +202,9 @@
 // --------------------------------------------------
 
 //メイン関数
-#let bibliography-list(lang: "jp", ..body) = {
+#let bibliography-list(lang: "ja", ..body) = {
 
-  if lang == "jp"{
+  if lang == "ja"{
     heading("文　　　献", numbering: none)
   }
   else if lang == "en"{
