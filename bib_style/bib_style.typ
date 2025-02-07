@@ -26,7 +26,7 @@
           })
 
           if it.supplement == [citet]{//citetのとき
-            cite-arr.at(0) + "(" + cite-arr.at(1) + ")"
+            cite-arr.at(0) + " (" + cite-arr.at(1) + ")"
           }
           else if it.supplement == [citep]{//citepのとき
             cite-arr.at(0) + ", " + cite-arr.at(1)
@@ -34,8 +34,11 @@
           else if it.supplement == [citen]{//citenのとき
             str(cite-arr.at(3))
           }
-          else{//その他
-            "(" + cite-arr.at(0) + ", " + cite-arr.at(1) + ")"
+          else if it.supplement == auto{//その他
+            link(it.target, cite-arr.at(0) + " (" + cite-arr.at(1) + ")")
+          }
+          else{
+            link(it.target, it.supplement)
           }
 
         }
@@ -219,7 +222,7 @@
   let output_arr = ()
   output_arr.push(bibtex-to-bib(dict, get_element_function(dict)))
   output_arr.push(bibtex-to-cite(dict))
-  output_arr.push(bibtex-yomi(dict))
+  output_arr.push(bibtex-yomi(dict, output_arr.at(0)))
   output_arr.push(dict.label)
 
   return output_arr

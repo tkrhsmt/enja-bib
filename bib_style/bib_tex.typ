@@ -316,6 +316,14 @@
       element_function = bibtex-inproceedings-ja
     }
   }
+  else if biblist.target == "conference"{//inproceedingsの場合
+    if biblist.lang == "en"{//英語の場合
+      element_function = bibtex-conference-en
+    }
+    else{//日本語の場合
+      element_function = bibtex-conference-ja
+    }
+  }
   else if biblist.target == "manual"{//manualの場合
     if biblist.lang == "en"{//英語の場合
       element_function = bibtex-manual-en
@@ -401,7 +409,8 @@
 
   for bibitem in element_function{// 各要素に対して処理
     element_num += 1
-    if biblist.at(bibitem.at(0), default: none) != none{// 要素が存在する場合
+    let tmp = biblist.at(bibitem.at(0), default: none)
+    if tmp != none and tmp != ("",){// 要素が存在する場合
 
       //条件を満たすとき，前の要素間文字列を新しい文字列に置き換える
       if bibitem.at(1).at(5).contains(bef_element) and bibitem.at(1).at(0) != none{
@@ -505,27 +514,16 @@
 }
 
 //---------- 並び替えのための読み仮名 ---------- //
-#let bibtex-yomi(biblist) = {
+#let bibtex-yomi(biblist, bib_arr) = {
 
   let yomi = ""
+  let bib_str = contents-to-str(bib_arr.sum().sum())
 
   if biblist.at("yomi", default: "") != ""{
     yomi = biblist.at("yomi").sum()
   }
-  else if biblist.at("author", default: "") != ""{
-    yomi = biblist.at("author").sum()
-  }
-  else if biblist.at("editor", default: "") != ""{
-    yomi = biblist.at("editor").sum()
-  }
-  else if biblist.at("title", default: "") != ""{
-    yomi = biblist.at("title").sum()
-  }
-  else if biblist.at("booktitle", default: "") != ""{
-    yomi = biblist.at("booktitle").sum()
-  }
   else{
-    panic("yomiに相当する要素が存在しないため，yomiフィールドを追加してください")
+    yomi = bib_str
   }
 
   if type(yomi) == content{

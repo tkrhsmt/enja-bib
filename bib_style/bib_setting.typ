@@ -84,6 +84,11 @@
         brace_num -= 1
       }
       else{
+
+        if value == "-"{// ハイフンの直後の文字を大文字にする
+          num = -1
+        }
+
         if brace_num == 0{
           if num == 0{
             author_str += upper(value)
@@ -98,7 +103,9 @@
       }
       num += 1
     }
-    author_str += ", "
+    if an_author != (){// 著者名にカンマ以降が含まれない場合は，カンマを追加しない
+      author_str += ", "
+    }
   }
   for value in an_author{
     author_str += " "
@@ -129,6 +136,11 @@
         brace_num -= 1
       }
       else{
+
+        if value == "-"{// ハイフンの直後の文字を大文字にする
+          num = -1
+        }
+
         if brace_num == 0{
           if num == 0{
             author_str += upper(value)
@@ -170,6 +182,18 @@
     for num in range(arr.len()){
       arr.at(num) = remove-space(arr.at(num))
     }
+
+    if arr.len() == 1{
+      let arr2 = arr.at(0).split(" ")
+      arr = (arr2.remove(-1), )
+      if arr2 != () {
+        arr.push(arr2.join(" "))
+      }
+      for num in range(arr.len()){
+        arr.at(num) = remove-space(arr.at(num))
+      }
+    }
+
     author_str = arr.at(0)
     if arr.len() > 1{
       arr = arr.at(1).split(" ")
@@ -223,6 +247,18 @@
     for num in range(arr.len()){
       arr.at(num) = remove-space(arr.at(num))
     }
+
+    if arr.len() == 1{
+      let arr2 = arr.at(0).split(" ")
+      arr = (arr2.remove(-1), )
+      if arr2 != () {
+        arr.push(arr2.join(" "))
+      }
+      for num in range(arr.len()){
+        arr.at(num) = remove-space(arr.at(num))
+      }
+    }
+
     author_str = arr.at(0)
     if arr.len() > 1{
       arr = arr.at(1).split(" ")
@@ -284,10 +320,10 @@
   let title = biblist.at(name)
   let output = ()
   let first = true
+  let brace_num = 0
 
   for title_element in title{
     if type(title_element) == str{
-      let brace_num = 0
       for value in title_element{
         if value == "{"{
           brace_num += 1
@@ -331,6 +367,13 @@
     }
     return link(url, text(fill: blue, biblist.at(name).sum()))
   }
+  else if biblist.at("doi", default: none) != none{//doiがある場合
+    let url = biblist.at("doi").sum()
+    if type(url) == content{
+      url = contents-to-str(url)
+    }
+    return link(url, text(fill: blue, biblist.at(name).sum()))
+  }
   else{//urlがない場合
     return biblist.at(name).sum()
   }
@@ -367,7 +410,7 @@
 #let bib-sort-ref = true
 
 // 引用されている文献だけでなく全ての文献を表示するか
-#let bib-full = false
+#let bib-full = true
 
 // citeのスタイル設定
 #let bib-cite-author = author-set-cite
@@ -696,9 +739,56 @@
   ("note", bibtex-inproceedings-note-ja)
 )
 
+
+// -------------------- conference (英語) --------------------
+
+#let bibtex-conference-author-en = (none,"",author-set, "", ", ", (), ".")
+
+#let bibtex-conference-title-en = (none,"",title-en, "", ", ", (), ".")
+
+#let bibtex-conference-booktitle-en = (none,"",all_return, "", ", ", (), ".")
+
+#let bibtex-conference-year-en = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","booktitle"), "%year-doubling).")
+
+#let bibtex-conference-note-en = (none,"",all_return, "", ", ", (), ".")
+
+
+// 要素を表示する順に並べる
+// !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
+#let bibtex-conference-en = (
+  ("author", bibtex-conference-author-en),
+  ("title", bibtex-conference-title-en),
+  ("booktitle", bibtex-conference-booktitle-en),
+  ("year", bibtex-conference-year-en),
+  ("note", bibtex-conference-note-en)
+)
+
+// -------------------- conference (日本語) --------------------
+
+#let bibtex-conference-author-ja = (none,"",author-set, "", ", ", (), ".")
+
+#let bibtex-conference-title-ja = (none,"",all_return, "", ", ", (), ".")
+
+#let bibtex-conference-booktitle-ja = (none,"",all_return, "", ", ", (), ".")
+
+#let bibtex-conference-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","booktitle"), "%year-doubling).")
+
+#let bibtex-conference-note-ja = (none,"",all_return, "", ", ", (), ".")
+
+
+// 要素を表示する順に並べる
+// !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
+#let bibtex-conference-ja = (
+  ("author", bibtex-conference-author-ja),
+  ("title", bibtex-conference-title-ja),
+  ("booktitle", bibtex-conference-booktitle-ja),
+  ("year", bibtex-conference-year-ja),
+  ("note", bibtex-conference-note-ja)
+)
+
 // -------------------- manual (英語) --------------------
 
-#let bibtex-manual-author-en = (none,"",author-set, "", ", ", (), ".")
+#let bibtex-manual-author-en = (none,"",all_return, "", ", ", (), ".")
 
 #let bibtex-manual-title-en = (none,"",title-en, "", ", ", (), ".")
 
@@ -718,7 +808,7 @@
 
 // -------------------- manual (日本語) --------------------
 
-#let bibtex-manual-author-ja = (none,"",author-set, "", ", ", (), ".")
+#let bibtex-manual-author-ja = (none,"",all_return, "", ", ", (), ".")
 
 #let bibtex-manual-title-ja = (none,"",all_return, "", ", ", (), ".")
 
@@ -742,7 +832,7 @@
 
 #let bibtex-mastersthesis-title-en = (none,"",title-en, "", ", ", (), ".")
 
-#let bibtex-mastersthesis-school-en = (none,"Master's thesis, ",all_return, "", ", ", (), ".")
+#let bibtex-mastersthesis-school-en = (none,"Master's thesis, ",set-url, "", ", ", (), ".")
 
 #let bibtex-mastersthesis-year-en = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","school"), "%year-doubling).")
 
@@ -765,7 +855,7 @@
 
 #let bibtex-mastersthesis-title-ja = (none,"",all_return, "", ", ", (), ".")
 
-#let bibtex-mastersthesis-school-ja = (none,"",all_return, "修士論文", ", ", (), "修士論文.")
+#let bibtex-mastersthesis-school-ja = (none,"",set-url, "修士論文", ", ", (), "修士論文.")
 
 #let bibtex-mastersthesis-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","school"), "%year-doubling).")
 
@@ -881,7 +971,7 @@
 
 #let bibtex-phdthesis-title-en = (none,"",title-en, "", ", ", (), ".")
 
-#let bibtex-phdthesis-school-en = (none,"Ph.D. dissertation, ",all_return, "", ", ", (), ".")
+#let bibtex-phdthesis-school-en = (none,"Ph.D. dissertation, ",set-url, "", ", ", (), ".")
 
 #let bibtex-phdthesis-year-en = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","school"), "%year-doubling).")
 
@@ -905,7 +995,7 @@
 
 #let bibtex-phdthesis-title-ja = (none,"",all_return, "", ", ", (), ".")
 
-#let bibtex-phdthesis-school-ja = (none,"",all_return, "博士論文", ", ", (), "博士論文.")
+#let bibtex-phdthesis-school-ja = (none,"",set-url, "博士論文", ", ", (), "博士論文.")
 
 #let bibtex-phdthesis-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","school"), "%year-doubling).")
 
