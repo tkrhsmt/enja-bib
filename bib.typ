@@ -2,9 +2,9 @@
 
 #show: bib_init
 
-#citet(<Lozano:2022>)
+#citen(<Lozano:2022>)
 
-#citet(<ahrendt-1951>)
+#citep(<ahrendt-1951>)
 
 #set text(font: ("Times New Roman", "Harano Aji Mincho"))
 #bibliography-list(

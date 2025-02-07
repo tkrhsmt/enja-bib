@@ -375,7 +375,7 @@
 
 // vancouverスタイル設定
 #let bib-vancouver = "(1)"
-#let vancouver_style = false
+#let vancouver_style = true
 
 
 

@@ -26,19 +26,13 @@
           })
 
           if it.supplement == [citet]{//citetのとき
-            cite-arr.at(0) + " (" + cite-arr.at(1) + ")"
+            cite-arr.at(0) + "(" + cite-arr.at(1) + ")"
           }
           else if it.supplement == [citep]{//citepのとき
-            "(" + cite-arr.at(0) + ", " + cite-arr.at(1) + ")"
+            cite-arr.at(0) + ", " + cite-arr.at(1)
           }
-          else if it.supplement == [citet1]{//citet 2つのうち最初
-            cite-arr.at(0) + " (" + cite-arr.at(1) + "); "
-          }
-          else if it.supplement == [citep1]{//citep 2つのうち最初
-            "(" + cite-arr.at(0) + ", " + cite-arr.at(1) + "; "
-          }
-          else if it.supplement == [citep2]{//citep 2つのうち最後
-            cite-arr.at(0) + ", " + cite-arr.at(1) + ")"
+          else if it.supplement == [citen]{//citenのとき
+            str(cite-arr.at(3))
           }
           else{//その他
             "(" + cite-arr.at(0) + ", " + cite-arr.at(1) + ")"
@@ -114,22 +108,25 @@
 
     // ----- リストを出力形式に変換 ----- //
 
-    let num = 0
+    let num = 1
     let output_bib = ()
 
     if vancouver_style{
       for value in output_contents{
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
+        cite-arr.push(num)
         output_bib.push([+ #figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)\ ])
+
+        num += 1
       }
     }
     else{
-      let num = 0
       let bibnum = output_contents.len()
       for value in output_contents{
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
+        cite-arr.push(num)
         output_bib.push([#figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
 
         if num != bibnum - 1{
@@ -197,22 +194,66 @@
 //  CITE FUNCTION
 // --------------------------------------------------
 
-#let citet(label) = {
-    ref(label, supplement: "citet")
+#let citet(..label_argument) = {
+    let label_arr = label_argument.pos()
+    if label_arr.len() == 1{//ラベルが1つのとき
+
+      let label = label_arr.at(0)
+      return link(label,ref(label, supplement: "citet"))
+
+    }else{//ラベルが2つ以上のとき
+
+      let tmp = label_arr.remove(-1)
+      let output2 = link(tmp,ref(tmp, supplement: "citet"))
+      let output = ""
+      for label in label_arr{
+        output += link(label,ref(label, supplement: "citet")) + [; ]
+      }
+      return output + output2
+
+    }
 }
 
-#let citep(label) = {
-    ref(label, supplement: "citep")
+#let citep(..label_argument) = {
+    let label_arr = label_argument.pos()
+    if label_arr.len() == 1{//ラベルが1つのとき
+
+      let label = label_arr.at(0)
+      return [(] + link(label,ref(label, supplement: "citep")) + [)]
+
+    }else{//ラベルが2つ以上のとき
+
+      let tmp = label_arr.remove(0)
+      let output1 = [(] + link(tmp,ref(tmp, supplement: "citep")) + [; ]
+      tmp = label_arr.remove(-1)
+      let output2 = link(tmp,ref(tmp, supplement: "citep")) + [)]
+      let output = ""
+      for label in label_arr{
+        output += link(label,ref(label, supplement: "citep")) + [; ]
+      }
+      return output1 + output + output2
+
+    }
 }
 
-#let citet2(label1, label2) = {
-    let tmp1 = ref(label1, supplement: "citet1")
-    let tmp2 = ref(label2, supplement: "citet")
-    tmp1 + tmp2
-}
+#let citen(..label_argument) = {
+    let label_arr = label_argument.pos()
+    if label_arr.len() == 1{//ラベルが1つのとき
 
-#let citep2(label1, label2) = {
-    let tmp1 = ref(label1, supplement: "citep1")
-    let tmp2 = ref(label2, supplement: "citep2")
-    tmp1 + tmp2
+      let label = label_arr.at(0)
+      return [(#sym.space.hair] + link(label,ref(label, supplement: "citen")) + [#sym.space.hair)]
+
+    }else{//ラベルが2つ以上のとき
+
+      let tmp = label_arr.remove(0)
+      let output1 = [(] + link(tmp,ref(tmp, supplement: "citen")) + [,]
+      tmp = label_arr.remove(-1)
+      let output2 = link(tmp,ref(tmp, supplement: "citen")) + [)]
+      let output = ""
+      for label in label_arr{
+        output += link(label,ref(label, supplement: "citen")) + [,]
+      }
+      return output1 + output + output2
+
+    }
 }
