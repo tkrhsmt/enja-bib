@@ -72,6 +72,30 @@
 任意引数
 - `lang` : 文献の言語（`"ja"`：日本語，`"en"`：英語，`auto`：自動判別），デフォルトは`auto`
 
+### `bib-item`関数
+
+`bib-tex`関数の代わりに，文献を直書きする
+
+例：
+```typst
+bib-item(
+    label: <Reynolds:PhilTransRoySoc1883>,
+    author: "Reynolds",
+    year: "1883",
+    yomi: "reynolds, o.",
+    (
+        [Reynolds, O., An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels, Philosophical Transactions of the Royal Society of London (1883],
+        [), Vol. 174, pp. 935–982]
+    )
+)
+```
+
+引数
+- `label` : ラベル（引用する際には必須）
+- `author` : 著者名（引用時・重複判別に用いられる）
+- `year` : 年（引用時・重複判別に用いられる）
+- `yomi` : 読み（並び替えに用いられる）
+
 ### `citet`，`citep`，`citen`関数
 
 文中で引用するときに使用する関数．`@...`のように書いても引用できるが，

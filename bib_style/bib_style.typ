@@ -236,6 +236,43 @@
   return output_arr
 }
 
+#let bib-item(it, author: "", year: "", yomi: none, label: none) = {
+
+  let output_arr = ()
+  let bib_str = ""
+  if type(it) == content or type(it) == str{
+    output_arr.push(((it, ),))
+    if type(it) == content{
+      bib_str = contents-to-str(it)
+    }
+    else{
+      bib_str = it
+    }
+  }
+  else{
+    let output_bib = ()
+    for v in it{
+      output_bib.push((v, ))
+    }
+    output_arr.push(output_bib)
+    bib_str = it.sum()
+    if type(bib_str) == content{
+      bib_str = contents-to-str(bib_str)
+    }
+  }
+
+  output_arr.push((author, year))
+  if yomi == none{
+    output_arr.push(bib_str)
+  }
+  else{
+    output_arr.push(yomi)
+  }
+  output_arr.push(label)
+
+  return output_arr
+}
+
 // --------------------------------------------------
 //  CITE FUNCTION
 // --------------------------------------------------
