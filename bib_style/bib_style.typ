@@ -80,85 +80,77 @@
     contents.at(value).push(value)
   }
 
-  // ----- bib-cite-turn に文献を代入 ----- //
+  // ----- 出力 ----- //
 
-  bib-cite-turn.update(bib_info => {
-    let output_arr = bib_info
-    if output_arr == (){
-      output_arr = range(contents.len())
+  context {
+    let bib-cite-turn-arr = bib-cite-turn.final()
+    if bib-cite-turn-arr == (){//もし何も引用されてなければ，全ての文献を表示する
+      bib-cite-turn-arr = range(contents.len())
     }
-    output_arr
-  })
 
-  bib-cite-turn.update(bib_info => {
-    let output_arr = ()
+    // ----- 文献番号をリストに変換 ----- //
 
+    let output_contents = ()
     if bib-sort-ref{//引用された順番に文献を出力
-      for value in bib_info{
-        output_arr.push(contents.at(value))
+      for value in bib-cite-turn-arr{
+        output_contents.push(contents.at(value))
       }
     }
     else{
       for value in range(contents.len()){
-        output_arr.push(contents.at(value))
+        output_contents.push(contents.at(value))
       }
     }
 
     if bib-full{//全文献を出力
       let num = 0
       for value in contents{
-        if bib_info.contains(num) == false{
-          output_arr.push(value)
+        if bib-cite-turn-arr.contains(num) == false{
+          output_contents.push(value)
         }
         num += 1
       }
     }
 
-    output_arr
-  })
+    // ----- リストを出力形式に変換 ----- //
 
-  // ----- 出力 ----- //
-
-
-  bib-cite-turn.update(bib_info => {
     let num = 0
-    let output_content = ()
+    let output_bib = ()
 
     if vancouver_style{
-      for value in bib_info{
+      for value in output_contents{
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
-        output_content.push([+ #figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)\ ])
+        output_bib.push([+ #figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)\ ])
       }
     }
     else{
       let num = 0
-      let bibnum = bib_info.len()
-      for value in bib_info{
+      let bibnum = output_contents.len()
+      for value in output_contents{
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
-        output_content.push([#figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
+        output_bib.push([#figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
 
         if num != bibnum - 1{
-          output_content.push(linebreak())
+          output_bib.push(linebreak())
         }
 
         num += 1
       }
     }
-    output_content
-  }
-  )
 
-  if vancouver_style{
+    // ----- 出力 ----- //
+
+    if vancouver_style{
     set enum(numbering: bib-vancouver)
-    context bib-cite-turn.get().sum()
+      output_bib.sum()
+    }
+    else{
+      set par(hanging-indent: 2em)
+      output_bib.sum()
+    }
   }
-  else{
-    set par(hanging-indent: 2em)
-    context bib-cite-turn.final().sum()
-  }
-
 
 }
 
