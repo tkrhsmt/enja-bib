@@ -408,9 +408,9 @@
   }
 
   for bibitem in element_function{// 各要素に対して処理
-    element_num += 1
     let tmp = biblist.at(bibitem.at(0), default: none)
     if tmp != none and tmp != ("",){// 要素が存在する場合
+    element_num += 1
 
       //条件を満たすとき，前の要素間文字列を新しい文字列に置き換える
       if bibitem.at(1).at(5).contains(bef_element) and bibitem.at(1).at(0) != none{
