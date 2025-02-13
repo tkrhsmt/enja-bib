@@ -381,7 +381,7 @@
 }
 
 // ---------- ページ形式にして返す関数 ---------- //
-#let page(biblist, name) = {
+#let page-set(biblist, name) = {
   let pagestr = biblist.at(name).sum()
   if type(pagestr) == content{
     pagestr = contents-to-str(pagestr)
@@ -441,7 +441,7 @@
 
 #let bibtex-article-number-en = (none,"No.~",all_return, "", ", ", (), ".")
 
-#let bibtex-article-pages-en = (none,"",page, "", ", ", (), ".")
+#let bibtex-article-pages-en = (none,"",page-set, "", ", ", (), ".")
 
 #let bibtex-article-note-en = (none,"",all_return, "", ", ", (), ".")
 
@@ -473,7 +473,7 @@
 
 #let bibtex-article-number-ja = (none,"No.~",all_return, "", ", ", (), ".")
 
-#let bibtex-article-pages-ja = (none,"",page, "", ", ", (), ".")
+#let bibtex-article-pages-ja = (none,"",page-set, "", ", ", (), ".")
 
 #let bibtex-article-note-ja = (none,"",all_return, "", ", ", (), ".")
 
@@ -593,7 +593,7 @@
 
 #let bibtex-inbook-year-en = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","publisher"), "%year-doubling).")
 
-#let bibtex-inbook-pages-en = (none,"",page, "", ", ", (), ".")
+#let bibtex-inbook-pages-en = (none,"",page-set, "", ", ", (), ".")
 
 #let bibtex-inbook-note-en = (none,"",all_return, "", ", ", (), ".")
 
@@ -619,7 +619,7 @@
 
 #let bibtex-inbook-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","publisher"), "%year-doubling).")
 
-#let bibtex-inbook-pages-ja = (none,"",page, "", ", ", (), ".")
+#let bibtex-inbook-pages-ja = (none,"",page-set, "", ", ", (), ".")
 
 #let bibtex-inbook-note-ja = (none,"",all_return, "", ", ", (), ".")
 
@@ -647,7 +647,7 @@
 
 #let bibtex-incollection-year-en = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","publisher"), "%year-doubling).")
 
-#let bibtex-incollection-pages-en = (none,"",page, "", ", ", (), ".")
+#let bibtex-incollection-pages-en = (none,"",page-set, "", ", ", (), ".")
 
 #let bibtex-incollection-note-en = (none,"",all_return, "", ", ", (), ".")
 
@@ -676,7 +676,7 @@
 
 #let bibtex-incollection-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","publisher"), "%year-doubling).")
 
-#let bibtex-incollection-pages-ja = (none,"",page, "", ", ", (), ".")
+#let bibtex-incollection-pages-ja = (none,"",page-set, "", ", ", (), ".")
 
 #let bibtex-incollection-note-ja = (none,"",all_return, "", ", ", (), ".")
 
