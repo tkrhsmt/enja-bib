@@ -12,7 +12,7 @@
   show ref: it =>{
 
       if it.has("element") and it.element != none{
-        if it.element.kind == "bib"{
+        if it.element.has("kind") and it.element.kind == "bib"{
 
           let cite-arr = eval(it.element.supplement.text)
 
@@ -26,7 +26,7 @@
           })
 
           if it.supplement == [citet]{//citetのとき
-            cite-arr.at(0) + " (" + cite-arr.at(1) + ")"
+            cite-arr.at(0) + [~(] + cite-arr.at(1) + [)]
           }
           else if it.supplement == [citep]{//citepのとき
             cite-arr.at(0) + ", " + cite-arr.at(1)
@@ -35,7 +35,7 @@
             str(cite-arr.at(3))
           }
           else if it.supplement == auto{//その他
-            link(it.target, cite-arr.at(0) + " (" + cite-arr.at(1) + ")")
+            link(it.target, cite-arr.at(0) + [~(] + cite-arr.at(1) + [)])
           }
           else{
             link(it.target, it.supplement)
@@ -45,6 +45,9 @@
         else{
           it
         }
+      }
+      else{
+        it
       }
   }
   body
