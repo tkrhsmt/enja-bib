@@ -122,15 +122,7 @@
 //---------- 文字列に日本語が含まれるかを判定する関数 ---------- //
 
 #let check_japanese_tex_str(str) = {
-  let arr = str.clusters()//一文字ずつ取得
-  let tmp = ""
-  for value in arr{//一文字ずつ判定
-    tmp = codepoint(value).block.name//文字の種類を取得
-    if tmp == "Hiragana" or tmp == "Katakana" or tmp == "CJK Unified Ideographs" or tmp == "Halfwidth and Fullwidth Forms"{//日本語の場合
-      return true
-    }
-  }
-  return false
+  return (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in str)
 }
 
 //---------- 文献リストに日本語が含まれるかを判定する関数 ---------- //

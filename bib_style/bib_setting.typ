@@ -1,7 +1,3 @@
-
-// !! このパッケージはbib_tex.typで使用されているため，消さないように注意 !!
-#import "@preview/unichar:0.3.0": *
-
 // 著者・年が同じ文献がある場合に番号を付与するため，その番号を付与する位置を指定する特殊文字列
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let year-doubling = "%year-doubling"
@@ -207,14 +203,7 @@
   for author in author_arr2{
 
     let authorsum = author.sum()
-    let check = false
-    for value in authorsum{
-      let tmp = codepoint(value).block.name
-      if tmp == "Hiragana" or tmp == "Katakana" or tmp == "CJK Unified Ideographs" or tmp == "Halfwidth and Fullwidth Forms"{
-        check = true
-        break
-      }
-    }
+    let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
 
     if check{
       author_arr.push(author-ja(author))
@@ -272,14 +261,7 @@
   for author in author_arr2{
 
     let authorsum = author.sum()
-    let check = false
-    for value in authorsum{
-      let tmp = codepoint(value).block.name
-      if tmp == "Hiragana" or tmp == "Katakana" or tmp == "CJK Unified Ideographs" or tmp == "Halfwidth and Fullwidth Forms"{
-        check = true
-        break
-      }
-    }
+    let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
 
     if check{
       author_arr.push(author.at(0))
