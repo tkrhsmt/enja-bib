@@ -394,7 +394,8 @@
   let element_total_num = 0//全要素数
 
   for bibitem in element_function{
-    if biblist.at(bibitem.at(0), default: "") != ""{//要素が存在する場合
+    let tmp = biblist.at(bibitem.at(0), default: "")
+    if tmp != "" and tmp != ("",){//要素が存在する場合
       element_total_num += 1
     }
   }
