@@ -25,19 +25,21 @@
             output_arr
           })
 
+          cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3))
+
           if it.supplement == [citet]{//citetのとき
-            cite-arr.at(0) + [~(] + cite-arr.at(1) + [)]
+            bib-citet.at(1)(cite-arr)
           }
           else if it.supplement == [citep]{//citepのとき
-            cite-arr.at(0) + ", " + cite-arr.at(1)
+            bib-citep.at(1)(cite-arr)
           }
           else if it.supplement == [citen]{//citenのとき
-            str(cite-arr.at(3))
+            bib-citen.at(1)(cite-arr)
           }
           else if it.supplement == auto{//その他
             link(it.target, cite-arr.at(0) + [~(] + cite-arr.at(1) + [)])
           }
-          else{
+          else{//supplementが指定されているとき
             link(it.target, it.supplement)
           }
 
@@ -285,17 +287,19 @@
     if label_arr.len() == 1{//ラベルが1つのとき
 
       let label = label_arr.at(0)
-      return link(label,ref(label, supplement: "citet"))
+      return bib-citet.at(0) + link(label,ref(label, supplement: "citet")) + bib-citet.at(3)
 
     }else{//ラベルが2つ以上のとき
 
-      let tmp = label_arr.remove(-1)
-      let output2 = link(tmp,ref(tmp, supplement: "citet"))
+      let tmp = label_arr.remove(0)
+      let output1 = bib-citet.at(0) + link(tmp,ref(tmp, supplement: "citet")) + bib-citet.at(2)
+      tmp = label_arr.remove(-1)
+      let output2 = link(tmp,ref(tmp, supplement: "citet")) + bib-citet.at(3)
       let output = ""
       for label in label_arr{
-        output += link(label,ref(label, supplement: "citet")) + [; ]
+        output += link(label,ref(label, supplement: "citet")) + bib-citet.at(2)
       }
-      return output + output2
+      return output1 + output + output2
 
     }
 }
@@ -305,17 +309,17 @@
     if label_arr.len() == 1{//ラベルが1つのとき
 
       let label = label_arr.at(0)
-      return [(] + link(label,ref(label, supplement: "citep")) + [)]
+      return bib-citep.at(0) + link(label,ref(label, supplement: "citep")) + bib-citep.at(3)
 
     }else{//ラベルが2つ以上のとき
 
       let tmp = label_arr.remove(0)
-      let output1 = [(] + link(tmp,ref(tmp, supplement: "citep")) + [; ]
+      let output1 = bib-citep.at(0) + link(tmp,ref(tmp, supplement: "citep")) + bib-citep.at(2)
       tmp = label_arr.remove(-1)
-      let output2 = link(tmp,ref(tmp, supplement: "citep")) + [)]
+      let output2 = link(tmp,ref(tmp, supplement: "citep")) + bib-citep.at(3)
       let output = ""
       for label in label_arr{
-        output += link(label,ref(label, supplement: "citep")) + [; ]
+        output += link(label,ref(label, supplement: "citep")) + bib-citep.at(2)
       }
       return output1 + output + output2
 
@@ -327,17 +331,17 @@
     if label_arr.len() == 1{//ラベルが1つのとき
 
       let label = label_arr.at(0)
-      return [(#sym.space.hair] + link(label,ref(label, supplement: "citen")) + [#sym.space.hair)]
+      return bib-citen.at(0) + link(label,ref(label, supplement: "citen")) + bib-citen.at(3)
 
     }else{//ラベルが2つ以上のとき
 
       let tmp = label_arr.remove(0)
-      let output1 = [(] + link(tmp,ref(tmp, supplement: "citen")) + [,]
+      let output1 = bib-citen.at(0) + link(tmp,ref(tmp, supplement: "citen")) + bib-citen.at(2)
       tmp = label_arr.remove(-1)
-      let output2 = link(tmp,ref(tmp, supplement: "citen")) + [)]
+      let output2 = link(tmp,ref(tmp, supplement: "citen")) + bib-citen.at(3)
       let output = ""
       for label in label_arr{
-        output += link(label,ref(label, supplement: "citen")) + [,]
+        output += link(label,ref(label, supplement: "citen")) + bib-citen.at(2)
       }
       return output1 + output + output2
 
