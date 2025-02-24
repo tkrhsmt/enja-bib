@@ -378,6 +378,53 @@
 }
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// bib-vancouver = "manual"のときの設定関数
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+#let bib-vancouver-manual-default(bib_cite_contents) = {
+
+  let tmp = bib_cite_contents.at(0).split(regex("and|, "))
+  let bib_cite_name_arr = ()
+  let is_japanese = false
+  for value in tmp{
+    let tmp2 = remove-space(value)
+    bib_cite_name_arr.push(tmp2)
+    if (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in tmp2){
+      is_japanese = true
+    }
+  }
+
+  let bib_cite_name = ""
+
+  if is_japanese{
+    if (regex(".*他") in bib_cite_name_arr.at(-1)){//3人以上の場合
+      bib_cite_name = bib_cite_name_arr.at(0)
+      bib_cite_name = bib_cite_name.slice(0,bib_cite_name.len() - "他".len()) + [+]
+    }
+    else{
+      bib_cite_name = bib_cite_name_arr.join()
+    }
+  }
+  else{
+    if (regex(" et al\.") in bib_cite_name_arr.at(-1)){//3人以上の場合
+      bib_cite_name = bib_cite_name_arr.at(0)
+      bib_cite_name = bib_cite_name.slice(0,bib_cite_name.len() - " et al.".len()) + [+]
+    }
+    else if bib_cite_name_arr.len() == 1{
+      bib_cite_name = bib_cite_name_arr.sum()
+    }
+    else{
+      for index in range(bib_cite_name_arr.len()){
+        bib_cite_name += bib_cite_name_arr.at(index).at(0)
+      }
+    }
+  }
+
+
+  return [\[] + bib_cite_name + bib_cite_contents.at(1).slice(2,4) + [\]]
+}
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // 各引用の表示形式設定関数
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
