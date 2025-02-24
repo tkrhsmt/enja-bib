@@ -96,6 +96,19 @@ bib-item(
 - `year` : 年（引用時・重複判別に用いられる）
 - `yomi` : 読み（並び替えに用いられる）
 
+### `bib-file`関数
+
+`.bib`形式のファイルを読み込む
+
+例：
+```typst
+#bibliography-list(
+  ..bib-file(include "mybib_en.bib")
+)
+```
+
+> `bib_file`関数は`bib-tex`関数の配列として返すため，`..`の記述が必須であることに注意
+
 ### `citet`，`citep`，`citen`関数
 
 文中で引用するときに使用する関数．`@...`のように書いても引用できるが，
