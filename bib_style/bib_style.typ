@@ -8,6 +8,9 @@
 #let bib-cite-turn = state("bib-cite-turn", ())
 #let bib-output-list
 
+#let bib_brace_l = text(weight: "regular")[{]
+#let bib_brace_r = text(weight: "regular")[}]
+
 #let bib_init(body) = {
   show ref: it =>{
 
@@ -37,7 +40,7 @@
             bib-citen.at(1)(cite-arr)
           }
           else if it.supplement == auto{//その他
-            link(it.target, cite-arr.at(0) + [~(] + cite-arr.at(1) + [)])
+            bib-cite.at(0) + link(it.target, bib-cite.at(1)(cite-arr)) + bib-cite.at(3)
           }
           else{//supplementが指定されているとき
             link(it.target, it.supplement)
@@ -162,12 +165,12 @@
     let num = 1
     let output_bib = ()
 
-    if vancouver_style{
+    if vancouver_style and bib-vancouver != "manual"{
       for value in output_contents{
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
         cite-arr.push(num)
-        output_bib.push([+ #figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)\ ])
+        output_bib.push([+ #figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
 
         num += 1
       }
@@ -180,10 +183,6 @@
         cite-arr.push(num)
         output_bib.push([#figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
 
-        if num != bibnum{
-          output_bib.push(linebreak())
-        }
-
         num += 1
       }
     }
@@ -191,8 +190,33 @@
     // ----- 出力 ----- //
 
     if vancouver_style{
-    set enum(numbering: bib-vancouver)
-      output_bib.sum()
+      if bib-vancouver == "manual"{
+        let output_bib2 = ()
+        let cite-arr = ()
+        for index in range(num - 1){
+          cite-arr = (output_contents.at(index).at(1))
+          cite-arr.push(index)
+          output_bib2.push(bib-vancouver-manual(cite-arr))
+          output_bib2.push(output_bib.at(index))
+        }
+
+        table(
+          columns: (auto, auto),
+          rows: auto,
+          gutter: (),
+          column-gutter: (),
+          row-gutter: (),
+          align: (left, left),
+          stroke: none,
+          fill: none,
+          inset: 0% + 5pt,
+          ..output_bib2
+        )
+      }
+      else{
+        set enum(numbering: bib-vancouver)
+        output_bib.sum()
+      }
     }
     else{
       set par(hanging-indent: 2em)
@@ -220,7 +244,6 @@
 
   show figure.where(kind: "bib"): it =>{
     align(left, it)
-    v(-2em)
   }
 
   let bib_content = body
