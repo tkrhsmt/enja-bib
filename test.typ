@@ -12,4 +12,7 @@
 + #citen(<Matsukawa:ICFD2022>)
 + @Reynolds:PhilTransRoySoc1883[Manual String]
 
-#include "bib.typ"
+#bibliography-list(
+  ..bib-file(include "mybib_jp.bib"),
+  ..bib-file(include "mybib_en.bib")
+)

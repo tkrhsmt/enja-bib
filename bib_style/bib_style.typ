@@ -301,6 +301,36 @@
   return output_arr
 }
 
+#let bib-file(file_contents) = {
+
+  let file_arr = file_contents.children
+
+  let output-arr = ()
+  let tmp = ()
+
+  for value in file_arr {
+    if value.func() == ref{
+      if tmp != () {
+        if tmp.at(0).target != <comment>{
+          output-arr.push(bib-tex[#tmp.sum()])
+        }
+      }
+      tmp = (value,)
+    }
+    else if value == parbreak(){
+    }
+    else{
+      tmp.push(value)
+    }
+  }
+
+  if tmp.at(0).target != <comment>{
+    output-arr.push(bib-tex[#tmp.sum()])
+  }
+
+  return output-arr
+}
+
 // --------------------------------------------------
 //  CITE FUNCTION
 // --------------------------------------------------

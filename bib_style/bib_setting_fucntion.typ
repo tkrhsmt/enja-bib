@@ -220,7 +220,7 @@
 // ---------- 項目をciteの著者型にして返す関数 ---------- //
 #let author-set-cite(biblist, name) = {
 
-  let author_str = biblist.at(name).sum()
+  let author_str = biblist.at(name, default:("",)).sum()
   if type(author_str) == content{
       author_str = contents-to-str(author_str)
   }
