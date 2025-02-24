@@ -1,5 +1,5 @@
 
-#import "bib_setting.typ": *
+#import "bib_setting_plain.typ": *
 
 //---------- 文字列から，最初の{までを取り除く関数 ---------- //
 #let remove_brace_l(text, remove_str: "{") = {
