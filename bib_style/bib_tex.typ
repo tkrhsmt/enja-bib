@@ -256,7 +256,39 @@
 }
 
 //---------- 要素の関数を取得 ---------- //
-#let get_element_function(biblist) = {
+#let get_element_function(
+  bibtex-article-en: bibtex-article-en,
+  bibtex-article-ja: bibtex-article-ja,
+  bibtex-book-en: bibtex-book-en,
+  bibtex-book-ja: bibtex-book-ja,
+  bibtex-booklet-en: bibtex-booklet-en,
+  bibtex-booklet-ja: bibtex-booklet-ja,
+  bibtex-inbook-en: bibtex-inbook-en,
+  bibtex-inbook-ja: bibtex-inbook-ja,
+  bibtex-incollection-en: bibtex-incollection-en,
+  bibtex-incollection-ja: bibtex-incollection-ja,
+  bibtex-inproceedings-en: bibtex-inproceedings-en,
+  bibtex-inproceedings-ja: bibtex-inproceedings-ja,
+  bibtex-conference-en: bibtex-conference-en,
+  bibtex-conference-ja: bibtex-conference-ja,
+  bibtex-manual-en: bibtex-manual-en,
+  bibtex-manual-ja: bibtex-manual-ja,
+  bibtex-mastersthesis-en: bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
+  bibtex-misc-en: bibtex-misc-en,
+  bibtex-misc-ja: bibtex-misc-ja,
+  bibtex-online-en: bibtex-online-en,
+  bibtex-online-ja: bibtex-online-ja,
+  bibtex-phdthesis-en: bibtex-phdthesis-en,
+  bibtex-phdthesis-ja: bibtex-phdthesis-ja,
+  bibtex-proceedings-en: bibtex-proceedings-en,
+  bibtex-proceedings-ja: bibtex-proceedings-ja,
+  bibtex-techreport-en: bibtex-techreport-en,
+  bibtex-techreport-ja: bibtex-techreport-ja,
+  bibtex-unpublished-en: bibtex-unpublished-en,
+  bibtex-unpublished-ja: bibtex-unpublished-ja,
+  biblist
+) = {
 
   let element_function = none
 
@@ -494,7 +526,11 @@
 }
 
 //---------- citeを作成する関数 ---------- //
-#let bibtex-to-cite(biblist) = {
+#let bibtex-to-cite(
+  bib-cite-author: bib-cite-author,
+  bib-cite-year: bib-cite-year,
+  biblist
+  ) = {
 
   let cite_list = ()
 
