@@ -7,9 +7,6 @@
 #let citet = citet.with(..bib_citet_style_jsme)
 #let citep = citep.with(..bib_citep_style_jsme)
 #let citen = citen.with(..bib_citen_style_jsme)
-#let bibliography-list = bibliography-list.with(..bib_bibliography-list_style_jsme)
-#let bib-file = bib-file.with(..bib_tex_style_jsme)
-#let bib-tex = bib-tex.with(..bib_tex_style_jsme)
 
 #set text(font: ("Times New Roman", "Harano Aji Mincho"))
 
@@ -22,6 +19,7 @@
 + @Reynolds:PhilTransRoySoc1883[Manual String]
 
 #bibliography-list(
-  ..bib-file(include "mybib_jp.bib"),
-  ..bib-file(include "mybib_en.bib")
+  ..bib_bibliography-list_style_jsme,
+  ..bib-file(include "mybib_jp.bib", ..bib_tex_style_jsme),
+  ..bib-file(include "mybib_en.bib", ..bib_tex_style_jsme)
 )
