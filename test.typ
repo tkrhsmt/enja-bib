@@ -1,12 +1,8 @@
-#import "bib_style/bib_style.typ": *
+#import "bib_style/lib.typ": *
 
-//#show: bib_init
+#import bib_setting_jsme: *
 
-// JSME 用のスタイル設定
-#show: bib_init.with(..bib_init_style_jsme)
-#let citet = citet.with(..bib_citet_style_jsme)
-#let citep = citep.with(..bib_citep_style_jsme)
-#let citen = citen.with(..bib_citen_style_jsme)
+#show: bib_init
 
 #set text(font: ("Times New Roman", "Harano Aji Mincho"))
 
@@ -19,7 +15,6 @@
 + @Reynolds:PhilTransRoySoc1883[Manual String]
 
 #bibliography-list(
-  ..bib_bibliography-list_style_jsme,
-  ..bib-file(include "mybib_jp.bib", ..bib_tex_style_jsme),
-  ..bib-file(include "mybib_en.bib", ..bib_tex_style_jsme)
+  ..bib-file(include "mybib_jp.bib"),
+  ..bib-file(include "mybib_en.bib")
 )

@@ -6,81 +6,31 @@
 //  CITE FUNCTION
 // --------------------------------------------------
 
-#let citet(
-    bib-citet: bib-citet,
+#let bib-cite-func(
+    bib-cite,
+    cite-supplement,
   ..label_argument
   ) = {
     let label_arr = label_argument.pos()
     if label_arr.len() == 1{//ラベルが1つのとき
 
       let label = label_arr.at(0)
-      return bib-citet.at(0) + link(label,ref(label, supplement: "citet")) + bib-citet.at(3)
+      return bib-cite.at(0) + link(label,ref(label, supplement: cite-supplement)) + bib-cite.at(3)
 
     }else{//ラベルが2つ以上のとき
 
       let tmp = label_arr.remove(0)
-      let output1 = bib-citet.at(0) + link(tmp,ref(tmp, supplement: "citet")) + bib-citet.at(2)
+      let output1 = bib-cite.at(0) + link(tmp,ref(tmp, supplement: cite-supplement)) + bib-cite.at(2)
       tmp = label_arr.remove(-1)
-      let output2 = link(tmp,ref(tmp, supplement: "citet")) + bib-citet.at(3)
+      let output2 = link(tmp,ref(tmp, supplement: cite-supplement)) + bib-cite.at(3)
       let output = ""
       for label in label_arr{
-        output += link(label,ref(label, supplement: "citet")) + bib-citet.at(2)
+        output += link(label,ref(label, supplement: cite-supplement)) + bib-cite.at(2)
       }
       return output1 + output + output2
 
     }
 }
-
-#let citep(
-    bib-citep: bib-citep,
-    ..label_argument
-    ) = {
-    let label_arr = label_argument.pos()
-    if label_arr.len() == 1{//ラベルが1つのとき
-
-      let label = label_arr.at(0)
-      return bib-citep.at(0) + link(label,ref(label, supplement: "citep")) + bib-citep.at(3)
-
-    }else{//ラベルが2つ以上のとき
-
-      let tmp = label_arr.remove(0)
-      let output1 = bib-citep.at(0) + link(tmp,ref(tmp, supplement: "citep")) + bib-citep.at(2)
-      tmp = label_arr.remove(-1)
-      let output2 = link(tmp,ref(tmp, supplement: "citep")) + bib-citep.at(3)
-      let output = ""
-      for label in label_arr{
-        output += link(label,ref(label, supplement: "citep")) + bib-citep.at(2)
-      }
-      return output1 + output + output2
-
-    }
-}
-
-#let citen(
-  bib-citen: bib-citen,
-  ..label_argument
-  ) = {
-    let label_arr = label_argument.pos()
-    if label_arr.len() == 1{//ラベルが1つのとき
-
-      let label = label_arr.at(0)
-      return bib-citen.at(0) + link(label,ref(label, supplement: "citen")) + bib-citen.at(3)
-
-    }else{//ラベルが2つ以上のとき
-
-      let tmp = label_arr.remove(0)
-      let output1 = bib-citen.at(0) + link(tmp,ref(tmp, supplement: "citen")) + bib-citen.at(2)
-      tmp = label_arr.remove(-1)
-      let output2 = link(tmp,ref(tmp, supplement: "citen")) + bib-citen.at(3)
-      let output = ""
-      for label in label_arr{
-        output += link(label,ref(label, supplement: "citen")) + bib-citen.at(2)
-      }
-      return output1 + output + output2
-
-    }
-}
-
 
 // --------------------------------------------------
 //  INITIALIZATION
@@ -93,10 +43,10 @@
 #let bib_brace_r = text(weight: "regular")[}]
 
 #let bib_init(
-  bib-cite: bib-cite,
-  bib-citet: bib-citet,
-  bib-citep: bib-citep,
-  bib-citen: bib-citen,
+  bib-cite,
+  bib-citet,
+  bib-citep,
+  bib-citen,
   body,
 ) = {
   show ref: it =>{
@@ -148,14 +98,14 @@
 
 
 #let from_content_to_output(
-  year-doubling: year-doubling,
-  bib-sort: bib-sort,
-  bib-sort-ref: bib-sort-ref,
-  bib-full: bib-full,
-  bib-vancouver: bib-vancouver,
-  vancouver_style: vancouver_style,
-  bib-year-doubling: bib-year-doubling,
-  bib-vancouver-manual: bib-vancouver-manual,
+  year-doubling,
+  bib-sort,
+  bib-sort-ref,
+  bib-full,
+  bib-vancouver,
+  vancouver_style,
+  bib-year-doubling,
+  bib-vancouver-manual,
   content_raw
 ) = {
 
@@ -329,14 +279,14 @@
 
 //メイン関数
 #let bibliography-list(
-  year-doubling: year-doubling,
-  bib-sort: bib-sort,
-  bib-sort-ref: bib-sort-ref,
-  bib-full: bib-full,
-  bib-vancouver: bib-vancouver,
-  vancouver_style: vancouver_style,
-  bib-year-doubling: bib-year-doubling,
-  bib-vancouver-manual: bib-vancouver-manual,
+  year-doubling,
+  bib-sort,
+  bib-sort-ref,
+  bib-full,
+  bib-vancouver,
+  vancouver_style,
+  bib-year-doubling,
+  bib-vancouver-manual,
   lang: "ja",
    ..body
   ) = {
@@ -360,52 +310,53 @@
 
   let bib_content = body
   from_content_to_output(
-    year-doubling: year-doubling,
-    bib-sort: bib-sort,
-    bib-sort-ref: bib-sort-ref,
-    bib-full: bib-full,
-    bib-vancouver: bib-vancouver,
-    vancouver_style: vancouver_style,
-    bib-year-doubling: bib-year-doubling,
-    bib-vancouver-manual: bib-vancouver-manual,
+    year-doubling,
+    bib-sort,
+    bib-sort-ref,
+    bib-full,
+    bib-vancouver,
+    vancouver_style,
+    bib-year-doubling,
+    bib-vancouver-manual,
     bib_content
   )
 }
 
 // ---------- 文献形式に出力する関数 ---------- //
 #let bib-tex(
-    bibtex-article-en: bibtex-article-en,
-    bibtex-article-ja: bibtex-article-ja,
-    bibtex-book-en: bibtex-book-en,
-    bibtex-book-ja: bibtex-book-ja,
-    bibtex-booklet-en: bibtex-booklet-en,
-    bibtex-booklet-ja: bibtex-booklet-ja,
-    bibtex-inbook-en: bibtex-inbook-en,
-    bibtex-inbook-ja: bibtex-inbook-ja,
-    bibtex-incollection-en: bibtex-incollection-en,
-    bibtex-incollection-ja: bibtex-incollection-ja,
-    bibtex-inproceedings-en: bibtex-inproceedings-en,
-    bibtex-inproceedings-ja: bibtex-inproceedings-ja,
-    bibtex-conference-en: bibtex-conference-en,
-    bibtex-conference-ja: bibtex-conference-ja,
-    bibtex-manual-en: bibtex-manual-en,
-    bibtex-manual-ja: bibtex-manual-ja,
-    bibtex-mastersthesis-en: bibtex-mastersthesis-en,
-    bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
-    bibtex-misc-en: bibtex-misc-en,
-    bibtex-misc-ja: bibtex-misc-ja,
-    bibtex-online-en: bibtex-online-en,
-    bibtex-online-ja: bibtex-online-ja,
-    bibtex-phdthesis-en: bibtex-phdthesis-en,
-    bibtex-phdthesis-ja: bibtex-phdthesis-ja,
-    bibtex-proceedings-en: bibtex-proceedings-en,
-    bibtex-proceedings-ja: bibtex-proceedings-ja,
-    bibtex-techreport-en: bibtex-techreport-en,
-    bibtex-techreport-ja: bibtex-techreport-ja,
-    bibtex-unpublished-en: bibtex-unpublished-en,
-    bibtex-unpublished-ja: bibtex-unpublished-ja,
-    bib-cite-author: bib-cite-author,
-    bib-cite-year: bib-cite-year,
+    year-doubling,
+    bibtex-article-en,
+    bibtex-article-ja,
+    bibtex-book-en,
+    bibtex-book-ja,
+    bibtex-booklet-en,
+    bibtex-booklet-ja,
+    bibtex-inbook-en,
+    bibtex-inbook-ja,
+    bibtex-incollection-en,
+    bibtex-incollection-ja,
+    bibtex-inproceedings-en,
+    bibtex-inproceedings-ja,
+    bibtex-conference-en,
+    bibtex-conference-ja,
+    bibtex-manual-en,
+    bibtex-manual-ja,
+    bibtex-mastersthesis-en,
+    bibtex-mastersthesis-ja,
+    bibtex-misc-en,
+    bibtex-misc-ja,
+    bibtex-online-en,
+    bibtex-online-ja,
+    bibtex-phdthesis-en,
+    bibtex-phdthesis-ja,
+    bibtex-proceedings-en,
+    bibtex-proceedings-ja,
+    bibtex-techreport-en,
+    bibtex-techreport-ja,
+    bibtex-unpublished-en,
+    bibtex-unpublished-ja,
+    bib-cite-author,
+    bib-cite-year,
     lang: auto,
     it
   ) = {
@@ -414,44 +365,44 @@
 
   let output_arr = ()
   let bib_element_function = get_element_function(
-    bibtex-article-en: bibtex-article-en,
-    bibtex-article-ja: bibtex-article-ja,
-    bibtex-book-en: bibtex-book-en,
-    bibtex-book-ja: bibtex-book-ja,
-    bibtex-booklet-en: bibtex-booklet-en,
-    bibtex-booklet-ja: bibtex-booklet-ja,
-    bibtex-inbook-en: bibtex-inbook-en,
-    bibtex-inbook-ja: bibtex-inbook-ja,
-    bibtex-incollection-en: bibtex-incollection-en,
-    bibtex-incollection-ja: bibtex-incollection-ja,
-    bibtex-inproceedings-en: bibtex-inproceedings-en,
-    bibtex-inproceedings-ja: bibtex-inproceedings-ja,
-    bibtex-conference-en: bibtex-conference-en,
-    bibtex-conference-ja: bibtex-conference-ja,
-    bibtex-manual-en: bibtex-manual-en,
-    bibtex-manual-ja: bibtex-manual-ja,
-    bibtex-mastersthesis-en: bibtex-mastersthesis-en,
-    bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
-    bibtex-misc-en: bibtex-misc-en,
-    bibtex-misc-ja: bibtex-misc-ja,
-    bibtex-online-en: bibtex-online-en,
-    bibtex-online-ja: bibtex-online-ja,
-    bibtex-phdthesis-en: bibtex-phdthesis-en,
-    bibtex-phdthesis-ja: bibtex-phdthesis-ja,
-    bibtex-proceedings-en: bibtex-proceedings-en,
-    bibtex-proceedings-ja: bibtex-proceedings-ja,
-    bibtex-techreport-en: bibtex-techreport-en,
-    bibtex-techreport-ja: bibtex-techreport-ja,
-    bibtex-unpublished-en: bibtex-unpublished-en,
-    bibtex-unpublished-ja: bibtex-unpublished-ja,
+    bibtex-article-en,
+    bibtex-article-ja,
+    bibtex-book-en,
+    bibtex-book-ja,
+    bibtex-booklet-en,
+    bibtex-booklet-ja,
+    bibtex-inbook-en,
+    bibtex-inbook-ja,
+    bibtex-incollection-en,
+    bibtex-incollection-ja,
+    bibtex-inproceedings-en,
+    bibtex-inproceedings-ja,
+    bibtex-conference-en,
+    bibtex-conference-ja,
+    bibtex-manual-en,
+    bibtex-manual-ja,
+    bibtex-mastersthesis-en,
+    bibtex-mastersthesis-ja,
+    bibtex-misc-en,
+    bibtex-misc-ja,
+    bibtex-online-en,
+    bibtex-online-ja,
+    bibtex-phdthesis-en,
+    bibtex-phdthesis-ja,
+    bibtex-proceedings-en,
+    bibtex-proceedings-ja,
+    bibtex-techreport-en,
+    bibtex-techreport-ja,
+    bibtex-unpublished-en,
+    bibtex-unpublished-ja,
     dict
   )
-  output_arr.push(bibtex-to-bib(dict, bib_element_function))
+  output_arr.push(bibtex-to-bib(year-doubling, dict, bib_element_function))
 
   let element_cite_list = bibtex-to-cite(
-    dict,
-    bib-cite-author: bib-cite-author,
-    bib-cite-year: bib-cite-year
+    bib-cite-author,
+    bib-cite-year,
+    dict
   )
   output_arr.push(element_cite_list)
   output_arr.push(bibtex-yomi(dict, output_arr.at(0)))
@@ -498,38 +449,39 @@
 }
 
 #let bib-file(
-  bibtex-article-en: bibtex-article-en,
-  bibtex-article-ja: bibtex-article-ja,
-  bibtex-book-en: bibtex-book-en,
-  bibtex-book-ja: bibtex-book-ja,
-  bibtex-booklet-en: bibtex-booklet-en,
-  bibtex-booklet-ja: bibtex-booklet-ja,
-  bibtex-inbook-en: bibtex-inbook-en,
-  bibtex-inbook-ja: bibtex-inbook-ja,
-  bibtex-incollection-en: bibtex-incollection-en,
-  bibtex-incollection-ja: bibtex-incollection-ja,
-  bibtex-inproceedings-en: bibtex-inproceedings-en,
-  bibtex-inproceedings-ja: bibtex-inproceedings-ja,
-  bibtex-conference-en: bibtex-conference-en,
-  bibtex-conference-ja: bibtex-conference-ja,
-  bibtex-manual-en: bibtex-manual-en,
-  bibtex-manual-ja: bibtex-manual-ja,
-  bibtex-mastersthesis-en: bibtex-mastersthesis-en,
-  bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
-  bibtex-misc-en: bibtex-misc-en,
-  bibtex-misc-ja: bibtex-misc-ja,
-  bibtex-online-en: bibtex-online-en,
-  bibtex-online-ja: bibtex-online-ja,
-  bibtex-phdthesis-en: bibtex-phdthesis-en,
-  bibtex-phdthesis-ja: bibtex-phdthesis-ja,
-  bibtex-proceedings-en: bibtex-proceedings-en,
-  bibtex-proceedings-ja: bibtex-proceedings-ja,
-  bibtex-techreport-en: bibtex-techreport-en,
-  bibtex-techreport-ja: bibtex-techreport-ja,
-  bibtex-unpublished-en: bibtex-unpublished-en,
-  bibtex-unpublished-ja: bibtex-unpublished-ja,
-  bib-cite-author: bib-cite-author,
-  bib-cite-year: bib-cite-year,
+  year-doubling,
+  bibtex-article-en,
+  bibtex-article-ja,
+  bibtex-book-en,
+  bibtex-book-ja,
+  bibtex-booklet-en,
+  bibtex-booklet-ja,
+  bibtex-inbook-en,
+  bibtex-inbook-ja,
+  bibtex-incollection-en,
+  bibtex-incollection-ja,
+  bibtex-inproceedings-en,
+  bibtex-inproceedings-ja,
+  bibtex-conference-en,
+  bibtex-conference-ja,
+  bibtex-manual-en,
+  bibtex-manual-ja,
+  bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja,
+  bibtex-misc-en,
+  bibtex-misc-ja,
+  bibtex-online-en,
+  bibtex-online-ja,
+  bibtex-phdthesis-en,
+  bibtex-phdthesis-ja,
+  bibtex-proceedings-en,
+  bibtex-proceedings-ja,
+  bibtex-techreport-en,
+  bibtex-techreport-ja,
+  bibtex-unpublished-en,
+  bibtex-unpublished-ja,
+  bib-cite-author,
+  bib-cite-year,
   file_contents
 ) = {
 
@@ -562,38 +514,39 @@
 
   for value in output-arr{
     output-bib.push(bib-tex(
-      bibtex-article-en: bibtex-article-en,
-      bibtex-article-ja: bibtex-article-ja,
-      bibtex-book-en: bibtex-book-en,
-      bibtex-book-ja: bibtex-book-ja,
-      bibtex-booklet-en: bibtex-booklet-en,
-      bibtex-booklet-ja: bibtex-booklet-ja,
-      bibtex-inbook-en: bibtex-inbook-en,
-      bibtex-inbook-ja: bibtex-inbook-ja,
-      bibtex-incollection-en: bibtex-incollection-en,
-      bibtex-incollection-ja: bibtex-incollection-ja,
-      bibtex-inproceedings-en: bibtex-inproceedings-en,
-      bibtex-inproceedings-ja: bibtex-inproceedings-ja,
-      bibtex-conference-en: bibtex-conference-en,
-      bibtex-conference-ja: bibtex-conference-ja,
-      bibtex-manual-en: bibtex-manual-en,
-      bibtex-manual-ja: bibtex-manual-ja,
-      bibtex-mastersthesis-en: bibtex-mastersthesis-en,
-      bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
-      bibtex-misc-en: bibtex-misc-en,
-      bibtex-misc-ja: bibtex-misc-ja,
-      bibtex-online-en: bibtex-online-en,
-      bibtex-online-ja: bibtex-online-ja,
-      bibtex-phdthesis-en: bibtex-phdthesis-en,
-      bibtex-phdthesis-ja: bibtex-phdthesis-ja,
-      bibtex-proceedings-en: bibtex-proceedings-en,
-      bibtex-proceedings-ja: bibtex-proceedings-ja,
-      bibtex-techreport-en: bibtex-techreport-en,
-      bibtex-techreport-ja: bibtex-techreport-ja,
-      bibtex-unpublished-en: bibtex-unpublished-en,
-      bibtex-unpublished-ja: bibtex-unpublished-ja,
-      bib-cite-author: bib-cite-author,
-      bib-cite-year: bib-cite-year,
+      year-doubling,
+      bibtex-article-en,
+      bibtex-article-ja,
+      bibtex-book-en,
+      bibtex-book-ja,
+      bibtex-booklet-en,
+      bibtex-booklet-ja,
+      bibtex-inbook-en,
+      bibtex-inbook-ja,
+      bibtex-incollection-en,
+      bibtex-incollection-ja,
+      bibtex-inproceedings-en,
+      bibtex-inproceedings-ja,
+      bibtex-conference-en,
+      bibtex-conference-ja,
+      bibtex-manual-en,
+      bibtex-manual-ja,
+      bibtex-mastersthesis-en,
+      bibtex-mastersthesis-ja,
+      bibtex-misc-en,
+      bibtex-misc-ja,
+      bibtex-online-en,
+      bibtex-online-ja,
+      bibtex-phdthesis-en,
+      bibtex-phdthesis-ja,
+      bibtex-proceedings-en,
+      bibtex-proceedings-ja,
+      bibtex-techreport-en,
+      bibtex-techreport-ja,
+      bibtex-unpublished-en,
+      bibtex-unpublished-ja,
+      bib-cite-author,
+      bib-cite-year,
       value)
     )
   }
@@ -601,4 +554,4 @@
   return output-bib
 }
 
-#import "bib_setting_style.typ": *
+//#import "bib_setting_style.typ": *
