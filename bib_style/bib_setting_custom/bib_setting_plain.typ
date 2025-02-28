@@ -1129,6 +1129,43 @@
   ..body
 )
 
+#let bib-tex(..body) = bib_style.bib-tex(
+  year-doubling,
+  bibtex-article-en,
+  bibtex-article-ja,
+  bibtex-book-en,
+  bibtex-book-ja,
+  bibtex-booklet-en,
+  bibtex-booklet-ja,
+  bibtex-inbook-en,
+  bibtex-inbook-ja,
+  bibtex-incollection-en,
+  bibtex-incollection-ja,
+  bibtex-inproceedings-en,
+  bibtex-inproceedings-ja,
+  bibtex-conference-en,
+  bibtex-conference-ja,
+  bibtex-manual-en,
+  bibtex-manual-ja,
+  bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja,
+  bibtex-misc-en,
+  bibtex-misc-ja,
+  bibtex-online-en,
+  bibtex-online-ja,
+  bibtex-phdthesis-en,
+  bibtex-phdthesis-ja,
+  bibtex-proceedings-en,
+  bibtex-proceedings-ja,
+  bibtex-techreport-en,
+  bibtex-techreport-ja,
+  bibtex-unpublished-en,
+  bibtex-unpublished-ja,
+  bib-cite-author,
+  bib-cite-year,
+  ..body
+)
+
 #let bib-file(file_contents) = bib_style.bib-file(
   year-doubling,
   bibtex-article-en,

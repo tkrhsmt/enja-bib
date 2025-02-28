@@ -39,9 +39,6 @@
 #let bib-cite-turn = state("bib-cite-turn", ())
 #let bib-output-list
 
-#let bib_brace_l = text(weight: "regular")[{]
-#let bib_brace_r = text(weight: "regular")[}]
-
 #let bib_init(
   bib-cite,
   bib-citet,
@@ -489,29 +486,13 @@
   file_contents
 ) = {
 
-  let file_arr = file_contents.children
-
+  let file_arr = file_contents.split("@")
   let output-arr = ()
-  let tmp = ()
-
-  for value in file_arr {
-    if value.func() == ref{
-      if tmp != () {
-        if tmp.at(0).target != <comment>{
-          output-arr.push(tmp.sum())
-        }
-      }
-      tmp = (value,)
+  for value in file_arr{
+    let tmp = value.starts-with("comment")
+    if value.starts-with(regex("article|book|booklet|inbook|incollection|inproceedings|conference|manual|mastersthesis|misc|online|phdthesis|proceedings|techreport|unpublished")){
+      output-arr.push("@" + value)
     }
-    else if value == parbreak(){
-    }
-    else{
-      tmp.push(value)
-    }
-  }
-
-  if tmp.at(0).target != <comment>{
-    output-arr.push(tmp.sum())
   }
 
   let output-bib = ()

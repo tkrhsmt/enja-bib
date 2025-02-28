@@ -32,6 +32,6 @@
 
 #bibliography-list(
   lang: "参考文献",
-  ..bib-file(include "mybib_jp.bib"),
-  ..bib-file(include "mybib_en.bib")
+  ..bib-file(read("mybib_jp.bib")),
+  ..bib-file(read("mybib_en.bib"))
 )
