@@ -181,11 +181,13 @@
         cite-arr.push(value.at(1).join(", "))
       }
       let num = 0
+      let remove-num = ()
       for value in cite-arr{
         let num2 = num + 1
         let double_arr = ()
         for value2 in cite-arr.slice(num2){
-          if value == value2{
+          if value == value2 and remove-num.contains(num2) == false{
+            remove-num.push(num2)
             double_arr.push(num2)
           }
           num2 += 1

@@ -876,3 +876,5 @@
   "citen",
   ..label_argument
 )
+
+#let bib-item(..body) = bib_style.bib-item(..body)

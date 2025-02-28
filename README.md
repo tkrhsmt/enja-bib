@@ -27,12 +27,7 @@
 1. 自分のtypstファイルの中で文献を挿入したい部分に，`bibliography-list`関数を利用して文献を書く
     ```typst
     #bibliography-list(
-        bib-tex[
-            ...
-        ],
-        bib-tex[
-            ...
-        ], ...
+        ..bib-file(read("mybib_jp.bib")),
     )
     ```
 
@@ -57,7 +52,7 @@
 例：
 ```typst
 #bibliography-list(
-    bib-tex[
+    bib-tex(`
         @article{Reynolds:PhilTransRoySoc1883,
             author  = {Reynolds, Osborne},
             title   = {An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels},
@@ -69,7 +64,7 @@
             doi     = {10.1098/rstl.1883.0029},
             url     = {https://royalsocietypublishing.org/doi/abs/10.1098/rstl.1883.0029}
         }
-    ]
+    `)
 )
 ```
 
@@ -107,7 +102,7 @@ bib-item(
 例：
 ```typst
 #bibliography-list(
-  ..bib-file(include "mybib_en.bib")
+  ..bib-file(read("mybib_jp.bib")),
 )
 ```
 
@@ -121,3 +116,11 @@ bib-item(
 ```
 のように書くことで引用も可能．
 それぞれの関数は，複数の文献入力にも対応（例：`#citet(<Reynolds:PhilTransRoySoc1883>, <Matsukawa:ICFD2022>)`
+
+### `citefull`形式
+
+文中で`citefull`形式を読み込むには
+```typst
+    @Reynolds:PhilTransRoySoc1883[full]
+```
+と書く
