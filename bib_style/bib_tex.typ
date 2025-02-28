@@ -173,13 +173,55 @@
 
 //---------- bibtexの文字列から辞書型を返す関数 ---------- //
 
-#let bibtex_to_dict(bibtex) = {
+#let bibtex_to_dict(bibtex_raw) = {
+
+  let contents_num = 0
+  let remove_bite = 0
+  let target_name = ""
+  let label_name = ""
+  let bibtex_str = bibtex_raw
+
+  if type(bibtex_str) != str{
+    bibtex_str = bibtex_str.text
+  }
+
+  for value in bibtex_str{
+
+    if contents_num == 0{
+      if value == "@"{ contents_num = 1 }
+    }
+    else if contents_num == 1{
+      if value == "{"{
+        contents_num = 2
+      }
+      else{
+        target_name += value
+      }
+    }
+    else if contents_num == 2{
+      if value == ","{
+        remove_bite += value.len()
+        break
+      }
+      else{
+        label_name += value
+      }
+    }
+    remove_bite += value.len()
+  }
+
+  let bibtex = bibtex_str.slice(remove_bite)
+
+  bibtex = bibtex.replace("\\{", "#text(weight:\"regular\")[{]")
+  bibtex = bibtex.replace("\\}", "#text(weight:\"regular\")[}]")
+
+  bibtex = eval(bibtex, mode: "markup")
 
   // dictionaryの作成
-  let biblist = (empty : "empty")
-  let contents_num = -1 //現在の位置(-1: ラベル前, 0: ラベル取得位置,
-                        // hoge = { hoge } ,
-                        //1      2 3      4
+  let biblist = (target : target_name, label : label(label_name))
+  let contents_num = 1 //現在の位置
+                       // hoge = { hoge } ,
+                       //1      2 3      4
   let label_name = "" // ラベル名
   let contents = () // 項目の一時保存
   let contents_list = () // 項目のリスト
@@ -188,49 +230,30 @@
 
   for value in bibtex.children{
 
-    if value.has("target"){//ターゲットの種類
-      biblist.insert("target", str(value.target))
-      contents_num = 0
-    }
-    else if value.has("text"){//テキストの場合
+    if value.has("text"){//テキストの場合
 
-      if contents_num == 0 {//ラベルを取得する場合
-        //ラベル名の取得
-        contents = text_to_label(value.text)
-        //ラベル名の代入
-        label_name += contents.at(0)
-        if contents.at(1) == false {//ラベル名を全て取得できたかどうか (未: true, 済: false)
-          contents_num = 1
+      contents = text_to_dict(value.text, contents_num, brace_num)//辞書型に変換
+
+      for value_num in contents.at(3){//辞書へ順番に代入
+
+        if value_num == 1 and contents.at(0) != (){//1のとき，名前を代入
+          contents_name += contents.at(0).remove(0)
         }
-
-        if contents_num == 1 {//ラベル名を全て取得できた場合，ラベルをbiblistに代入
-          biblist.insert("label", label(label_name))
+        else if value_num == 2{//2のとき，括弧をリセットする
+          brace_num = 1
+        }
+        else if value_num == 3 and contents.at(1) != (){//3のとき，内容を代入
+          contents_list.push(contents.at(1).remove(0))
+        }
+        else if value_num == 4 and contents_name != "" and contents_list != (){//4のとき，項目を辞書に追加
+          biblist.insert(lower(contents_name), contents_list)
+          contents_name = ""
+          contents_list = ()
         }
       }
-      else{//ラベル以外の場合
-        contents = text_to_dict(value.text, contents_num, brace_num)//辞書型に変換
-
-        for value_num in contents.at(3){//辞書へ順番に代入
-
-          if value_num == 1 and contents.at(0) != (){//1のとき，名前を代入
-            contents_name += contents.at(0).remove(0)
-          }
-          else if value_num == 2{//2のとき，括弧をリセットする
-            brace_num = 1
-          }
-          else if value_num == 3 and contents.at(1) != (){//3のとき，内容を代入
-            contents_list.push(contents.at(1).remove(0))
-          }
-          else if value_num == 4 and contents_name != "" and contents_list != (){//4のとき，項目を辞書に追加
-            biblist.insert(lower(contents_name), contents_list)
-            contents_name = ""
-            contents_list = ()
-          }
-        }
-        // 次の位置へ
-        contents_num = contents.at(2)
-        brace_num = contents.at(4)
-      }
+      // 次の位置へ
+      contents_num = contents.at(2)
+      brace_num = contents.at(4)
     }
     else if value == smartquote(double: true){//ダブルクォートの場合，{や}と同様にcontents_numを変更
         if contents_num == 2{
@@ -249,7 +272,6 @@
       }
     }
   }
-  biblist.remove("empty")
 
   return biblist
 }
