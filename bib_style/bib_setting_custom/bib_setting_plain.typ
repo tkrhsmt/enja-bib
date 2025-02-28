@@ -1203,6 +1203,8 @@
   file_contents
 )
 
+#let bib-item(..body) = bib_style.bib-item(..body)
+
 #let citet(..label_argument) = bib_style.bib-cite-func(
   bib-citet,
   "citet",
