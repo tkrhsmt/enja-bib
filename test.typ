@@ -1,4 +1,6 @@
-#import "bib_style/bib_style.typ": *
+#import "bib_style/lib.typ": *
+
+#import bib_setting_jsme: *
 
 #show: bib_init
 

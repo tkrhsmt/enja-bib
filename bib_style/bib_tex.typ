@@ -1,5 +1,4 @@
-
-#import "bib_setting.typ": *
+#import "bib_setting_fucntion.typ": *
 
 //---------- 文字列から，最初の{までを取り除く関数 ---------- //
 #let remove_brace_l(text, remove_str: "{") = {
@@ -256,7 +255,39 @@
 }
 
 //---------- 要素の関数を取得 ---------- //
-#let get_element_function(biblist) = {
+#let get_element_function(
+  bibtex-article-en,
+  bibtex-article-ja,
+  bibtex-book-en,
+  bibtex-book-ja,
+  bibtex-booklet-en,
+  bibtex-booklet-ja,
+  bibtex-inbook-en,
+  bibtex-inbook-ja,
+  bibtex-incollection-en,
+  bibtex-incollection-ja,
+  bibtex-inproceedings-en,
+  bibtex-inproceedings-ja,
+  bibtex-conference-en,
+  bibtex-conference-ja,
+  bibtex-manual-en,
+  bibtex-manual-ja,
+  bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja,
+  bibtex-misc-en,
+  bibtex-misc-ja,
+  bibtex-online-en,
+  bibtex-online-ja,
+  bibtex-phdthesis-en,
+  bibtex-phdthesis-ja,
+  bibtex-proceedings-en,
+  bibtex-proceedings-ja,
+  bibtex-techreport-en,
+  bibtex-techreport-ja,
+  bibtex-unpublished-en,
+  bibtex-unpublished-ja,
+  biblist
+) = {
 
   let element_function = none
 
@@ -385,7 +416,7 @@
 }
 
 //---------- 文献リストを文献に変換 ---------- //
-#let bibtex-to-bib(biblist, element_function) = {
+#let bibtex-to-bib(year-doubling, biblist, element_function) = {
 
   let output_list_bef = ()//出力リスト(仮)
   let interval_str = ""//要素間の文字列
@@ -494,7 +525,11 @@
 }
 
 //---------- citeを作成する関数 ---------- //
-#let bibtex-to-cite(biblist) = {
+#let bibtex-to-cite(
+  bib-cite-author,
+  bib-cite-year,
+  biblist
+  ) = {
 
   let cite_list = ()
 

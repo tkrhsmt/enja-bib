@@ -55,7 +55,17 @@
 
 // ---------- 項目内をそのまま返す関数 ---------- //
 #let all_return(biblist, name) = {
-  return biblist.at(name).sum()
+  return biblist.at(name, default: ("",)).sum()
+}
+
+// ---------- 項目内を太文字にして返す関数 ---------- //
+#let all-bold(biblist, name) = {
+  return strong(biblist.at(name).sum())
+}
+
+// ---------- 項目内を斜体にして返す関数 ---------- //
+#let all-emph(biblist, name) = {
+  return emph(biblist.at(name).sum())
 }
 
 // ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Reynolds O.)に変換 ---------- //
@@ -153,15 +163,76 @@
 
 }
 
+
+// ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：O Reynolds)に変換 ---------- //
+#let author-en3(author_arr) = {
+
+  let an_author = author_arr
+  let author_str = ""
+  let author_str2 = ""
+  let author_first = an_author.remove(0)
+
+  if author_first.len() != 0{
+    let brace_num = 0
+    let num = 0
+    for value in author_first{
+      if value == "{"{
+        brace_num += 1
+      }
+      else if value == "}"{
+        brace_num -= 1
+      }
+      else{
+
+        if value == "-"{// ハイフンの直後の文字を大文字にする
+          num = -1
+        }
+
+        if brace_num == 0{
+          if num == 0{
+            author_str += upper(value)
+          }
+          else{
+            author_str += lower(value)
+          }
+        }
+        else{
+          author_str += value
+        }
+      }
+      num += 1
+    }
+  }
+  for value in an_author{
+    if value.len() != 0{
+      author_str2 += upper(value.at(0)) + " "
+    }
+  }
+
+  return author_str2 + author_str
+}
+
+
+// ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Osborne Reynolds)に変換 ---------- //
+#let author-en4(author_arr) = {
+
+  let an_author = author_arr
+  let author_first = an_author.remove(0)
+
+  if author_first != ""{
+    author_first = " " + author_first
+  }
+
+  return an_author.join(" ") + author_first
+}
+
 // ---------- 日本語の著者名はそのまま繋げて出力 ---------- //
 #let author-ja(author_arr) = {
-
   return author_arr.sum()
 }
 
-// ---------- 項目を著者型にして返す関数 ---------- //
-#let author-set(biblist, name) = {
-
+// ---------- 項目を著者配列にして返す関数 ---------- //
+#let author-make-arr(biblist, name) = {
   let author_str = biblist.at(name).sum()
   if type(author_str) == content{
       author_str = contents-to-str(author_str)
@@ -194,7 +265,14 @@
     author_arr2.push(arr)
   }
 
-  author_arr = ()
+  return author_arr2
+}
+
+// ---------- 項目を著者型にして返す関数 ---------- //
+#let author-set(biblist, name) = {
+
+  let author_arr = ()
+  let author_arr2 = author-make-arr(biblist, name)
 
   for author in author_arr2{
 
@@ -206,6 +284,61 @@
     }
     else{
       author_arr.push(author-en(author))
+    }
+  }
+
+  if biblist.lang == "ja"{
+    return author_arr.join(", ")
+  }
+  else{
+    return author_arr.join(", ", last: " and ")
+  }
+}
+
+// ---------- 項目を著者型にして返す関数(author-en3型) ---------- //
+#let author-set2(biblist, name) = {
+
+  let author_arr = ()
+  let author_arr2 = author-make-arr(biblist, name)
+
+  for author in author_arr2{
+
+    let authorsum = author.sum()
+    let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
+
+    if check{
+      author_arr.push(author-ja(author))
+    }
+    else{
+      author_arr.push(author-en3(author))
+    }
+  }
+
+  if biblist.lang == "ja"{
+    return author_arr.join(", ")
+  }
+  else{
+    return author_arr.join(", ", last: " and ")
+  }
+}
+
+
+// ---------- 項目を著者型にして返す関数(author-en4型) ---------- //
+#let author-set3(biblist, name) = {
+
+  let author_arr = ()
+  let author_arr2 = author-make-arr(biblist, name)
+
+  for author in author_arr2{
+
+    let authorsum = author.sum()
+    let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
+
+    if check{
+      author_arr.push(author-ja(author))
+    }
+    else{
+      author_arr.push(author-en4(author))
     }
   }
 
@@ -335,6 +468,25 @@
   return output.sum()
 }
 
+// ---------- {と}を削除して返す関数 ---------- //
+#let remove-str-brace(biblist, name) = {
+
+  let contents = biblist.at(name)
+  let output = ()
+
+  for value in contents{
+    if type(value) == str{
+      output.push(value.split(regex("[{}]")).sum())
+    }
+    else{
+      output.push(value)
+    }
+  }
+
+  return output.sum()
+
+}
+
 // ---------- URLを付与して返す関数 ---------- //
 #let set-url(biblist, name) = {
 
@@ -374,6 +526,25 @@
   }
   else{
     return "p.~" + pagestr
+  }
+}
+
+// ---------- ページ形式にして返す関数(ppを表示しない) ---------- //
+#let page-set-without-p(biblist, name) = {
+  let pagestr = biblist.at(name).sum()
+  if type(pagestr) == content{
+    pagestr = contents-to-str(pagestr)
+  }
+
+  if pagestr.contains("--") or pagestr.contains("–"){
+    return pagestr
+  }
+  else if pagestr.contains("-"){
+    pagestr = pagestr.replace("-", "--")
+    return pagestr
+  }
+  else{
+    return pagestr
   }
 }
 
