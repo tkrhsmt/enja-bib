@@ -12,6 +12,7 @@
 + #citet(<Matsukawa:ICFD2022>)
 + #citep(<Matsukawa:ICFD2022>)
 + #citen(<Matsukawa:ICFD2022>)
++ @Reynolds:PhilTransRoySoc1883[full]
 + @Reynolds:PhilTransRoySoc1883[Manual String]
 
 #bibliography-list(

@@ -76,6 +76,10 @@
           else if it.supplement == [citen]{//citenのとき
             bib-citen.at(1)(cite-arr)
           }
+          else if it.supplement == [full]{//fullのとき
+            link(it.target, it.element.body)
+
+          }
           else if it.supplement == auto{//その他
             bib-cite.at(0) + link(it.target, bib-cite.at(1)(cite-arr)) + bib-cite.at(3)
           }
