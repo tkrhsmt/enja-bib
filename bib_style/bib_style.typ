@@ -488,7 +488,7 @@
   file_contents
 ) = {
 
-  let file_arr = file_contents.split("@")
+  let file_arr = file_contents.split(regex("(^|[^\\\\])@"))
   let output-arr = ()
   for value in file_arr{
     let tmp = value.starts-with("comment")
