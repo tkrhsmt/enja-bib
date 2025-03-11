@@ -1,8 +1,6 @@
 # typst-BibTeX-jp
 日本語／英語文献 Typstパッケージ
 
-![test_image](/test_image.png)
-
 ## 本パッケージの特徴
 
 - 日本語文献と英語文献が混在した文書に対応
