@@ -1,4 +1,4 @@
-#import "bib_style/lib.typ": *
+#import "../src/lib.typ": *
 
 #import bib_setting_jsme: *
 
