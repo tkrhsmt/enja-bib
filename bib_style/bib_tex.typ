@@ -155,17 +155,25 @@
 #let add_dict_lang(biblist, lang) = {
 
   let output_list = biblist
+  let check_exist_lang = biblist.at("lang", default: "")
 
-  if lang == auto or lang != "ja" or lang != "en"{
-    if check_japanese_tex(biblist){
-      output_list.insert("lang", "ja")
+  if check_exist_lang != ("en",) and check_exist_lang != ("ja",){
+
+    if lang == auto or lang != "ja" or lang != "en"{
+      if check_japanese_tex(biblist){
+        output_list.insert("lang", "ja")
+      }
+      else{
+        output_list.insert("lang", "en")
+      }
     }
     else{
-      output_list.insert("lang", "en")
+      output_list.insert("lang", lang)
     }
+
   }
   else{
-    output_list.insert("lang", lang)
+    output_list.insert("lang", check_exist_lang.at(0))
   }
 
   return output_list
