@@ -122,3 +122,244 @@ bib-item(
     @Reynolds:PhilTransRoySoc1883[full]
 ```
 と書く
+
+---
+
+## 独自のスタイルを適用する方法
+
+`bib_setting_plain`や`bib_setting_jsme`以外の独自のスタイルを設定する，或いは一部を変更するには新たに関数を設定します
+
+### 全体設定
+
+```typst
+#let bibliography-list(..body) = bib_style.bibliography-list(
+  year-doubling,
+  bib-sort,
+  bib-sort-ref,
+  bib-full,
+  bib-vancouver,
+  vancouver_style,
+  bib-year-doubling,
+  bib-vancouver-manual,
+  ..body
+)
+```
+
+- `year-doubling`：著者・年が同じ文献がある場合に番号を付与するため，その番号を付与する位置を指定する特殊文字列（`string`型）
+- `bib-sort`：アルファベット順にソートを行うか（`bool`型）
+- `bib-sort-ref`：引用されている順番にソートを行うか（`bool`型）
+- `bib-full`：引用されている文献だけでなく全ての文献を表示するか（`bool`型）
+- `bib-vancouver`：vancouverスタイル設定時の番号付け（`string`型）
+- `vancouver_style`：vancouverスタイルにするか（`bool`型）
+- `bib-year-doubling`：重複著者・年号文献の year-doubling に表示する文字列（`string`型）
+- `bib-vancouver-manual`：`bib-vancouver = "manual"`のときの設定
+
+### 参照設定
+
+```typst
+#let bib_init(body) = bib_style.bib_init(
+  bib-cite,
+  bib-citet,
+  bib-citep,
+  bib-citen,
+  body
+)
+```
+
+- `bib-cite`：citeを設定する配列(`array`型)
+
+  ```typst
+  ([], bib-citet-default, [; ], [])
+  ```
+
+  **配列の構造**
+  1. 参照時の一番最初に出力する文字(`content`型)
+  2. 出力する文字列を生成する関数(`function`型)
+  3. 2つ以上の文献で，文献間に出力する文字(`content`型)
+  4. 参照時の一番最後に出力する文字(`content`型)
+
+  > 上の例では，`Reynolds (1883); Reynolds (1883)`のように出力されます
+
+  2番目の要素である`function`型には，
+  - `bib-citet-default`
+  - `bib-citep-default`
+  - `bib-citen-default`
+
+  が選択できますが，以下のように独自に設定が可能です．
+  以下は，`bib-citet-default`の例です．
+
+  ```typst
+  #let bib-citet-default(bib_cite_contents) = {
+    return bib_cite_contents.at(0) + [~(] + bib_cite_contents.at(1) + [)]
+  }
+  ```
+
+  **引数**
+  1. `bib_cite_contents`：`cite`を構成する要素．
+     (著者名, 年号, 引用番号)が入っている
+
+- `bib-citet`, `bib-citep`, `bib-citen`についても，`bib-cite`と同様
+
+### `citet`関数
+
+```typst
+#let citet(..label_argument) = bib_style.bib-cite-func(
+  bib-citet,
+  "citet",
+  ..label_argument
+)
+```
+
+- `bib-citet`：参照設定における`bib-cite`と同様(`function`型)
+- `"citet"`：**これは変更しないでください**
+
+### `citep`関数
+
+```typst
+#let citep(..label_argument) = bib_style.bib-cite-func(
+  bib-citep,
+  "citep",
+  ..label_argument
+)
+```
+
+- `bib-citep`：参照設定における`bib-cite`と同様(`function`型)
+
+### `citen`関数
+
+```typst
+#let citen(..label_argument) = bib_style.bib-cite-func(
+  bib-citen,
+  "citen",
+  ..label_argument
+)
+```
+
+- `bib-citen`：参照設定における`bib-cite`と同様(`function`型)
+- `"citen"`：**これは変更しないでください**
+
+### `bibtex`の設定
+
+
+```typst
+#let bib-file(file_contents) = bib_style.bib-file(
+  year-doubling,
+  bibtex-article-en,
+  bibtex-article-ja,
+  bibtex-book-en,
+  bibtex-book-ja,
+  bibtex-booklet-en,
+  bibtex-booklet-ja,
+  bibtex-inbook-en,
+  bibtex-inbook-ja,
+  bibtex-incollection-en,
+  bibtex-incollection-ja,
+  bibtex-inproceedings-en,
+  bibtex-inproceedings-ja,
+  bibtex-conference-en,
+  bibtex-conference-ja,
+  bibtex-manual-en,
+  bibtex-manual-ja,
+  bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja,
+  bibtex-misc-en,
+  bibtex-misc-ja,
+  bibtex-online-en,
+  bibtex-online-ja,
+  bibtex-phdthesis-en,
+  bibtex-phdthesis-ja,
+  bibtex-proceedings-en,
+  bibtex-proceedings-ja,
+  bibtex-techreport-en,
+  bibtex-techreport-ja,
+  bibtex-unpublished-en,
+  bibtex-unpublished-ja,
+  bib-cite-author,
+  bib-cite-year,
+  file_contents
+)
+```
+
+- `year-doubling`：全体設定と同様（`string`型）
+- `bibtex-...`：各フィールドの設定（`array`型）
+
+    **命名規則**
+
+    `bibtex-(フィールド名)-(言語)`
+
+    **例**
+
+    ```typst
+    #let bibtex-article-en = (
+        ("author", (none,"",author-set3, "", ". ", (), ".")),
+        ("title", (none,"",title-en, "", ". ", (), ".")),
+        ("journal", (none,"",all-emph, "", ", ", (), ".")),
+        //...出力する項目を順に並べる
+    )
+    ```
+
+    - 各配列は，出力する項目の順に並べる（上の例では，`author`，`title`，`journal`の順に出力される）
+    - `bibtex`内に無い項目は飛ばされる（上の場合，`title`の項目が`bibtex`内にない場合は`author`と`journal`のみが出力される）
+    - `bibtex`内にあっても，配列の中に含まれない場合は出力されない（上の例では，`author`，`title`，`journal`のみ出力される）
+
+    **各項目の書き方**
+
+    ```typst
+    ("author", (none,"",author-set3, "", ". ", (), "."))
+    ```
+
+    1. 項目名（`string`型）
+    2. 出力形式を決定する配列（`array`型）
+
+        1. 1つ前の項目がAのとき，前の語尾文字列を削除して置き換える先頭文字列（`content`,`string`型）
+        2. 必ず出力される文字列（`content`,`string`型）
+        3. 出力される文字列を出力する関数（`function`型）
+        4. 最後でない限り必ず出力される語尾文字列（`content`,`string`型）
+        5. 1つ後の項目のAに書かれていない，かつ最後でない場合に出力される語尾文字列（`content`,`string`型）
+        6. 場合A（`array`型）
+        7. 最後の場合に出力される文字列（`content`,`string`型）
+
+- `bib-cite-author`：`cite`の`author`を返す関数（`function`型）
+
+- `bib-cite-year`：`cite`の`year`を返す関数（`function`型）
+
+`bib-tex`も同様に設定する
+
+```typst
+#let bib-tex(..body) = bib_style.bib-tex(
+  year-doubling,
+  bibtex-article-en,
+  bibtex-article-ja,
+  bibtex-book-en,
+  bibtex-book-ja,
+  bibtex-booklet-en,
+  bibtex-booklet-ja,
+  bibtex-inbook-en,
+  bibtex-inbook-ja,
+  bibtex-incollection-en,
+  bibtex-incollection-ja,
+  bibtex-inproceedings-en,
+  bibtex-inproceedings-ja,
+  bibtex-conference-en,
+  bibtex-conference-ja,
+  bibtex-manual-en,
+  bibtex-manual-ja,
+  bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja,
+  bibtex-misc-en,
+  bibtex-misc-ja,
+  bibtex-online-en,
+  bibtex-online-ja,
+  bibtex-phdthesis-en,
+  bibtex-phdthesis-ja,
+  bibtex-proceedings-en,
+  bibtex-proceedings-ja,
+  bibtex-techreport-en,
+  bibtex-techreport-ja,
+  bibtex-unpublished-en,
+  bibtex-unpublished-ja,
+  bib-cite-author,
+  bib-cite-year,
+  ..body
+)
+```
