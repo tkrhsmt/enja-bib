@@ -224,6 +224,7 @@ bib-item(
 ```
 
 - `bib-citep`：参照設定における`bib-cite`と同様(`function`型)
+- `"citep"`：**これは変更しないでください**
 
 ### `citen`関数
 
