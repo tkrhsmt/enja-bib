@@ -1,0 +1,7 @@
+[package]
+name = "enja-bib"
+version = "0.1.0"
+entrypoint = "src/lib.typ"
+authors = ["Takeru HASHIMOTO"]
+license = "MIT"
+description = "A package for handling BibTeX that includes both English and Japanese."
