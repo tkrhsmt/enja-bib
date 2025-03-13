@@ -6,29 +6,64 @@
 //  CITE FUNCTION
 // --------------------------------------------------
 
+#let bib-cite-turn = state("bib-cite-turn", ())
+
+#let update-bib-cite-turn(cite-arr) = bib-cite-turn.update(
+  bib_info => {
+    let output_arr = bib_info
+    let add_num = cite-arr.at(2)
+    if output_arr.contains(add_num) == false{
+      output_arr.push(add_num)
+    }
+    output_arr
+  }
+)
+
 #let bib-cite-func(
     bib-cite: (),
-    cite-supplement: "",
   ..label_argument
-  ) = {
+  ) = context{
+
     let label_arr = label_argument.pos()
     if label_arr.len() == 1{//ラベルが1つのとき
 
       let label = label_arr.at(0)
-      return bib-cite.at(0) + link(label,ref(label, supplement: cite-supplement)) + bib-cite.at(3)
+      let contents = query(label)
+      let cite-arr = eval(contents.at(0).supplement.text)
+      update-bib-cite-turn(cite-arr)
+
+      cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
+
+      //出力
+      bib-cite.at(0) + link(label,bib-cite.at(1)(cite-arr)) + bib-cite.at(3)
 
     }else{//ラベルが2つ以上のとき
 
-      let tmp = label_arr.remove(0)
-      let output1 = bib-cite.at(0) + link(tmp,ref(tmp, supplement: cite-supplement)) + bib-cite.at(2)
-      tmp = label_arr.remove(-1)
-      let output2 = link(tmp,ref(tmp, supplement: cite-supplement)) + bib-cite.at(3)
+      let label = label_arr.remove(0)
+      let contents = query(label)
+      let cite-arr = eval(contents.at(0).supplement.text)
+      update-bib-cite-turn(cite-arr)
+      cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
+      let output1 = bib-cite.at(0) + link(label,bib-cite.at(1)(cite-arr)) + bib-cite.at(2)
+
+      label = label_arr.remove(-1)
+      contents = query(label)
+      cite-arr = eval(contents.at(0).supplement.text)
+      update-bib-cite-turn(cite-arr)
+      cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
+      let output2 = link(label,bib-cite.at(1)(cite-arr)) + bib-cite.at(3)
+
       let output = ""
       for label in label_arr{
-        output += link(label,ref(label, supplement: cite-supplement)) + bib-cite.at(2)
+        contents = query(label)
+        cite-arr = eval(contents.at(0).supplement.text)
+        update-bib-cite-turn(cite-arr)
+        cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
+        output += link(label,bib-cite.at(1)(cite-arr)) + bib-cite.at(2)
       }
-      return output1 + output + output2
 
+      //出力
+      output1 + output + output2
     }
 }
 
@@ -36,14 +71,8 @@
 //  INITIALIZATION
 // --------------------------------------------------
 
-#let bib-cite-turn = state("bib-cite-turn", ())
-#let bib-output-list
-
 #let bib_init(
   bib-cite: (),
-  bib-citet: (),
-  bib-citep: (),
-  bib-citen: (),
   body,
 ) = {
   show ref: it =>{
@@ -53,34 +82,14 @@
 
           let cite-arr = eval(it.element.supplement.text)
 
-          bib-cite-turn.update(bib_info => {
-            let output_arr = bib_info
-            let add_num = cite-arr.at(2)
-            if output_arr.contains(add_num) == false{
-              output_arr.push(add_num)
-            }
-            output_arr
-          })
+          update-bib-cite-turn(cite-arr)
 
-          cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3))
+          cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), it.element.body)
 
-          if it.supplement == [citet]{//citetのとき
-            bib-citet.at(1)(cite-arr)
-          }
-          else if it.supplement == [citep]{//citepのとき
-            bib-citep.at(1)(cite-arr)
-          }
-          else if it.supplement == [citen]{//citenのとき
-            bib-citen.at(1)(cite-arr)
-          }
-          else if it.supplement == [full]{//fullのとき
-            link(it.target, it.element.body)
-
-          }
-          else if it.supplement == auto{//その他
+          if it.supplement == ref.supplement{//その他
             bib-cite.at(0) + link(it.target, bib-cite.at(1)(cite-arr)) + bib-cite.at(3)
           }
-          else{//supplementが指定されているとき
+          else{
             link(it.target, it.supplement)
           }
 

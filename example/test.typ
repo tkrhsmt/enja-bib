@@ -13,7 +13,7 @@
   [`#citet(<Matsukawa:ICFD2022>)`],[#citet(<Matsukawa:ICFD2022>)],
   [`#citep(<Matsukawa:ICFD2022>)`],[#citep(<Matsukawa:ICFD2022>)],
   [`#citen(<Matsukawa:ICFD2022>)`],[#citen(<Matsukawa:ICFD2022>)],
-  [`@Reynolds:PhilTransRoySoc1883[full]`],[@Reynolds:PhilTransRoySoc1883[full]],
+  [`#citefull(<Reynolds:PhilTransRoySoc1883>)`],[#citefull(<Reynolds:PhilTransRoySoc1883>)],
   [`@Reynolds:PhilTransRoySoc1883[Manual String]`],[@Reynolds:PhilTransRoySoc1883[Manual String]],
 )
 

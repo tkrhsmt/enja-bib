@@ -610,3 +610,7 @@
 #let bib-citen-default(bib_cite_contents) = {
   return str(bib_cite_contents.at(2))
 }
+
+#let bib-citefull-default(bib_cite_contents) = {
+  return bib_cite_contents.at(3)
+}

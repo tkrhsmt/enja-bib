@@ -51,6 +51,9 @@
 // -------------------- citen --------------------
 #let bib-citen = ([\[], bib-citen-default, [, ], [\]])
 
+// -------------------- citefull --------------------
+#let bib-citefull = ([], bib-citefull-default, [; ], [])
+
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // 各要素の表示形式設定
@@ -1109,13 +1112,8 @@
 // 関数の設定（以下は何も変更しないよう注意）
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-#let bib_init(body) = bib_style.bib_init(
-  bib-cite: bib-cite,
-  bib-citet: bib-citet,
-  bib-citep: bib-citep,
-  bib-citen: bib-citen,
-  body
-)
+
+#let bib_init = bib_style.bib_init.with(bib-cite: bib-cite)
 
 #let bibliography-list = bib_style.bibliography-list.with(
   year-doubling: year-doubling,
@@ -1202,17 +1200,10 @@
 
 #let bib-item = bib_style.bib-item
 
-#let citet = bib_style.bib-cite-func.with(
-  bib-cite: bib-citet,
-  cite-supplement: "citet",
-)
+#let citet = bib_style.bib-cite-func.with(bib-cite: bib-citet)
 
-#let citep = bib_style.bib-cite-func.with(
-  bib-cite: bib-citep,
-  cite-supplement: "citep",
-)
+#let citep = bib_style.bib-cite-func.with(bib-cite: bib-citep)
 
-#let citen = bib_style.bib-cite-func.with(
-  bib-cite: bib-citen,
-  cite-supplement: "citen",
-)
+#let citen = bib_style.bib-cite-func.with(bib-cite: bib-citen)
+
+#let citefull = bib_style.bib-cite-func.with(bib-cite: bib-citefull)
