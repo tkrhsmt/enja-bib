@@ -64,11 +64,11 @@
 
 #let bibtex-article-journal-en = (none,"",set-url, "", ", ", (), ".")
 
-#let bibtex-article-year-en = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","journal"), "%year-doubling).")
-
 #let bibtex-article-volume-en = (none,"Vol.~",all_return, "", ", ", (), ".")
 
 #let bibtex-article-number-en = (none,"No.~",all_return, "", ", ", (), ".")
+
+#let bibtex-article-year-en = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","journal", "volume", "number"), "%year-doubling).")
 
 #let bibtex-article-pages-en = (none,"",page-set, "", ", ", (), ".")
 
@@ -81,9 +81,9 @@
   ("author", bibtex-article-author-en),
   ("title", bibtex-article-title-en),
   ("journal", bibtex-article-journal-en),
-  ("year", bibtex-article-year-en),
   ("volume", bibtex-article-volume-en),
   ("number", bibtex-article-number-en),
+  ("year", bibtex-article-year-en),
   ("pages", bibtex-article-pages-en),
   ("note", bibtex-article-note-en)
 )
@@ -96,11 +96,11 @@
 
 #let bibtex-article-journal-ja = (none,"",set-url, "", ", ", (), ".")
 
-#let bibtex-article-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","journal"), "%year-doubling).")
-
 #let bibtex-article-volume-ja = (none,"Vol.~",all_return, "", ", ", (), ".")
 
 #let bibtex-article-number-ja = (none,"No.~",all_return, "", ", ", (), ".")
+
+#let bibtex-article-year-ja = (" ","(",all_return, "%year-doubling)", ", ", ("author","title","journal", "volume", "number"), "%year-doubling).")
 
 #let bibtex-article-pages-ja = (none,"",page-set, "", ", ", (), ".")
 
@@ -113,9 +113,9 @@
   ("author", bibtex-article-author-ja),
   ("title", bibtex-article-title-ja),
   ("journal", bibtex-article-journal-ja),
-  ("year", bibtex-article-year-ja),
   ("volume", bibtex-article-volume-ja),
   ("number", bibtex-article-number-ja),
+  ("year", bibtex-article-year-ja),
   ("pages", bibtex-article-pages-ja),
   ("note", bibtex-article-note-ja)
 )
