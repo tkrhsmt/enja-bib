@@ -238,34 +238,132 @@
       author_str = contents-to-str(author_str)
   }
 
-  let author_arr = author_str.split("and")
+  let and_checker = ""//andの階層
+  let brace_checker = 1//{}の階層
+  let now_author = ""//現在の著者
+  let author_arr = ()
   let author_arr2 = ()
-  for value in author_arr{
-    let arr = value.split(",")
-    for num in range(arr.len()){
-      arr.at(num) = remove-space(arr.at(num))
-    }
+  let split_num = 0
+  let split_arr = ()
 
-    if arr.len() == 1{
-      let arr2 = arr.at(0).split(" ")
-      arr = (arr2.remove(-1), )
-      if arr2 != () {
-        arr.push(arr2.join(" "))
+  for character in author_str{
+    if character == "{"{//{の階層をカウント
+      brace_checker += 1
+      now_author += character
+    }
+    else if character == "}"{//}の階層をカウント
+      brace_checker -= 1
+      now_author += character
+    }
+    else if character == " " and and_checker == "" and brace_checker == 1{//{}の階層が一番低いときにandの階層 をカウント
+      and_checker += character
+    }
+    else if character == "a" and and_checker == " " and brace_checker == 1{//{}の階層が一番低いときにandの階層 aをカウント
+      and_checker += character
+    }
+    else if character == "n" and and_checker == " a" and brace_checker == 1{//{}の階層が一番低いときにandの階層 anをカウント
+      and_checker += character
+    }
+    else if character == "d" and and_checker == " an" and brace_checker == 1{//{}の階層が一番低いときにandの階層 andをカウント
+      and_checker += character
+    }
+    else if character == " " and and_checker == " and" and brace_checker == 1{//{}の階層が一番低いときにandの階層 and をカウントし，著者を区切る
+      and_checker = ""
+      now_author = remove-space(now_author)
+      if now_author != ""{
+        author_arr.push(now_author)
+        now_author = ""
       }
-      for num in range(arr.len()){
-        arr.at(num) = remove-space(arr.at(num))
+      if author_arr != (){
+        author_arr2.push(author_arr)
+        author_arr = ()
+        split_arr.push(split_num)
+        split_num = 0
       }
     }
+    else{
+      if and_checker != ""{
+        now_author += and_checker
+        and_checker = ""
+      }
 
-    author_str = arr.at(0)
-    if arr.len() > 1{
-      arr = arr.at(1).split(" ")
-      arr.insert(0, author_str)
+      if character == "," and brace_checker == 1{
+        split_num += 1
+      }
+
+      now_author += character
     }
-    author_arr2.push(arr)
   }
 
-  return author_arr2
+  if now_author != ""{
+    now_author = remove-space(now_author)
+    author_arr.push(now_author)
+    author_arr2.push(author_arr)
+    split_arr.push(split_num)
+  }
+  else if author_arr != (){
+    author_arr2.push(author_arr)
+    split_arr.push(split_num)
+  }
+
+  author_arr = author_arr2
+  let author_arr_output = ()
+  let index = 0
+
+  for arr in author_arr{
+    for author in arr{
+
+      brace_checker = 1//{}の階層
+      let split_checker = 1//,の階層
+      author_arr2 = ()
+      now_author = ""//現在の著者
+      for character in author{
+        if character == "{"{//{の階層をカウント
+          brace_checker += 1
+          now_author += character
+        }
+        else if character == "}"{//}の階層をカウント
+          brace_checker -= 1
+          now_author += character
+        }
+        else if character == "," and brace_checker == 1{
+          now_author = remove-space(now_author)
+          if now_author != ""{
+            author_arr2.push(now_author)
+            split_checker += 1
+            now_author = ""
+          }
+        }
+        else if character == " " and brace_checker == 1 and (split_arr.at(index) == 0 or split_checker > 1){
+          now_author = remove-space(now_author)
+          if now_author != ""{
+            author_arr2.push(now_author)
+            split_checker += 1
+            now_author = ""
+          }
+        }
+        else{
+          now_author += character
+        }
+      }
+
+      now_author = remove-space(now_author)
+      if now_author != ""{
+        author_arr2.push(now_author)
+      }
+
+      if split_arr.at(index) == 0 and author_arr2.len() > 1{//もし著者名にカンマが含まれないが，スペースで区切られている場合，最後の要素を先頭に移動
+        let tmp = author_arr2.remove(-1)
+        author_arr2.insert(0, tmp)
+      }
+
+      author_arr_output.push(author_arr2)
+
+    }
+    index += 1
+  }
+
+  return author_arr_output
 }
 
 // ---------- 項目を著者型にして返す関数 ---------- //
