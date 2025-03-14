@@ -689,3 +689,11 @@
 #let bib-citefull-default(bib_cite_contents) = {
   return bib_cite_contents.at(3)
 }
+
+#let bib-cite-authoronly(bib_cite_contents) = {
+  return bib_cite_contents.at(0)
+}
+
+#let bib-cite-yearonly(bib_cite_contents) = {
+  return bib_cite_contents.at(1)
+}
