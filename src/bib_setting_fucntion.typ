@@ -54,7 +54,7 @@
 }
 
 // ---------- 項目内をそのまま返す関数 ---------- //
-#let all_return(biblist, name) = {
+#let all-return(biblist, name) = {
   return biblist.at(name, default: ("",)).sum()
 }
 
@@ -488,21 +488,21 @@
 }
 
 // ---------- URLを付与して返す関数 ---------- //
-#let set-url(biblist, name) = {
+#let set-url(biblist, name, color: blue) = {
 
   if biblist.at("url", default: none) != none{//urlがある場合
     let url = biblist.at("url").sum()
     if type(url) == content{
       url = contents-to-str(url)
     }
-    return link(url, text(fill: blue, biblist.at(name).sum()))
+    return link(url, text(fill: color, biblist.at(name).sum()))
   }
   else if biblist.at("doi", default: none) != none{//doiがある場合
     let url = biblist.at("doi").sum()
     if type(url) == content{
       url = contents-to-str(url)
     }
-    return link(url, text(fill: blue, biblist.at(name).sum()))
+    return link(url, text(fill: color, biblist.at(name).sum()))
   }
   else{//urlがない場合
     return biblist.at(name).sum()
