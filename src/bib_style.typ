@@ -116,6 +116,7 @@
   vancouver_style,
   bib-year-doubling,
   bib-vancouver-manual,
+  hanging-indent,
   content_raw
 ) = {
 
@@ -278,7 +279,7 @@
       }
     }
     else{
-      set par(hanging-indent: 2em)
+      set par(hanging-indent: hanging-indent)
       output_bib.sum()
     }
   }
@@ -299,18 +300,13 @@
   vancouver_style: false,
   bib-year-doubling: "a",
   bib-vancouver-manual: "",
-  lang: "ja",
+  hanging-indent: 2em,
+  title: [文　　　献],
    ..body
   ) = {
 
-  if lang == "ja"{
-    heading("文　　　献", numbering: none)
-  }
-  else if lang == "en"{
-    heading("References", numbering: none)
-  }
-  else if lang != "" and type(lang) == str{
-    heading(lang, numbering: none)
+  if title != none{
+    heading(title, numbering: none)
   }
 
   set par(first-line-indent: 0em)
@@ -330,6 +326,7 @@
     vancouver_style,
     bib-year-doubling,
     bib-vancouver-manual,
+    hanging-indent,
     bib_content
   )
 }

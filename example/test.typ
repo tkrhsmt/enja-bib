@@ -21,7 +21,7 @@
 #block(width: 100%, stroke: black, inset: 10pt,[
 ```typst
 #bibliography-list(
-  lang: "参考文献",
+  title: [参考文献],
   ..bib-file(read("mybib_jp.bib")),
   ..bib-file(read("mybib_en.bib"))
 )
@@ -30,7 +30,7 @@
 )
 
 #bibliography-list(
-  lang: "参考文献",
+  title: [参考文献],
   ..bib-file(read("mybib_jp.bib")),
   ..bib-file(read("mybib_en.bib"))
 )
