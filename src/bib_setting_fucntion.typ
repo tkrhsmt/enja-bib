@@ -451,39 +451,16 @@
 // ---------- 項目をciteの著者型にして返す関数 ---------- //
 #let author-set-cite(biblist, name) = {
 
-  let author_str = biblist.at(name, default:("",)).sum()
-  if type(author_str) == content{
-      author_str = contents-to-str(author_str)
-  }
 
-  let author_arr = author_str.split("and")
   let author_arr2 = ()
-  for value in author_arr{
-    let arr = value.split(",")
-    for num in range(arr.len()){
-      arr.at(num) = remove-space(arr.at(num))
-    }
-
-    if arr.len() == 1{
-      let arr2 = arr.at(0).split(" ")
-      arr = (arr2.remove(-1), )
-      if arr2 != () {
-        arr.push(arr2.join(" "))
-      }
-      for num in range(arr.len()){
-        arr.at(num) = remove-space(arr.at(num))
-      }
-    }
-
-    author_str = arr.at(0)
-    if arr.len() > 1{
-      arr = arr.at(1).split(" ")
-      arr.insert(0, author_str)
-    }
-    author_arr2.push(arr)
+  if biblist.at(name, default: "") != ""{
+    author_arr2 = author-make-arr(biblist, name)
+  }
+  else{
+    author_arr2 = (("",),)
   }
 
-  author_arr = ()
+  let author_arr = ()
 
   for author in author_arr2{
 
