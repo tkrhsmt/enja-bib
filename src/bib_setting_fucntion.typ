@@ -54,7 +54,7 @@
 }
 
 // ---------- 項目内をそのまま返す関数 ---------- //
-#let all_return(biblist, name) = {
+#let all-return(biblist, name) = {
   return biblist.at(name, default: ("",)).sum()
 }
 
@@ -238,34 +238,132 @@
       author_str = contents-to-str(author_str)
   }
 
-  let author_arr = author_str.split("and")
+  let and_checker = ""//andの階層
+  let brace_checker = 1//{}の階層
+  let now_author = ""//現在の著者
+  let author_arr = ()
   let author_arr2 = ()
-  for value in author_arr{
-    let arr = value.split(",")
-    for num in range(arr.len()){
-      arr.at(num) = remove-space(arr.at(num))
-    }
+  let split_num = 0
+  let split_arr = ()
 
-    if arr.len() == 1{
-      let arr2 = arr.at(0).split(" ")
-      arr = (arr2.remove(-1), )
-      if arr2 != () {
-        arr.push(arr2.join(" "))
+  for character in author_str{
+    if character == "{"{//{の階層をカウント
+      brace_checker += 1
+      now_author += character
+    }
+    else if character == "}"{//}の階層をカウント
+      brace_checker -= 1
+      now_author += character
+    }
+    else if character == " " and and_checker == "" and brace_checker == 1{//{}の階層が一番低いときにandの階層 をカウント
+      and_checker += character
+    }
+    else if character == "a" and and_checker == " " and brace_checker == 1{//{}の階層が一番低いときにandの階層 aをカウント
+      and_checker += character
+    }
+    else if character == "n" and and_checker == " a" and brace_checker == 1{//{}の階層が一番低いときにandの階層 anをカウント
+      and_checker += character
+    }
+    else if character == "d" and and_checker == " an" and brace_checker == 1{//{}の階層が一番低いときにandの階層 andをカウント
+      and_checker += character
+    }
+    else if character == " " and and_checker == " and" and brace_checker == 1{//{}の階層が一番低いときにandの階層 and をカウントし，著者を区切る
+      and_checker = ""
+      now_author = remove-space(now_author)
+      if now_author != ""{
+        author_arr.push(now_author)
+        now_author = ""
       }
-      for num in range(arr.len()){
-        arr.at(num) = remove-space(arr.at(num))
+      if author_arr != (){
+        author_arr2.push(author_arr)
+        author_arr = ()
+        split_arr.push(split_num)
+        split_num = 0
       }
     }
+    else{
+      if and_checker != ""{
+        now_author += and_checker
+        and_checker = ""
+      }
 
-    author_str = arr.at(0)
-    if arr.len() > 1{
-      arr = arr.at(1).split(" ")
-      arr.insert(0, author_str)
+      if character == "," and brace_checker == 1{
+        split_num += 1
+      }
+
+      now_author += character
     }
-    author_arr2.push(arr)
   }
 
-  return author_arr2
+  if now_author != ""{
+    now_author = remove-space(now_author)
+    author_arr.push(now_author)
+    author_arr2.push(author_arr)
+    split_arr.push(split_num)
+  }
+  else if author_arr != (){
+    author_arr2.push(author_arr)
+    split_arr.push(split_num)
+  }
+
+  author_arr = author_arr2
+  let author_arr_output = ()
+  let index = 0
+
+  for arr in author_arr{
+    for author in arr{
+
+      brace_checker = 1//{}の階層
+      let split_checker = 1//,の階層
+      author_arr2 = ()
+      now_author = ""//現在の著者
+      for character in author{
+        if character == "{"{//{の階層をカウント
+          brace_checker += 1
+          now_author += character
+        }
+        else if character == "}"{//}の階層をカウント
+          brace_checker -= 1
+          now_author += character
+        }
+        else if character == "," and brace_checker == 1{
+          now_author = remove-space(now_author)
+          if now_author != ""{
+            author_arr2.push(now_author)
+            split_checker += 1
+            now_author = ""
+          }
+        }
+        else if character == " " and brace_checker == 1 and (split_arr.at(index) == 0 or split_checker > 1){
+          now_author = remove-space(now_author)
+          if now_author != ""{
+            author_arr2.push(now_author)
+            split_checker += 1
+            now_author = ""
+          }
+        }
+        else{
+          now_author += character
+        }
+      }
+
+      now_author = remove-space(now_author)
+      if now_author != ""{
+        author_arr2.push(now_author)
+      }
+
+      if split_arr.at(index) == 0 and author_arr2.len() > 1{//もし著者名にカンマが含まれないが，スペースで区切られている場合，最後の要素を先頭に移動
+        let tmp = author_arr2.remove(-1)
+        author_arr2.insert(0, tmp)
+      }
+
+      author_arr_output.push(author_arr2)
+
+    }
+    index += 1
+  }
+
+  return author_arr_output
 }
 
 // ---------- 項目を著者型にして返す関数 ---------- //
@@ -353,39 +451,16 @@
 // ---------- 項目をciteの著者型にして返す関数 ---------- //
 #let author-set-cite(biblist, name) = {
 
-  let author_str = biblist.at(name, default:("",)).sum()
-  if type(author_str) == content{
-      author_str = contents-to-str(author_str)
-  }
 
-  let author_arr = author_str.split("and")
   let author_arr2 = ()
-  for value in author_arr{
-    let arr = value.split(",")
-    for num in range(arr.len()){
-      arr.at(num) = remove-space(arr.at(num))
-    }
-
-    if arr.len() == 1{
-      let arr2 = arr.at(0).split(" ")
-      arr = (arr2.remove(-1), )
-      if arr2 != () {
-        arr.push(arr2.join(" "))
-      }
-      for num in range(arr.len()){
-        arr.at(num) = remove-space(arr.at(num))
-      }
-    }
-
-    author_str = arr.at(0)
-    if arr.len() > 1{
-      arr = arr.at(1).split(" ")
-      arr.insert(0, author_str)
-    }
-    author_arr2.push(arr)
+  if biblist.at(name, default: "") != ""{
+    author_arr2 = author-make-arr(biblist, name)
+  }
+  else{
+    author_arr2 = (("",),)
   }
 
-  author_arr = ()
+  let author_arr = ()
 
   for author in author_arr2{
 
@@ -488,21 +563,21 @@
 }
 
 // ---------- URLを付与して返す関数 ---------- //
-#let set-url(biblist, name) = {
+#let set-url(biblist, name, color: blue) = {
 
   if biblist.at("url", default: none) != none{//urlがある場合
     let url = biblist.at("url").sum()
     if type(url) == content{
       url = contents-to-str(url)
     }
-    return link(url, text(fill: blue, biblist.at(name).sum()))
+    return link(url, text(fill: color, biblist.at(name).sum()))
   }
   else if biblist.at("doi", default: none) != none{//doiがある場合
     let url = biblist.at("doi").sum()
     if type(url) == content{
       url = contents-to-str(url)
     }
-    return link(url, text(fill: blue, biblist.at(name).sum()))
+    return link(url, text(fill: color, biblist.at(name).sum()))
   }
   else{//urlがない場合
     return biblist.at(name).sum()
@@ -609,4 +684,16 @@
 
 #let bib-citen-default(bib_cite_contents) = {
   return str(bib_cite_contents.at(2))
+}
+
+#let bib-citefull-default(bib_cite_contents) = {
+  return bib_cite_contents.at(3)
+}
+
+#let bib-cite-authoronly(bib_cite_contents) = {
+  return bib_cite_contents.at(0)
+}
+
+#let bib-cite-yearonly(bib_cite_contents) = {
+  return bib_cite_contents.at(1)
 }
