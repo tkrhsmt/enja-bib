@@ -217,13 +217,48 @@
 #let author-en4(author_arr) = {
 
   let an_author = author_arr
+  let author_str = ""
+  let author_str2 = ""
   let author_first = an_author.remove(0)
 
-  if author_first != ""{
-    author_first = " " + author_first
+  if author_first.len() != 0{
+    let brace_num = 0
+    let num = 0
+    for value in author_first{
+      if value == "{"{
+        brace_num += 1
+      }
+      else if value == "}"{
+        brace_num -= 1
+      }
+      else{
+
+        if value == "-"{// ハイフンの直後の文字を大文字にする
+          num = -1
+        }
+
+        if brace_num == 0{
+          if num == 0{
+            author_str += upper(value)
+          }
+          else{
+            author_str += lower(value)
+          }
+        }
+        else{
+          author_str += value
+        }
+      }
+      num += 1
+    }
+  }
+  for value in an_author{
+    if value.len() != 0{
+      author_str2 += value + " "
+    }
   }
 
-  return an_author.join(" ") + author_first
+  return author_str2 + author_str
 }
 
 // ---------- 日本語の著者名はそのまま繋げて出力 ---------- //
