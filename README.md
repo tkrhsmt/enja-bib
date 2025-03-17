@@ -93,17 +93,22 @@
 
 例：
 ```typst
-bib-item(
-    label: <Reynolds:PhilTransRoySoc1883>,
-    author: "Reynolds",
-    year: "1883",
-    yomi: "reynolds, o.",
-    (
-        [Reynolds, O., An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels, Philosophical Transactions of the Royal Society of London (1883],
-        [), Vol. 174, pp. 935–982]
-    )
+#bibliography-list(
+  bib-item(
+      label: <Reynolds:PhilTransRoySoc1883>,
+      author: "Reynolds",
+      year: "1883",
+      yomi: "reynolds, o.",
+      (
+          [Reynolds, O., An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels, Philosophical Transactions of the Royal Society of London (1883],
+          [), Vol. 174, pp. 935–982]
+      )
+  ),
 )
 ```
+
+直書き要素には，`content`型か`array`型を利用する．
+`array`型では直書き成分を上記のように2つに分けることで，その間に`year-doubling`が設定される．
 
 引数
 - `label` : ラベル（引用する際には必須）
@@ -115,7 +120,7 @@ bib-item(
 
 文中で引用するときに使用する関数．`@...`のように書いても引用できるが，
 ```typst
-    #citet(<Reynolds:PhilTransRoySoc1883>)
+ #citet(<Reynolds:PhilTransRoySoc1883>)
 ```
 のように書くことで引用も可能．
 それぞれの関数は，複数の文献入力にも対応（例：`#citet(<Reynolds:PhilTransRoySoc1883>, <Matsukawa:ICFD2022>)`）
@@ -213,7 +218,7 @@ bib-item(
 
 
 ```typst
-#let bib-file(file_contents) = bib_style.bib-file(
+#bib-file((
   year-doubling,
   bibtex-article-en,
   bibtex-article-ja,
@@ -247,7 +252,6 @@ bib-item(
   bibtex-unpublished-ja,
   bib-cite-author,
   bib-cite-year,
-  file_contents
 )
 ```
 
