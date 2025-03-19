@@ -2,6 +2,7 @@
 日本語／英語文献 Typstパッケージ
 
 A package for handling BibTeX that includes both English and Japanese.
+Licensed under MIT.
 
 ## 本パッケージの特徴
 
