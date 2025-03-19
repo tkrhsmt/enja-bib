@@ -1,6 +1,9 @@
 # typst-BibTeX-jp
 日本語／英語文献 Typstパッケージ
 
+A package for handling BibTeX that includes both English and Japanese.
+Licensed under MIT.
+
 ## 本パッケージの特徴
 
 - 日本語文献と英語文献が混在した文書に対応
@@ -14,6 +17,17 @@
 > 変更方法は以下を参照．
 
 ## パッケージの使い方
+
+### Typst Universeを使用する方法
+
+1. 自分のtypstファイルの最初の方に以下を追記
+    ```typst
+    #import "@preview/enja-bib:0.1.0": *
+    #import bib_setting_plain: *
+    #show: bib_init
+    ```
+
+### フォルダを直接コピーする方法
 
 1. `bib_style`フォルダを自分のディレクトリにコピー
 1. 自分のtypstファイルの最初の方に以下を追記
@@ -82,17 +96,22 @@
 
 例：
 ```typst
-bib-item(
-    label: <Reynolds:PhilTransRoySoc1883>,
-    author: "Reynolds",
-    year: "1883",
-    yomi: "reynolds, o.",
-    (
-        [Reynolds, O., An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels, Philosophical Transactions of the Royal Society of London (1883],
-        [), Vol. 174, pp. 935–982]
-    )
+#bibliography-list(
+  bib-item(
+      label: <Reynolds:PhilTransRoySoc1883>,
+      author: "Reynolds",
+      year: "1883",
+      yomi: "reynolds, o.",
+      (
+          [Reynolds, O., An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels, Philosophical Transactions of the Royal Society of London (1883],
+          [), Vol. 174, pp. 935–982]
+      )
+  ),
 )
 ```
+
+直書き要素には，`content`型か`array`型を利用する．
+`array`型では直書き成分を上記のように2つに分けることで，その間に`year-doubling`が設定される．
 
 引数
 - `label` : ラベル（引用する際には必須）
@@ -104,7 +123,7 @@ bib-item(
 
 文中で引用するときに使用する関数．`@...`のように書いても引用できるが，
 ```typst
-    #citet(<Reynolds:PhilTransRoySoc1883>)
+ #citet(<Reynolds:PhilTransRoySoc1883>)
 ```
 のように書くことで引用も可能．
 それぞれの関数は，複数の文献入力にも対応（例：`#citet(<Reynolds:PhilTransRoySoc1883>, <Matsukawa:ICFD2022>)`）
@@ -202,7 +221,7 @@ bib-item(
 
 
 ```typst
-#let bib-file(file_contents) = bib_style.bib-file(
+#bib-file((
   year-doubling,
   bibtex-article-en,
   bibtex-article-ja,
@@ -236,7 +255,6 @@ bib-item(
   bibtex-unpublished-ja,
   bib-cite-author,
   bib-cite-year,
-  file_contents
 )
 ```
 
