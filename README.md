@@ -1,4 +1,4 @@
-# typst-BibTeX-jp
+# enja-bib
 日本語／英語文献 Typstパッケージ
 
 A package for handling BibTeX that includes both English and Japanese.
