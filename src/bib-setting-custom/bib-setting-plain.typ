@@ -1,5 +1,5 @@
-#import "../bib_style.typ"
-#import "../bib_setting_fucntion.typ": *
+#import "../bib-style.typ"
+#import "../bib-setting-fucntion.typ": *
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // 引用スタイル設定 (ここにある変数名は変えたり消したりしないよう注意)
@@ -23,7 +23,7 @@
 
 // vancouverスタイル設定
 #let bib-vancouver = "[1]"
-#let vancouver_style = true
+#let vancouver-style = true
 
 // 重複著者・年号文献の year-doubling に表示する文字列
 #let bib-year-doubling = "a"
@@ -1113,20 +1113,20 @@
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
-#let bib_init = bib_style.bib_init.with(bib-cite: bib-cite)
+#let bib-init = bib-style.bib-init.with(bib-cite: bib-cite)
 
-#let bibliography-list = bib_style.bibliography-list.with(
+#let bibliography-list = bib-style.bibliography-list.with(
   year-doubling: year-doubling,
   bib-sort: bib-sort,
   bib-sort-ref: bib-sort-ref,
   bib-full: bib-full,
   bib-vancouver: bib-vancouver,
-  vancouver_style: vancouver_style,
+  vancouver-style: vancouver-style,
   bib-year-doubling: bib-year-doubling,
   bib-vancouver-manual: bib-vancouver-manual,
 )
 
-#let bib-tex  = bib_style.bib-tex.with(
+#let bib-tex  = bib-style.bib-tex.with(
   year-doubling:  year-doubling,
   bibtex-article-en:  bibtex-article-en,
   bibtex-article-ja:  bibtex-article-ja,
@@ -1162,7 +1162,7 @@
   bib-cite-year:  bib-cite-year,
 )
 
-#let bib-file = bib_style.bib-file.with(
+#let bib-file = bib-style.bib-file.with(
   year-doubling:   year-doubling,
   bibtex-article-en:   bibtex-article-en,
   bibtex-article-ja:   bibtex-article-ja,
@@ -1198,12 +1198,12 @@
   bib-cite-year:   bib-cite-year,
 )
 
-#let bib-item = bib_style.bib-item
+#let bib-item = bib-style.bib-item
 
-#let citet = bib_style.bib-cite-func.with(bib-cite: bib-citet)
+#let citet = bib-style.bib-cite-func.with(bib-cite: bib-citet)
 
-#let citep = bib_style.bib-cite-func.with(bib-cite: bib-citep)
+#let citep = bib-style.bib-cite-func.with(bib-cite: bib-citep)
 
-#let citen = bib_style.bib-cite-func.with(bib-cite: bib-citen)
+#let citen = bib-style.bib-cite-func.with(bib-cite: bib-citen)
 
-#let citefull = bib_style.bib-cite-func.with(bib-cite: bib-citefull)
+#let citefull = bib-style.bib-cite-func.with(bib-cite: bib-citefull)
