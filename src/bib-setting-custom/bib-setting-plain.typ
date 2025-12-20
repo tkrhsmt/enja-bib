@@ -1,5 +1,5 @@
 #import "../bib-style.typ"
-#import "../bib-setting-fucntion.typ": *
+#import "../bib-setting-function.typ": *
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // 引用スタイル設定 (ここにある変数名は変えたり消したりしないよう注意)
