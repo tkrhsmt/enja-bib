@@ -1,5 +1,5 @@
 #import "../bib-style.typ"
-#import "../bib-setting-fucntion.typ": *
+#import "../bib-setting-function.typ": *
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 // 引用スタイル設定 (ここにある変数名は変えたり消したりしないよう注意)
@@ -1003,7 +1003,7 @@
 
 #let bibtex-techreport-institution-en = (none,"",all-return, "", ", ", (), ".")
 
-#let bibtex-techrepot-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-address-en = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-techreport-month-en = (none,"",all-return, "", ". ", (), ".")
 
@@ -1020,7 +1020,7 @@
   ("type", bibtex-techreport-type-en),
   ("number", bibtex-techreport-number-en),
   ("institution", bibtex-techreport-institution-en),
-  ("address", bibtex-techrepot-address-en),
+  ("address", bibtex-techreport-address-en),
   ("month", bibtex-techreport-month-en),
   ("year", bibtex-techreport-year-en),
   ("note", bibtex-techreport-note-en)
@@ -1038,7 +1038,7 @@
 
 #let bibtex-techreport-institution-ja = (none,"",all-return, "", ", ", (), ".")
 
-#let bibtex-techrepot-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-address-ja = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-techreport-month-ja = (none,"",all-return, "", ". ", (), ".")
 
@@ -1055,7 +1055,7 @@
   ("type", bibtex-techreport-type-ja),
   ("number", bibtex-techreport-number-ja),
   ("institution", bibtex-techreport-institution-ja),
-  ("address", bibtex-techrepot-address-ja),
+  ("address", bibtex-techreport-address-ja),
   ("month", bibtex-techreport-month-ja),
   ("year", bibtex-techreport-year-ja),
   ("note", bibtex-techreport-note-ja)

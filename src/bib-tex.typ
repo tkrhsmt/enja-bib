@@ -1,4 +1,4 @@
-#import "bib-setting-fucntion.typ": *
+#import "bib-setting-function.typ": *
 
 //---------- 文字列から，最初の{までを取り除く関数 ---------- //
 #let remove-brace-l(text, remove_str: "{") = {
