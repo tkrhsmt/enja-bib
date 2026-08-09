@@ -40,7 +40,7 @@
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 // -------------------- cite --------------------
-#let bib-cite  = ([\[], bib-citen-default, [, ], [\]])
+#let bib-cite = ([\[], bib-citen-default, [, ], [\]])
 
 // -------------------- citet --------------------
 #let bib-citet = ([], bib-citet-default, [; ], [])
@@ -61,23 +61,23 @@
 
 // -------------------- article (英語) --------------------
 
-#let bibtex-article-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-article-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-article-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-article-title-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-article-journal-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-article-journal-en = (none, "", all-emph, "", ", ", (), ".")
 
-#let bibtex-article-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
+#let bibtex-article-volume-en = (none, "Vol. ", all-return, "", ", ", (), ".")
 
-#let bibtex-article-number-en = (none,"No. ",all-return, "", ", ", ").")
+#let bibtex-article-number-en = (none, "No. ", all-return, "", ", ", ").")
 
-#let bibtex-article-pages-en = (none,"",page-set, "", ", ", (), ".")
+#let bibtex-article-pages-en = (none, "", page-set, "", ", ", (), ".")
 
-#let bibtex-article-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-article-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-article-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-article-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-article-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-article-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -91,28 +91,28 @@
   ("pages", bibtex-article-pages-en),
   ("month", bibtex-article-month-en),
   ("year", bibtex-article-year-en),
-  ("note", bibtex-article-note-en)
+  ("note", bibtex-article-note-en),
 )
 
 // -------------------- article (日本語) --------------------
 
-#let bibtex-article-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-article-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-article-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-article-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-article-journal-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-article-journal-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-article-volume-ja = (none,"Vol. ",all-return, "", ", ", (), ".")
+#let bibtex-article-volume-ja = (none, "Vol. ", all-return, "", ", ", (), ".")
 
-#let bibtex-article-number-ja = (none,"No. ",all-return, "", ", ", ").")
+#let bibtex-article-number-ja = (none, "No. ", all-return, "", ", ", ").")
 
-#let bibtex-article-pages-ja = (none,"",page-set, "", ", ", (), ".")
+#let bibtex-article-pages-ja = (none, "", page-set, "", ", ", (), ".")
 
-#let bibtex-article-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-article-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-article-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-article-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-article-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-article-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -126,30 +126,30 @@
   ("pages", bibtex-article-pages-ja),
   ("month", bibtex-article-month-ja),
   ("year", bibtex-article-year-ja),
-  ("note", bibtex-article-note-ja)
+  ("note", bibtex-article-note-ja),
 )
 
 // -------------------- book (英語) --------------------
 
-#let bibtex-book-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-book-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-book-title-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-book-title-en = (none, "", all-emph, "", ", ", (), ".")
 
-#let bibtex-book-volume-en = (none,"Vol. ",all-return, "", ". ", (), ".")
+#let bibtex-book-volume-en = (none, "Vol. ", all-return, "", ". ", (), ".")
 
-#let bibtex-book-series-en = (" of ","",all-emph, "", ". ", ("volume"), ".")
+#let bibtex-book-series-en = (" of ", "", all-emph, "", ". ", "volume", ".")
 
-#let bibtex-book-publisher-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-book-publisher-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-book-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-book-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-book-edition-en = (none,"",all-return, " edition", ", ", (), ".")
+#let bibtex-book-edition-en = (none, "", all-return, " edition", ", ", (), ".")
 
-#let bibtex-book-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-book-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-book-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-book-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-book-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-book-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -164,30 +164,30 @@
   ("edition", bibtex-book-edition-en),
   ("month", bibtex-book-month-en),
   ("year", bibtex-book-year-en),
-  ("note", bibtex-book-note-en)
+  ("note", bibtex-book-note-en),
 )
 
 // -------------------- book (日本語) --------------------
 
-#let bibtex-book-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-book-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-book-title-ja = (none,"",remove-str-brace, "", ", ", (), ".")
+#let bibtex-book-title-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-book-series-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-book-series-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-book-volume-ja = (none,"第",all-return, "巻", ". ", (), "巻.")
+#let bibtex-book-volume-ja = (none, "第", all-return, "巻", ". ", (), "巻.")
 
-#let bibtex-book-publisher-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-book-publisher-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-book-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-book-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-book-edition-ja = (none,"第",all-return, "版", ", ", (), "版.")
+#let bibtex-book-edition-ja = (none, "第", all-return, "版", ", ", (), "版.")
 
-#let bibtex-book-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-book-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-book-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-book-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-book-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-book-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -202,24 +202,24 @@
   ("edition", bibtex-book-edition-ja),
   ("month", bibtex-book-month-ja),
   ("year", bibtex-book-year-ja),
-  ("note", bibtex-book-note-ja)
+  ("note", bibtex-book-note-ja),
 )
 
 // -------------------- booklet (英語) --------------------
 
-#let bibtex-booklet-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-booklet-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-booklet-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-booklet-title-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-booklet-howpublished-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-booklet-howpublished-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-booklet-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-booklet-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-booklet-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-booklet-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-booklet-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-booklet-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-booklet-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-booklet-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -231,24 +231,24 @@
   ("address", bibtex-booklet-address-en),
   ("month", bibtex-booklet-month-en),
   ("year", bibtex-booklet-year-en),
-  ("note", bibtex-booklet-note-en)
+  ("note", bibtex-booklet-note-en),
 )
 
 // -------------------- booklet (日本語) --------------------
 
-#let bibtex-booklet-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-booklet-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-booklet-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-booklet-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-booklet-howpublished-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-booklet-howpublished-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-booklet-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-booklet-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-booklet-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-booklet-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-booklet-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-booklet-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-booklet-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-booklet-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -260,34 +260,34 @@
   ("address", bibtex-booklet-address-ja),
   ("month", bibtex-booklet-month-ja),
   ("year", bibtex-booklet-year-ja),
-  ("note", bibtex-booklet-note-ja)
+  ("note", bibtex-booklet-note-ja),
 )
 
 // -------------------- inbook (英語) --------------------
 
-#let bibtex-inbook-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-inbook-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-inbook-title-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-inbook-title-en = (none, "", all-emph, "", ", ", (), ".")
 
-#let bibtex-inbook-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
+#let bibtex-inbook-volume-en = (none, "Vol. ", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-series-en = (" of ","",all-emph, "", ", ", ("volume"), ".")
+#let bibtex-inbook-series-en = (" of ", "", all-emph, "", ", ", "volume", ".")
 
-#let bibtex-inbook-chapter-en = (none,"chapter ",all-return, "", ", ", (), ".")
+#let bibtex-inbook-chapter-en = (none, "chapter ", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-pages-en = (none,"",page-set, "", ". ", (), ".")
+#let bibtex-inbook-pages-en = (none, "", page-set, "", ". ", (), ".")
 
-#let bibtex-inbook-publisher-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-publisher-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-edition-en = (none,"",all-return, " edition", ", ", (), ".")
+#let bibtex-inbook-edition-en = (none, "", all-return, " edition", ", ", (), ".")
 
-#let bibtex-inbook-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inbook-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-inbook-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-inbook-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-inbook-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -304,34 +304,34 @@
   ("edition", bibtex-inbook-edition-en),
   ("month", bibtex-inbook-month-en),
   ("year", bibtex-inbook-year-en),
-  ("note", bibtex-inbook-note-en)
+  ("note", bibtex-inbook-note-en),
 )
 
 // -------------------- inbook (日本語) --------------------
 
-#let bibtex-inbook-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-inbook-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-inbook-title-ja = (none,"",remove-str-brace, "", ", ", (), ".")
+#let bibtex-inbook-title-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-series-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-series-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-volume-ja = (none,"第",all-return, "巻", ", ", (), "巻.")
+#let bibtex-inbook-volume-ja = (none, "第", all-return, "巻", ", ", (), "巻.")
 
-#let bibtex-inbook-chapter-ja = (none,"第",all-return, "章", ", ", (), "章.")
+#let bibtex-inbook-chapter-ja = (none, "第", all-return, "章", ", ", (), "章.")
 
-#let bibtex-inbook-pages-ja = (none,"",page-set, "", ". ", (), ".")
+#let bibtex-inbook-pages-ja = (none, "", page-set, "", ". ", (), ".")
 
-#let bibtex-inbook-publisher-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-publisher-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-edition-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-edition-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inbook-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inbook-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-inbook-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-inbook-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-inbook-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inbook-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -348,38 +348,38 @@
   ("edition", bibtex-inbook-edition-ja),
   ("month", bibtex-inbook-month-ja),
   ("year", bibtex-inbook-year-ja),
-  ("note", bibtex-inbook-note-ja)
+  ("note", bibtex-inbook-note-ja),
 )
 
 // -------------------- incollection (英語) --------------------
 
-#let bibtex-incollection-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-incollection-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-incollection-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-incollection-title-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-incollection-editor-en = (none,"In ",author-set3, ", editor", ", ", (), ", editor.")
+#let bibtex-incollection-editor-en = (none, "In ", author-set3, ", editor", ", ", (), ", editor.")
 
-#let bibtex-incollection-booktitle-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-incollection-bookall-return = (none, "", all-emph, "", ", ", (), ".")
 
-#let bibtex-incollection-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
+#let bibtex-incollection-volume-en = (none, "Vol. ", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-series-en = (" of ","",all-emph, "", ", ", ("volume"), ".")
+#let bibtex-incollection-series-en = (" of ", "", all-emph, "", ", ", "volume", ".")
 
-#let bibtex-incollection-chapter-en = (none,"chapter ",all-return, "", ", ", (), ".")
+#let bibtex-incollection-chapter-en = (none, "chapter ", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-pages-en = (none,"",page-set, "", ". ", (), ".")
+#let bibtex-incollection-pages-en = (none, "", page-set, "", ". ", (), ".")
 
-#let bibtex-incollection-publisher-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-publisher-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-edition-en = (none,"",all-return, " edition", ", ", (), ".")
+#let bibtex-incollection-edition-en = (none, "", all-return, " edition", ", ", (), ".")
 
-#let bibtex-incollection-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-incollection-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-incollection-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-incollection-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-incollection-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -388,7 +388,7 @@
   ("author", bibtex-incollection-author-en),
   ("title", bibtex-incollection-title-en),
   ("editor", bibtex-incollection-editor-en),
-  ("booktitle", bibtex-incollection-booktitle-en),
+  ("booktitle", bibtex-incollection-bookall-return),
   ("volume", bibtex-incollection-volume-en),
   ("series", bibtex-incollection-series-en),
   ("chapter", bibtex-incollection-chapter-en),
@@ -398,38 +398,38 @@
   ("edition", bibtex-incollection-edition-en),
   ("month", bibtex-incollection-month-en),
   ("year", bibtex-incollection-year-en),
-  ("note", bibtex-incollection-note-en)
+  ("note", bibtex-incollection-note-en),
 )
 
 // -------------------- incollection (日本語) --------------------
 
-#let bibtex-incollection-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-incollection-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-incollection-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-incollection-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-incollection-editor-ja = (none,"",author-set3, "（編）", ", ", (), ", （編）.")
+#let bibtex-incollection-editor-ja = (none, "", author-set3, "（編）", ", ", (), ", （編）.")
 
-#let bibtex-incollection-booktitle-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-booktitle-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-series-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-series-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-volume-ja = (none,"第",all-return, "巻", ", ", (), "巻.")
+#let bibtex-incollection-volume-ja = (none, "第", all-return, "巻", ", ", (), "巻.")
 
-#let bibtex-incollection-chapter-ja = (none,"第",all-return, "章", ", ", (), "章.")
+#let bibtex-incollection-chapter-ja = (none, "第", all-return, "章", ", ", (), "章.")
 
-#let bibtex-incollection-pages-ja = (none,"",page-set, "", ". ", (), ".")
+#let bibtex-incollection-pages-ja = (none, "", page-set, "", ". ", (), ".")
 
-#let bibtex-incollection-publisher-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-publisher-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-edition-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-edition-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-incollection-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-incollection-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-incollection-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-incollection-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -448,36 +448,36 @@
   ("edition", bibtex-incollection-edition-ja),
   ("month", bibtex-incollection-month-ja),
   ("year", bibtex-incollection-year-ja),
-  ("note", bibtex-incollection-note-ja)
+  ("note", bibtex-incollection-note-ja),
 )
 
 // -------------------- inproceedings (英語) --------------------
 
-#let bibtex-inproceedings-author-en = (none,"",author-set3, "", ", ", (), ".")
+#let bibtex-inproceedings-author-en = (none, "", author-set3, "", ", ", (), ".")
 
-#let bibtex-inproceedings-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-inproceedings-title-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-editor-en = (none,"In ",author-set3, ", editor", ", ", (), ", editor.")
+#let bibtex-inproceedings-editor-en = (none, "In ", author-set3, ", editor", ", ", (), ", editor.")
 
-#let bibtex-inproceedings-booktitle-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-inproceedings-bookall-return = (none, "", all-emph, "", ", ", (), ".")
 
-#let bibtex-inproceedings-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-volume-en = (none, "Vol. ", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-series-en = (" of ","",all-emph, "", ", ", ("volume"), ".")
+#let bibtex-inproceedings-series-en = (" of ", "", all-emph, "", ", ", "volume", ".")
 
-#let bibtex-inproceedings-pages-en = (none,"",page-set, "", ". ", (), ".")
+#let bibtex-inproceedings-pages-en = (none, "", page-set, "", ". ", (), ".")
 
-#let bibtex-inproceedings-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inproceedings-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-inproceedings-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-inproceedings-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-inproceedings-organization-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-organization-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-publisher-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inproceedings-publisher-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-inproceedings-note-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inproceedings-note-en = (none, "", all-return, "", ". ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -486,7 +486,7 @@
   ("author", bibtex-inproceedings-author-en),
   ("title", bibtex-inproceedings-title-en),
   ("editor", bibtex-inproceedings-editor-en),
-  ("booktitle", bibtex-inproceedings-booktitle-en),
+  ("booktitle", bibtex-inproceedings-bookall-return),
   ("volume", bibtex-inproceedings-volume-en),
   ("series", bibtex-inproceedings-series-en),
   ("pages", bibtex-inproceedings-pages-en),
@@ -495,36 +495,36 @@
   ("year", bibtex-inproceedings-year-en),
   ("organization", bibtex-inproceedings-organization-en),
   ("publisher", bibtex-inproceedings-publisher-en),
-  ("note", bibtex-inproceedings-note-en)
+  ("note", bibtex-inproceedings-note-en),
 )
 
 // -------------------- inproceedings (日本語) --------------------
 
-#let bibtex-inproceedings-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-inproceedings-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-inproceedings-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-inproceedings-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-inproceedings-editor-ja = (none,"",author-set3, "（編）", ", ", (), ", editor.")
+#let bibtex-inproceedings-editor-ja = (none, "", author-set3, "（編）", ", ", (), ", editor.")
 
-#let bibtex-inproceedings-booktitle-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-booktitle-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-series-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-series-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-volume-ja = (none,"第",all-return, "巻", ", ", (), "巻.")
+#let bibtex-inproceedings-volume-ja = (none, "第", all-return, "巻", ", ", (), "巻.")
 
-#let bibtex-inproceedings-pages-ja = (none,"",page-set, "", ", ", (), ".")
+#let bibtex-inproceedings-pages-ja = (none, "", page-set, "", ", ", (), ".")
 
-#let bibtex-inproceedings-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inproceedings-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-inproceedings-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-inproceedings-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-inproceedings-organization-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-organization-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-publisher-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inproceedings-publisher-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-inproceedings-note-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-inproceedings-note-ja = (none, "", all-return, "", ". ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -542,37 +542,37 @@
   ("year", bibtex-inproceedings-year-ja),
   ("organization", bibtex-inproceedings-organization-ja),
   ("publisher", bibtex-inproceedings-publisher-ja),
-  ("note", bibtex-inproceedings-note-ja)
+  ("note", bibtex-inproceedings-note-ja),
 )
 
 
 // -------------------- conference (英語) --------------------
 
-#let bibtex-conference-author-en = (none,"",author-set3, "", ", ", (), ".")
+#let bibtex-conference-author-en = (none, "", author-set3, "", ", ", (), ".")
 
-#let bibtex-conference-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-conference-title-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-editor-en = (none,"In ",author-set3, ", editor", ", ", (), ", editor.")
+#let bibtex-conference-editor-en = (none, "In ", author-set3, ", editor", ", ", (), ", editor.")
 
-#let bibtex-conference-booktitle-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-conference-bookall-return = (none, "", all-emph, "", ", ", (), ".")
 
-#let bibtex-conference-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
+#let bibtex-conference-volume-en = (none, "Vol. ", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-series-en = (" of ","",all-emph, "", ", ", ("volume"), ".")
+#let bibtex-conference-series-en = (" of ", "", all-emph, "", ", ", "volume", ".")
 
-#let bibtex-conference-pages-en = (none,"",page-set, "", ". ", (), ".")
+#let bibtex-conference-pages-en = (none, "", page-set, "", ". ", (), ".")
 
-#let bibtex-conference-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-conference-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-conference-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-conference-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-conference-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-conference-organization-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-conference-organization-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-publisher-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-conference-publisher-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-conference-note-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-conference-note-en = (none, "", all-return, "", ". ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -581,7 +581,7 @@
   ("author", bibtex-conference-author-en),
   ("title", bibtex-conference-title-en),
   ("editor", bibtex-conference-editor-en),
-  ("booktitle", bibtex-conference-booktitle-en),
+  ("booktitle", bibtex-conference-bookall-return),
   ("volume", bibtex-conference-volume-en),
   ("series", bibtex-conference-series-en),
   ("pages", bibtex-conference-pages-en),
@@ -590,36 +590,36 @@
   ("year", bibtex-conference-year-en),
   ("organization", bibtex-conference-organization-en),
   ("publisher", bibtex-conference-publisher-en),
-  ("note", bibtex-conference-note-en)
+  ("note", bibtex-conference-note-en),
 )
 
 // -------------------- conference (日本語) --------------------
 
-#let bibtex-conference-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-conference-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-conference-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-conference-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-conference-editor-ja = (none,"",author-set3, "（編）", ", ", (), ", editor.")
+#let bibtex-conference-editor-ja = (none, "", author-set3, "（編）", ", ", (), ", editor.")
 
-#let bibtex-conference-booktitle-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-conference-booktitle-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-series-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-conference-series-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-volume-ja = (none,"第",all-return, "巻", ", ", (), "巻.")
+#let bibtex-conference-volume-ja = (none, "第", all-return, "巻", ", ", (), "巻.")
 
-#let bibtex-conference-pages-ja = (none,"",page-set, "", ", ", (), ".")
+#let bibtex-conference-pages-ja = (none, "", page-set, "", ", ", (), ".")
 
-#let bibtex-conference-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-conference-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-conference-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-conference-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-conference-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-conference-organization-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-conference-organization-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-conference-publisher-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-conference-publisher-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-conference-note-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-conference-note-ja = (none, "", all-return, "", ". ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -637,27 +637,27 @@
   ("year", bibtex-conference-year-ja),
   ("organization", bibtex-conference-organization-ja),
   ("publisher", bibtex-conference-publisher-ja),
-  ("note", bibtex-conference-note-ja)
+  ("note", bibtex-conference-note-ja),
 )
 
 
 // -------------------- manual (英語) --------------------
 
-#let bibtex-manual-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-manual-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-manual-title-en = (none,"",all-emph, "", ". ", (), ".")
+#let bibtex-manual-title-en = (none, "", all-emph, "", ". ", (), ".")
 
-#let bibtex-manual-organization-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-manual-organization-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-manual-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-manual-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-manual-edition-en = (none,"",all-return, " edition", ", ", (), ".")
+#let bibtex-manual-edition-en = (none, "", all-return, " edition", ", ", (), ".")
 
-#let bibtex-manual-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-manual-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-manual-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-manual-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-manual-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-manual-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -670,25 +670,25 @@
   ("edition", bibtex-manual-edition-en),
   ("month", bibtex-manual-month-en),
   ("year", bibtex-manual-year-en),
-  ("note", bibtex-manual-note-en)
+  ("note", bibtex-manual-note-en),
 )
 
 // -------------------- manual (日本語) --------------------
 
-#let bibtex-manual-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-manual-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-manual-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-manual-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-manual-organization-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-manual-organization-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-manual-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-manual-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-manual-edition-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-manual-edition-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-manual-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-manual-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-manual-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
-#let bibtex-manual-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-manual-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
+#let bibtex-manual-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -701,24 +701,24 @@
   ("edition", bibtex-manual-edition-ja),
   ("month", bibtex-manual-month-ja),
   ("year", bibtex-manual-year-ja),
-  ("note", bibtex-manual-note-ja)
+  ("note", bibtex-manual-note-ja),
 )
 
 // -------------------- mastersthesis (英語) --------------------
 
-#let bibtex-mastersthesis-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-mastersthesis-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-mastersthesis-title-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-school-en = (none,"Master's thesis, ",all-return, "", ", ", (), ".")
+#let bibtex-mastersthesis-school-en = (none, "Master's thesis, ", all-return, "", ", ", (), ".")
 
-#let bibtex-mastersthesis-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-mastersthesis-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-mastersthesis-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-mastersthesis-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-mastersthesis-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-mastersthesis-note-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-mastersthesis-note-en = (none, "", all-return, "", ". ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -730,24 +730,24 @@
   ("address", bibtex-mastersthesis-address-en),
   ("month", bibtex-mastersthesis-month-en),
   ("year", bibtex-mastersthesis-year-en),
-  ("note", bibtex-mastersthesis-note-en)
+  ("note", bibtex-mastersthesis-note-en),
 )
 
 // -------------------- mastersthesis (日本語) --------------------
 
-#let bibtex-mastersthesis-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-mastersthesis-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-mastersthesis-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-school-ja = (none,"修士論文, ",all-return, "", ", ", (), ".")
+#let bibtex-mastersthesis-school-ja = (none, "修士論文, ", all-return, "", ", ", (), ".")
 
-#let bibtex-mastersthesis-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-mastersthesis-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-mastersthesis-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-mastersthesis-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-mastersthesis-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-mastersthesis-note-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-mastersthesis-note-ja = (none, "", all-return, "", ". ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -759,23 +759,23 @@
   ("address", bibtex-mastersthesis-address-ja),
   ("month", bibtex-mastersthesis-month-ja),
   ("year", bibtex-mastersthesis-year-ja),
-  ("note", bibtex-mastersthesis-note-ja)
+  ("note", bibtex-mastersthesis-note-ja),
 )
 
 
 // -------------------- misc (英語) --------------------
 
-#let bibtex-misc-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-misc-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-misc-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-misc-title-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-misc-howpublished-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-misc-howpublished-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-misc-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-misc-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-misc-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-misc-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-misc-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-misc-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -786,22 +786,22 @@
   ("howpublished", bibtex-misc-howpublished-en),
   ("month", bibtex-misc-month-en),
   ("year", bibtex-misc-year-en),
-  ("note", bibtex-misc-note-en)
+  ("note", bibtex-misc-note-en),
 )
 
 // -------------------- misc (日本語) --------------------
 
-#let bibtex-misc-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-misc-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-misc-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-misc-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-misc-howpublished-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-misc-howpublished-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-misc-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-misc-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-misc-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-misc-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-misc-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-misc-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -812,20 +812,20 @@
   ("howpublished", bibtex-misc-howpublished-ja),
   ("month", bibtex-misc-month-ja),
   ("year", bibtex-misc-year-ja),
-  ("note", bibtex-misc-note-ja)
+  ("note", bibtex-misc-note-ja),
 )
 
 // -------------------- online (英語) --------------------
 
-#let bibtex-online-author-en = (none,"",author-set3, "", ", ", (), ".")
+#let bibtex-online-author-en = (none, "", author-set3, "", ", ", (), ".")
 
-#let bibtex-online-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-online-title-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-online-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-online-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-online-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-online-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-online-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-online-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -835,20 +835,20 @@
   ("title", bibtex-online-title-en),
   ("month", bibtex-online-month-en),
   ("year", bibtex-online-year-en),
-  ("note", bibtex-online-note-en)
+  ("note", bibtex-online-note-en),
 )
 
 // -------------------- online (日本語) --------------------
 
-#let bibtex-online-author-ja = (none,"",author-set3, "", ", ", (), ".")
+#let bibtex-online-author-ja = (none, "", author-set3, "", ", ", (), ".")
 
-#let bibtex-online-title-ja = (none,"",remove-str-brace, "", ", ", (), ".")
+#let bibtex-online-title-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-online-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-online-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-online-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-online-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-online-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-online-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -858,24 +858,24 @@
   ("title", bibtex-online-title-ja),
   ("month", bibtex-online-month-ja),
   ("year", bibtex-online-year-ja),
-  ("note", bibtex-online-note-ja)
+  ("note", bibtex-online-note-ja),
 )
 
 // -------------------- phdthesis (英語) --------------------
 
-#let bibtex-phdthesis-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-phdthesis-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-phdthesis-title-en = (none,"",all-emph, "", ". ", (), ".")
+#let bibtex-phdthesis-title-en = (none, "", all-emph, "", ". ", (), ".")
 
-#let bibtex-phdthesis-school-en = (none,"Phd thesis, ",all-return, "", ", ", (), ".")
+#let bibtex-phdthesis-school-en = (none, "Phd thesis, ", all-return, "", ", ", (), ".")
 
-#let bibtex-phdthesis-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-phdthesis-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-phdthesis-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-phdthesis-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-phdthesis-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-phdthesis-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-phdthesis-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-phdthesis-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -887,25 +887,25 @@
   ("address", bibtex-phdthesis-address-en),
   ("month", bibtex-phdthesis-month-en),
   ("year", bibtex-phdthesis-year-en),
-  ("note", bibtex-phdthesis-note-en)
+  ("note", bibtex-phdthesis-note-en),
 )
 
 
 // -------------------- phdthesis (日本語) --------------------
 
-#let bibtex-phdthesis-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-phdthesis-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-phdthesis-title-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-phdthesis-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-phdthesis-school-ja = (none,"博士論文, ",all-return, "", ", ", (), ".")
+#let bibtex-phdthesis-school-ja = (none, "博士論文, ", all-return, "", ", ", (), ".")
 
-#let bibtex-phdthesis-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-phdthesis-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-phdthesis-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-phdthesis-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-phdthesis-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-phdthesis-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-phdthesis-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-phdthesis-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -917,28 +917,28 @@
   ("address", bibtex-phdthesis-address-ja),
   ("month", bibtex-phdthesis-month-ja),
   ("year", bibtex-phdthesis-year-ja),
-  ("note", bibtex-phdthesis-note-ja)
+  ("note", bibtex-phdthesis-note-ja),
 )
 
 // -------------------- proceedings (英語) --------------------
 
-#let bibtex-proceedings-editor-en = (none,"",author-set3, ", editor", ". ", (), ", editor.")
+#let bibtex-proceedings-editor-en = (none, "", author-set3, ", editor", ". ", (), ", editor.")
 
-#let bibtex-proceedings-title-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-proceedings-title-en = (none, "", all-emph, "", ", ", (), ".")
 
-#let bibtex-proceedings-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
+#let bibtex-proceedings-volume-en = (none, "Vol. ", all-return, "", ", ", (), ".")
 
-#let bibtex-proceedings-series-en = (" of ","",all-emph, "", ", ", ("volume"), ".")
+#let bibtex-proceedings-series-en = (" of ", "", all-emph, "", ", ", "volume", ".")
 
-#let bibtex-proceedings-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-proceedings-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-proceedings-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-proceedings-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-proceedings-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-proceedings-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-proceedings-publisher-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-proceedings-publisher-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-proceedings-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-proceedings-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -952,29 +952,29 @@
   ("month", bibtex-proceedings-month-en),
   ("year", bibtex-proceedings-year-en),
   ("publisher", bibtex-proceedings-publisher-en),
-  ("note", bibtex-proceedings-note-en)
+  ("note", bibtex-proceedings-note-en),
 )
 
 // -------------------- proceedings (日本語) --------------------
 
-#let bibtex-proceedings-editor-ja = (none,"",author-set3, "（編）", ". ", (), "（編）.")
+#let bibtex-proceedings-editor-ja = (none, "", author-set3, "（編）", ". ", (), "（編）.")
 
-#let bibtex-proceedings-title-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-proceedings-title-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-proceedings-series-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-proceedings-series-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-proceedings-volume-ja = (none,"第",all-return, "巻", ", ", (), "巻.")
+#let bibtex-proceedings-volume-ja = (none, "第", all-return, "巻", ", ", (), "巻.")
 
 
-#let bibtex-proceedings-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-proceedings-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-proceedings-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-proceedings-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-proceedings-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-proceedings-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-proceedings-publisher-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-proceedings-publisher-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-proceedings-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-proceedings-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -988,28 +988,28 @@
   ("month", bibtex-proceedings-month-ja),
   ("year", bibtex-proceedings-year-ja),
   ("publisher", bibtex-proceedings-publisher-ja),
-  ("note", bibtex-proceedings-note-ja)
+  ("note", bibtex-proceedings-note-ja),
 )
 
 // -------------------- techreport (英語) --------------------
 
-#let bibtex-techreport-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-techreport-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-techreport-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-techreport-title-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-techreport-type-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-type-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-techreport-number-en = (" ","",all-return, "", ", ", ("type"), ".")
+#let bibtex-techreport-number-en = (" ", "", all-return, "", ", ", "type", ".")
 
-#let bibtex-techreport-institution-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-institution-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-techreport-address-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-address-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-techreport-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-techreport-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-techreport-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-techreport-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-techreport-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-note-en = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -1023,28 +1023,28 @@
   ("address", bibtex-techreport-address-en),
   ("month", bibtex-techreport-month-en),
   ("year", bibtex-techreport-year-en),
-  ("note", bibtex-techreport-note-en)
+  ("note", bibtex-techreport-note-en),
 )
 
 // -------------------- techreport (日本語) --------------------
 
-#let bibtex-techreport-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-techreport-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-techreport-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-techreport-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-techreport-type-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-type-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-techreport-number-ja = (" ","",all-return, "", ", ", ("type"), ".")
+#let bibtex-techreport-number-ja = (" ", "", all-return, "", ", ", "type", ".")
 
-#let bibtex-techreport-institution-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-institution-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-techreport-address-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-address-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-techreport-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-techreport-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-techreport-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-techreport-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
-#let bibtex-techreport-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-techreport-note-ja = (none, "", all-return, "", ", ", (), ".")
 
 
 // 要素を表示する順に並べる
@@ -1058,20 +1058,20 @@
   ("address", bibtex-techreport-address-ja),
   ("month", bibtex-techreport-month-ja),
   ("year", bibtex-techreport-year-ja),
-  ("note", bibtex-techreport-note-ja)
+  ("note", bibtex-techreport-note-ja),
 )
 
 // -------------------- unpublished (英語) --------------------
 
-#let bibtex-unpublished-author-en = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-unpublished-author-en = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-unpublished-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-unpublished-title-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-unpublished-note-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-unpublished-note-en = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-unpublished-month-en = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-unpublished-month-en = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-unpublished-year-en = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-unpublished-year-en = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
 
 
@@ -1082,20 +1082,20 @@
   ("title", bibtex-unpublished-title-en),
   ("note", bibtex-unpublished-note-en),
   ("month", bibtex-unpublished-month-en),
-  ("year", bibtex-unpublished-year-en)
+  ("year", bibtex-unpublished-year-en),
 )
 
 // -------------------- unpublished (日本語) --------------------
 
-#let bibtex-unpublished-author-ja = (none,"",author-set3, "", ". ", (), ".")
+#let bibtex-unpublished-author-ja = (none, "", author-set3, "", ". ", (), ".")
 
-#let bibtex-unpublished-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-unpublished-title-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-unpublished-note-ja = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-unpublished-note-ja = (none, "", all-return, "", ", ", (), ".")
 
-#let bibtex-unpublished-month-ja = (none,"",all-return, "", ". ", (), ".")
+#let bibtex-unpublished-month-ja = (none, "", all-return, "", ". ", (), ".")
 
-#let bibtex-unpublished-year-ja = (" ","",all-return, "%year-doubling", ". ", ("month"), "%year-doubling.")
+#let bibtex-unpublished-year-ja = (" ", "", all-return, "%year-doubling", ". ", "month", "%year-doubling.")
 
 
 // 要素を表示する順に並べる
@@ -1105,7 +1105,7 @@
   ("title", bibtex-unpublished-title-ja),
   ("note", bibtex-unpublished-note-ja),
   ("month", bibtex-unpublished-month-ja),
-  ("year", bibtex-unpublished-year-ja)
+  ("year", bibtex-unpublished-year-ja),
 )
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -1126,76 +1126,76 @@
   bib-vancouver-manual: bib-vancouver-manual,
 )
 
-#let bib-tex  = bib-style.bib-tex.with(
-  year-doubling:  year-doubling,
-  bibtex-article-en:  bibtex-article-en,
-  bibtex-article-ja:  bibtex-article-ja,
-  bibtex-book-en:  bibtex-book-en,
-  bibtex-book-ja:  bibtex-book-ja,
-  bibtex-booklet-en:  bibtex-booklet-en,
-  bibtex-booklet-ja:  bibtex-booklet-ja,
-  bibtex-inbook-en:  bibtex-inbook-en,
-  bibtex-inbook-ja:  bibtex-inbook-ja,
-  bibtex-incollection-en:  bibtex-incollection-en,
-  bibtex-incollection-ja:  bibtex-incollection-ja,
-  bibtex-inproceedings-en:  bibtex-inproceedings-en,
-  bibtex-inproceedings-ja:  bibtex-inproceedings-ja,
-  bibtex-conference-en:  bibtex-conference-en,
-  bibtex-conference-ja:  bibtex-conference-ja,
-  bibtex-manual-en:  bibtex-manual-en,
-  bibtex-manual-ja:  bibtex-manual-ja,
-  bibtex-mastersthesis-en:  bibtex-mastersthesis-en,
-  bibtex-mastersthesis-ja:  bibtex-mastersthesis-ja,
-  bibtex-misc-en:  bibtex-misc-en,
-  bibtex-misc-ja:  bibtex-misc-ja,
-  bibtex-online-en:  bibtex-online-en,
-  bibtex-online-ja:  bibtex-online-ja,
-  bibtex-phdthesis-en:  bibtex-phdthesis-en,
-  bibtex-phdthesis-ja:  bibtex-phdthesis-ja,
-  bibtex-proceedings-en:  bibtex-proceedings-en,
-  bibtex-proceedings-ja:  bibtex-proceedings-ja,
-  bibtex-techreport-en:  bibtex-techreport-en,
-  bibtex-techreport-ja:  bibtex-techreport-ja,
-  bibtex-unpublished-en:  bibtex-unpublished-en,
-  bibtex-unpublished-ja:  bibtex-unpublished-ja,
-  bib-cite-author:  bib-cite-author,
-  bib-cite-year:  bib-cite-year,
+#let bib-tex = bib-style.bib-tex.with(
+  year-doubling: year-doubling,
+  bibtex-article-en: bibtex-article-en,
+  bibtex-article-ja: bibtex-article-ja,
+  bibtex-book-en: bibtex-book-en,
+  bibtex-book-ja: bibtex-book-ja,
+  bibtex-booklet-en: bibtex-booklet-en,
+  bibtex-booklet-ja: bibtex-booklet-ja,
+  bibtex-inbook-en: bibtex-inbook-en,
+  bibtex-inbook-ja: bibtex-inbook-ja,
+  bibtex-incollection-en: bibtex-incollection-en,
+  bibtex-incollection-ja: bibtex-incollection-ja,
+  bibtex-inproceedings-en: bibtex-inproceedings-en,
+  bibtex-inproceedings-ja: bibtex-inproceedings-ja,
+  bibtex-conference-en: bibtex-conference-en,
+  bibtex-conference-ja: bibtex-conference-ja,
+  bibtex-manual-en: bibtex-manual-en,
+  bibtex-manual-ja: bibtex-manual-ja,
+  bibtex-mastersthesis-en: bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
+  bibtex-misc-en: bibtex-misc-en,
+  bibtex-misc-ja: bibtex-misc-ja,
+  bibtex-online-en: bibtex-online-en,
+  bibtex-online-ja: bibtex-online-ja,
+  bibtex-phdthesis-en: bibtex-phdthesis-en,
+  bibtex-phdthesis-ja: bibtex-phdthesis-ja,
+  bibtex-proceedings-en: bibtex-proceedings-en,
+  bibtex-proceedings-ja: bibtex-proceedings-ja,
+  bibtex-techreport-en: bibtex-techreport-en,
+  bibtex-techreport-ja: bibtex-techreport-ja,
+  bibtex-unpublished-en: bibtex-unpublished-en,
+  bibtex-unpublished-ja: bibtex-unpublished-ja,
+  bib-cite-author: bib-cite-author,
+  bib-cite-year: bib-cite-year,
 )
 
 #let bib-file = bib-style.bib-file.with(
-  year-doubling:   year-doubling,
-  bibtex-article-en:   bibtex-article-en,
-  bibtex-article-ja:   bibtex-article-ja,
-  bibtex-book-en:   bibtex-book-en,
-  bibtex-book-ja:   bibtex-book-ja,
-  bibtex-booklet-en:   bibtex-booklet-en,
-  bibtex-booklet-ja:   bibtex-booklet-ja,
-  bibtex-inbook-en:   bibtex-inbook-en,
-  bibtex-inbook-ja:   bibtex-inbook-ja,
-  bibtex-incollection-en:   bibtex-incollection-en,
-  bibtex-incollection-ja:   bibtex-incollection-ja,
-  bibtex-inproceedings-en:   bibtex-inproceedings-en,
-  bibtex-inproceedings-ja:   bibtex-inproceedings-ja,
-  bibtex-conference-en:   bibtex-conference-en,
-  bibtex-conference-ja:   bibtex-conference-ja,
-  bibtex-manual-en:   bibtex-manual-en,
-  bibtex-manual-ja:   bibtex-manual-ja,
-  bibtex-mastersthesis-en:   bibtex-mastersthesis-en,
-  bibtex-mastersthesis-ja:   bibtex-mastersthesis-ja,
-  bibtex-misc-en:   bibtex-misc-en,
-  bibtex-misc-ja:   bibtex-misc-ja,
-  bibtex-online-en:   bibtex-online-en,
-  bibtex-online-ja:   bibtex-online-ja,
-  bibtex-phdthesis-en:   bibtex-phdthesis-en,
-  bibtex-phdthesis-ja:   bibtex-phdthesis-ja,
-  bibtex-proceedings-en:   bibtex-proceedings-en,
-  bibtex-proceedings-ja:   bibtex-proceedings-ja,
-  bibtex-techreport-en:   bibtex-techreport-en,
-  bibtex-techreport-ja:   bibtex-techreport-ja,
-  bibtex-unpublished-en:   bibtex-unpublished-en,
-  bibtex-unpublished-ja:   bibtex-unpublished-ja,
-  bib-cite-author:   bib-cite-author,
-  bib-cite-year:   bib-cite-year,
+  year-doubling: year-doubling,
+  bibtex-article-en: bibtex-article-en,
+  bibtex-article-ja: bibtex-article-ja,
+  bibtex-book-en: bibtex-book-en,
+  bibtex-book-ja: bibtex-book-ja,
+  bibtex-booklet-en: bibtex-booklet-en,
+  bibtex-booklet-ja: bibtex-booklet-ja,
+  bibtex-inbook-en: bibtex-inbook-en,
+  bibtex-inbook-ja: bibtex-inbook-ja,
+  bibtex-incollection-en: bibtex-incollection-en,
+  bibtex-incollection-ja: bibtex-incollection-ja,
+  bibtex-inproceedings-en: bibtex-inproceedings-en,
+  bibtex-inproceedings-ja: bibtex-inproceedings-ja,
+  bibtex-conference-en: bibtex-conference-en,
+  bibtex-conference-ja: bibtex-conference-ja,
+  bibtex-manual-en: bibtex-manual-en,
+  bibtex-manual-ja: bibtex-manual-ja,
+  bibtex-mastersthesis-en: bibtex-mastersthesis-en,
+  bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
+  bibtex-misc-en: bibtex-misc-en,
+  bibtex-misc-ja: bibtex-misc-ja,
+  bibtex-online-en: bibtex-online-en,
+  bibtex-online-ja: bibtex-online-ja,
+  bibtex-phdthesis-en: bibtex-phdthesis-en,
+  bibtex-phdthesis-ja: bibtex-phdthesis-ja,
+  bibtex-proceedings-en: bibtex-proceedings-en,
+  bibtex-proceedings-ja: bibtex-proceedings-ja,
+  bibtex-techreport-en: bibtex-techreport-en,
+  bibtex-techreport-ja: bibtex-techreport-ja,
+  bibtex-unpublished-en: bibtex-unpublished-en,
+  bibtex-unpublished-ja: bibtex-unpublished-ja,
+  bib-cite-author: bib-cite-author,
+  bib-cite-year: bib-cite-year,
 )
 
 #let bib-item = bib-style.bib-item
