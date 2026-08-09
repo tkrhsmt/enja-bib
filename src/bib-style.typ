@@ -184,6 +184,11 @@
     }
 
     // ----- 重複文献に記号を挿入 ----- //
+    for value in output_contents{
+      if type(value.at(1).at(1)) != str{
+        value.at(1)
+      }
+    }
 
     if vancouver-style == false{//ハーバード方式のとき
       let cite-arr = ()
@@ -230,7 +235,7 @@
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
         cite-arr.push(num)
-        output_bib.push([+ #figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
+        output_bib.push([+ #figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#label(value.at(3))])
 
         num += 1
       }
@@ -241,7 +246,7 @@
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
         cite-arr.push(num)
-        output_bib.push([#figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#value.at(3)])
+        output_bib.push([#figure(value.at(0).sum().sum(), kind: "bib", supplement: [#cite-arr])#label(value.at(3))])
 
         num += 1
       }
@@ -369,7 +374,7 @@
     lang: auto,
     it
   ) = {
-  let dict = bibtex-to-dict(it)
+  let dict = load-bibliography(it).values().at(0)
   let dict = add-dict-lang(dict, lang)
 
   let output_arr = ()
@@ -415,7 +420,7 @@
   )
   output_arr.push(element_cite_list)
   output_arr.push(bibtex-yomi(dict, output_arr.at(0)))
-  output_arr.push(dict.label)
+  output_arr.push(dict.entry_key)
 
   return output_arr
 }

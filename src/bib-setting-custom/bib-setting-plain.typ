@@ -63,7 +63,7 @@
 
 #let bibtex-article-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-article-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-article-all-return = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-article-journal-en = (none,"",all-emph, "", ", ", (), ".")
 
@@ -84,7 +84,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-article-en = (
   ("author", bibtex-article-author-en),
-  ("title", bibtex-article-title-en),
+  ("title", bibtex-article-all-return),
   ("journal", bibtex-article-journal-en),
   ("volume", bibtex-article-volume-en),
   ("number", bibtex-article-number-en),
@@ -98,7 +98,7 @@
 
 #let bibtex-article-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-article-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-article-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-article-journal-ja = (none,"",all-return, "", ", ", (), ".")
 
@@ -133,7 +133,7 @@
 
 #let bibtex-book-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-book-title-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-book-all-return = (none,"",all-emph, "", ", ", (), ".")
 
 #let bibtex-book-volume-en = (none,"Vol. ",all-return, "", ". ", (), ".")
 
@@ -156,7 +156,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-book-en = (
   ("author", bibtex-book-author-en),
-  ("title", bibtex-book-title-en),
+  ("title", bibtex-book-all-return),
   ("volume", bibtex-book-volume-en),
   ("series", bibtex-book-series-en),
   ("publisher", bibtex-book-publisher-en),
@@ -171,7 +171,7 @@
 
 #let bibtex-book-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-book-title-ja = (none,"",remove-str-brace, "", ", ", (), ".")
+#let bibtex-book-title-ja = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-book-series-ja = (none,"",all-return, "", ", ", (), ".")
 
@@ -209,7 +209,7 @@
 
 #let bibtex-booklet-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-booklet-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-booklet-all-return = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-booklet-howpublished-en = (none,"",all-return, "", ", ", (), ".")
 
@@ -226,7 +226,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-booklet-en = (
   ("author", bibtex-booklet-author-en),
-  ("title", bibtex-booklet-title-en),
+  ("title", bibtex-booklet-all-return),
   ("howpublished", bibtex-booklet-howpublished-en),
   ("address", bibtex-booklet-address-en),
   ("month", bibtex-booklet-month-en),
@@ -238,7 +238,7 @@
 
 #let bibtex-booklet-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-booklet-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-booklet-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-booklet-howpublished-ja = (none,"",all-return, "", ", ", (), ".")
 
@@ -267,7 +267,7 @@
 
 #let bibtex-inbook-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-inbook-title-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-inbook-all-return = (none,"",all-emph, "", ", ", (), ".")
 
 #let bibtex-inbook-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
 
@@ -294,7 +294,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-inbook-en = (
   ("author", bibtex-inbook-author-en),
-  ("title", bibtex-inbook-title-en),
+  ("title", bibtex-inbook-all-return),
   ("volume", bibtex-inbook-volume-en),
   ("series", bibtex-inbook-series-en),
   ("chapter", bibtex-inbook-chapter-en),
@@ -311,7 +311,7 @@
 
 #let bibtex-inbook-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-inbook-title-ja = (none,"",remove-str-brace, "", ", ", (), ".")
+#let bibtex-inbook-title-ja = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-inbook-series-ja = (none,"",all-return, "", ", ", (), ".")
 
@@ -355,11 +355,11 @@
 
 #let bibtex-incollection-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-incollection-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-incollection-all-return = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-incollection-editor-en = (none,"In ",author-set3, ", editor", ", ", (), ", editor.")
 
-#let bibtex-incollection-booktitle-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-incollection-bookall-return = (none,"",all-emph, "", ", ", (), ".")
 
 #let bibtex-incollection-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
 
@@ -386,9 +386,9 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-incollection-en = (
   ("author", bibtex-incollection-author-en),
-  ("title", bibtex-incollection-title-en),
+  ("title", bibtex-incollection-all-return),
   ("editor", bibtex-incollection-editor-en),
-  ("booktitle", bibtex-incollection-booktitle-en),
+  ("booktitle", bibtex-incollection-bookall-return),
   ("volume", bibtex-incollection-volume-en),
   ("series", bibtex-incollection-series-en),
   ("chapter", bibtex-incollection-chapter-en),
@@ -405,7 +405,7 @@
 
 #let bibtex-incollection-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-incollection-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-incollection-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-incollection-editor-ja = (none,"",author-set3, "（編）", ", ", (), ", （編）.")
 
@@ -455,11 +455,11 @@
 
 #let bibtex-inproceedings-author-en = (none,"",author-set3, "", ", ", (), ".")
 
-#let bibtex-inproceedings-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-inproceedings-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-inproceedings-editor-en = (none,"In ",author-set3, ", editor", ", ", (), ", editor.")
 
-#let bibtex-inproceedings-booktitle-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-inproceedings-bookall-return = (none,"",all-emph, "", ", ", (), ".")
 
 #let bibtex-inproceedings-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
 
@@ -484,9 +484,9 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-inproceedings-en = (
   ("author", bibtex-inproceedings-author-en),
-  ("title", bibtex-inproceedings-title-en),
+  ("title", bibtex-inproceedings-all-return),
   ("editor", bibtex-inproceedings-editor-en),
-  ("booktitle", bibtex-inproceedings-booktitle-en),
+  ("booktitle", bibtex-inproceedings-bookall-return),
   ("volume", bibtex-inproceedings-volume-en),
   ("series", bibtex-inproceedings-series-en),
   ("pages", bibtex-inproceedings-pages-en),
@@ -502,7 +502,7 @@
 
 #let bibtex-inproceedings-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-inproceedings-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-inproceedings-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-inproceedings-editor-ja = (none,"",author-set3, "（編）", ", ", (), ", editor.")
 
@@ -550,11 +550,11 @@
 
 #let bibtex-conference-author-en = (none,"",author-set3, "", ", ", (), ".")
 
-#let bibtex-conference-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-conference-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-conference-editor-en = (none,"In ",author-set3, ", editor", ", ", (), ", editor.")
 
-#let bibtex-conference-booktitle-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-conference-bookall-return = (none,"",all-emph, "", ", ", (), ".")
 
 #let bibtex-conference-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
 
@@ -579,9 +579,9 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-conference-en = (
   ("author", bibtex-conference-author-en),
-  ("title", bibtex-conference-title-en),
+  ("title", bibtex-conference-all-return),
   ("editor", bibtex-conference-editor-en),
-  ("booktitle", bibtex-conference-booktitle-en),
+  ("booktitle", bibtex-conference-bookall-return),
   ("volume", bibtex-conference-volume-en),
   ("series", bibtex-conference-series-en),
   ("pages", bibtex-conference-pages-en),
@@ -597,7 +597,7 @@
 
 #let bibtex-conference-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-conference-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-conference-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-conference-editor-ja = (none,"",author-set3, "（編）", ", ", (), ", editor.")
 
@@ -645,7 +645,7 @@
 
 #let bibtex-manual-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-manual-title-en = (none,"",all-emph, "", ". ", (), ".")
+#let bibtex-manual-all-return = (none,"",all-emph, "", ". ", (), ".")
 
 #let bibtex-manual-organization-en = (none,"",all-return, "", ", ", (), ".")
 
@@ -664,7 +664,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-manual-en = (
   ("author", bibtex-manual-author-en),
-  ("title", bibtex-manual-title-en),
+  ("title", bibtex-manual-all-return),
   ("organization", bibtex-manual-organization-en),
   ("address", bibtex-manual-address-en),
   ("edition", bibtex-manual-edition-en),
@@ -677,7 +677,7 @@
 
 #let bibtex-manual-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-manual-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-manual-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-manual-organization-ja = (none,"",all-return, "", ", ", (), ".")
 
@@ -708,7 +708,7 @@
 
 #let bibtex-mastersthesis-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-mastersthesis-all-return = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-mastersthesis-school-en = (none,"Master's thesis, ",all-return, "", ", ", (), ".")
 
@@ -725,7 +725,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-mastersthesis-en = (
   ("author", bibtex-mastersthesis-author-en),
-  ("title", bibtex-mastersthesis-title-en),
+  ("title", bibtex-mastersthesis-all-return),
   ("school", bibtex-mastersthesis-school-en),
   ("address", bibtex-mastersthesis-address-en),
   ("month", bibtex-mastersthesis-month-en),
@@ -737,7 +737,7 @@
 
 #let bibtex-mastersthesis-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-mastersthesis-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-mastersthesis-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-mastersthesis-school-ja = (none,"修士論文, ",all-return, "", ", ", (), ".")
 
@@ -767,7 +767,7 @@
 
 #let bibtex-misc-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-misc-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-misc-all-return = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-misc-howpublished-en = (none,"",all-return, "", ", ", (), ".")
 
@@ -782,7 +782,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-misc-en = (
   ("author", bibtex-misc-author-en),
-  ("title", bibtex-misc-title-en),
+  ("title", bibtex-misc-all-return),
   ("howpublished", bibtex-misc-howpublished-en),
   ("month", bibtex-misc-month-en),
   ("year", bibtex-misc-year-en),
@@ -793,7 +793,7 @@
 
 #let bibtex-misc-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-misc-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-misc-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-misc-howpublished-ja = (none,"",all-return, "", ", ", (), ".")
 
@@ -819,7 +819,7 @@
 
 #let bibtex-online-author-en = (none,"",author-set3, "", ", ", (), ".")
 
-#let bibtex-online-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-online-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-online-month-en = (none,"",all-return, "", ". ", (), ".")
 
@@ -832,7 +832,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-online-en = (
   ("author", bibtex-online-author-en),
-  ("title", bibtex-online-title-en),
+  ("title", bibtex-online-all-return),
   ("month", bibtex-online-month-en),
   ("year", bibtex-online-year-en),
   ("note", bibtex-online-note-en)
@@ -842,7 +842,7 @@
 
 #let bibtex-online-author-ja = (none,"",author-set3, "", ", ", (), ".")
 
-#let bibtex-online-title-ja = (none,"",remove-str-brace, "", ", ", (), ".")
+#let bibtex-online-title-ja = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-online-month-ja = (none,"",all-return, "", ". ", (), ".")
 
@@ -865,7 +865,7 @@
 
 #let bibtex-phdthesis-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-phdthesis-title-en = (none,"",all-emph, "", ". ", (), ".")
+#let bibtex-phdthesis-all-return = (none,"",all-emph, "", ". ", (), ".")
 
 #let bibtex-phdthesis-school-en = (none,"Phd thesis, ",all-return, "", ", ", (), ".")
 
@@ -882,7 +882,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-phdthesis-en = (
   ("author", bibtex-phdthesis-author-en),
-  ("title", bibtex-phdthesis-title-en),
+  ("title", bibtex-phdthesis-all-return),
   ("school", bibtex-phdthesis-school-en),
   ("address", bibtex-phdthesis-address-en),
   ("month", bibtex-phdthesis-month-en),
@@ -924,7 +924,7 @@
 
 #let bibtex-proceedings-editor-en = (none,"",author-set3, ", editor", ". ", (), ", editor.")
 
-#let bibtex-proceedings-title-en = (none,"",all-emph, "", ", ", (), ".")
+#let bibtex-proceedings-all-return = (none,"",all-emph, "", ", ", (), ".")
 
 #let bibtex-proceedings-volume-en = (none,"Vol. ",all-return, "", ", ", (), ".")
 
@@ -945,7 +945,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-proceedings-en = (
   ("editor", bibtex-proceedings-editor-en),
-  ("title", bibtex-proceedings-title-en),
+  ("title", bibtex-proceedings-all-return),
   ("volume", bibtex-proceedings-volume-en),
   ("series", bibtex-proceedings-series-en),
   ("address", bibtex-proceedings-address-en),
@@ -995,7 +995,7 @@
 
 #let bibtex-techreport-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-techreport-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-techreport-all-return = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-techreport-type-en = (none,"",all-return, "", ", ", (), ".")
 
@@ -1016,7 +1016,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-techreport-en = (
   ("author", bibtex-techreport-author-en),
-  ("title", bibtex-techreport-title-en),
+  ("title", bibtex-techreport-all-return),
   ("type", bibtex-techreport-type-en),
   ("number", bibtex-techreport-number-en),
   ("institution", bibtex-techreport-institution-en),
@@ -1030,7 +1030,7 @@
 
 #let bibtex-techreport-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-techreport-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-techreport-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-techreport-type-ja = (none,"",all-return, "", ", ", (), ".")
 
@@ -1065,7 +1065,7 @@
 
 #let bibtex-unpublished-author-en = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-unpublished-title-en = (none,"",title-en, "", ". ", (), ".")
+#let bibtex-unpublished-all-return = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-unpublished-note-en = (none,"",all-return, "", ", ", (), ".")
 
@@ -1079,7 +1079,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-unpublished-en = (
   ("author", bibtex-unpublished-author-en),
-  ("title", bibtex-unpublished-title-en),
+  ("title", bibtex-unpublished-all-return),
   ("note", bibtex-unpublished-note-en),
   ("month", bibtex-unpublished-month-en),
   ("year", bibtex-unpublished-year-en)
@@ -1089,7 +1089,7 @@
 
 #let bibtex-unpublished-author-ja = (none,"",author-set3, "", ". ", (), ".")
 
-#let bibtex-unpublished-title-ja = (none,"",remove-str-brace, "", ". ", (), ".")
+#let bibtex-unpublished-title-ja = (none,"",all-return, "", ". ", (), ".")
 
 #let bibtex-unpublished-note-ja = (none,"",all-return, "", ", ", (), ".")
 

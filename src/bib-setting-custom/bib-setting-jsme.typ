@@ -63,7 +63,7 @@
 
 #let bibtex-article-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-article-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-article-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-article-journal-en = (none,"",set-url, "", ", ", (), ".")
 
@@ -82,7 +82,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-article-en = (
   ("author", bibtex-article-author-en),
-  ("title", bibtex-article-title-en),
+  ("title", bibtex-article-all-return),
   ("journal", bibtex-article-journal-en),
   ("volume", bibtex-article-volume-en),
   ("number", bibtex-article-number-en),
@@ -127,7 +127,7 @@
 
 #let bibtex-book-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-book-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-book-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-book-publisher-en = (none,"",set-url, "", ", ", (), ".")
 
@@ -140,7 +140,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-book-en = (
   ("author", bibtex-book-author-en),
-  ("title", bibtex-book-title-en),
+  ("title", bibtex-book-all-return),
   ("publisher", bibtex-book-publisher-en),
   ("year", bibtex-book-year-en),
   ("note", bibtex-book-note-en)
@@ -173,7 +173,7 @@
 
 #let bibtex-booklet-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-booklet-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-booklet-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-booklet-howpublished-en = (none,"",set-url, "", ", ", (), ".")
 
@@ -186,7 +186,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-booklet-en = (
   ("author", bibtex-booklet-author-en),
-  ("title", bibtex-booklet-title-en),
+  ("title", bibtex-booklet-all-return),
   ("howpublished", bibtex-booklet-howpublished-en),
   ("year", bibtex-booklet-year-en),
   ("note", bibtex-booklet-note-en)
@@ -219,7 +219,7 @@
 
 #let bibtex-inbook-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-inbook-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-inbook-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-inbook-publisher-en = (none,"",set-url, "", ", ", (), ".")
 
@@ -234,7 +234,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-inbook-en = (
   ("author", bibtex-inbook-author-en),
-  ("title", bibtex-inbook-title-en),
+  ("title", bibtex-inbook-all-return),
   ("publisher", bibtex-inbook-publisher-en),
   ("year", bibtex-inbook-year-en),
   ("pages", bibtex-inbook-pages-en),
@@ -271,9 +271,9 @@
 
 #let bibtex-incollection-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-incollection-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-incollection-all-return = (none,"",all-return, "", ", ", (), ".")
 
-#let bibtex-incollection-booktitle-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-incollection-bookall-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-incollection-publisher-en = (none,"",set-url, "", ", ", (), ".")
 
@@ -288,8 +288,8 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-incollection-en = (
   ("author", bibtex-incollection-author-en),
-  ("title", bibtex-incollection-title-en),
-  ("booktitle", bibtex-incollection-booktitle-en),
+  ("title", bibtex-incollection-all-return),
+  ("booktitle", bibtex-incollection-bookall-return),
   ("publisher", bibtex-incollection-publisher-en),
   ("year", bibtex-incollection-year-en),
   ("pages", bibtex-incollection-pages-en),
@@ -329,9 +329,9 @@
 
 #let bibtex-inproceedings-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-inproceedings-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-inproceedings-all-return = (none,"",all-return, "", ", ", (), ".")
 
-#let bibtex-inproceedings-booktitle-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-inproceedings-bookall-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-inproceedings-year-en = (" ","(",all-return, "%year-doubling)", ", ", ("author","title","booktitle"), "%year-doubling).")
 
@@ -342,8 +342,8 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-inproceedings-en = (
   ("author", bibtex-inproceedings-author-en),
-  ("title", bibtex-inproceedings-title-en),
-  ("booktitle", bibtex-inproceedings-booktitle-en),
+  ("title", bibtex-inproceedings-all-return),
+  ("booktitle", bibtex-inproceedings-bookall-return),
   ("year", bibtex-inproceedings-year-en),
   ("note", bibtex-inproceedings-note-en)
 )
@@ -376,9 +376,9 @@
 
 #let bibtex-conference-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-conference-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-conference-all-return = (none,"",all-return, "", ", ", (), ".")
 
-#let bibtex-conference-booktitle-en = (none,"",all-return, "", ", ", (), ".")
+#let bibtex-conference-bookall-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-conference-year-en = (" ","(",all-return, "%year-doubling)", ", ", ("author","title","booktitle"), "%year-doubling).")
 
@@ -389,8 +389,8 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-conference-en = (
   ("author", bibtex-conference-author-en),
-  ("title", bibtex-conference-title-en),
-  ("booktitle", bibtex-conference-booktitle-en),
+  ("title", bibtex-conference-all-return),
+  ("booktitle", bibtex-conference-bookall-return),
   ("year", bibtex-conference-year-en),
   ("note", bibtex-conference-note-en)
 )
@@ -422,7 +422,7 @@
 
 #let bibtex-manual-author-en = (none,"",all-return, "", ", ", (), ".")
 
-#let bibtex-manual-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-manual-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-manual-year-en = (" ","(",all-return, "%year-doubling)", ", ", ("author","title"), "%year-doubling).")
 
@@ -433,7 +433,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-manual-en = (
   ("author", bibtex-manual-author-en),
-  ("title", bibtex-manual-title-en),
+  ("title", bibtex-manual-all-return),
   ("year", bibtex-manual-year-en),
   ("note", bibtex-manual-note-en)
 )
@@ -462,7 +462,7 @@
 
 #let bibtex-mastersthesis-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-mastersthesis-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-mastersthesis-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-mastersthesis-school-en = (none,"Master's thesis, ",set-url, "", ", ", (), ".")
 
@@ -475,7 +475,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-mastersthesis-en = (
   ("author", bibtex-mastersthesis-author-en),
-  ("title", bibtex-mastersthesis-title-en),
+  ("title", bibtex-mastersthesis-all-return),
   ("school", bibtex-mastersthesis-school-en),
   ("year", bibtex-mastersthesis-year-en),
   ("note", bibtex-mastersthesis-note-en)
@@ -509,7 +509,7 @@
 
 #let bibtex-misc-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-misc-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-misc-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-misc-howpublished-en = (none,"",set-url, "", ", ", (), ".")
 
@@ -522,7 +522,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-misc-en = (
   ("author", bibtex-misc-author-en),
-  ("title", bibtex-misc-title-en),
+  ("title", bibtex-misc-all-return),
   ("howpublished", bibtex-misc-howpublished-en),
   ("year", bibtex-misc-year-en),
   ("note", bibtex-misc-note-en)
@@ -555,7 +555,7 @@
 
 #let bibtex-online-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-online-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-online-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-online-url-en = (none,"available from <",set-url, ">", ", ", (), ">.")
 
@@ -568,7 +568,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-online-en = (
   ("author", bibtex-online-author-en),
-  ("title", bibtex-online-title-en),
+  ("title", bibtex-online-all-return),
   ("url", bibtex-online-url-en),
   ("access", bibtex-online-access-en),
   ("note", bibtex-online-note-en)
@@ -601,7 +601,7 @@
 
 #let bibtex-phdthesis-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-phdthesis-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-phdthesis-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-phdthesis-school-en = (none,"Ph.D. dissertation, ",set-url, "", ", ", (), ".")
 
@@ -614,7 +614,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-phdthesis-en = (
   ("author", bibtex-phdthesis-author-en),
-  ("title", bibtex-phdthesis-title-en),
+  ("title", bibtex-phdthesis-all-return),
   ("school", bibtex-phdthesis-school-en),
   ("year", bibtex-phdthesis-year-en),
   ("note", bibtex-phdthesis-note-en)
@@ -646,7 +646,7 @@
 
 // -------------------- proceedings (英語) --------------------
 
-#let bibtex-proceedings-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-proceedings-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-proceedings-year-en = (" ","(",all-return, "%year-doubling)", ", ", ("title"), "%year-doubling).")
 
@@ -656,7 +656,7 @@
 // 要素を表示する順に並べる
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-proceedings-en = (
-  ("title", bibtex-proceedings-title-en),
+  ("title", bibtex-proceedings-all-return),
   ("year", bibtex-proceedings-year-en),
   ("note", bibtex-proceedings-note-en)
 )
@@ -682,7 +682,7 @@
 
 #let bibtex-techreport-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-techreport-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-techreport-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-techreport-institution-en = (none,"",set-url, "", ", ", (), ".")
 
@@ -695,7 +695,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-techreport-en = (
   ("author", bibtex-techreport-author-en),
-  ("title", bibtex-techreport-title-en),
+  ("title", bibtex-techreport-all-return),
   ("institution", bibtex-techreport-institution-en),
   ("year", bibtex-techreport-year-en),
   ("note", bibtex-techreport-note-en)
@@ -728,7 +728,7 @@
 
 #let bibtex-unpublished-author-en = (none,"",author-set, "", ", ", (), ".")
 
-#let bibtex-unpublished-title-en = (none,"",title-en, "", ", ", (), ".")
+#let bibtex-unpublished-all-return = (none,"",all-return, "", ", ", (), ".")
 
 #let bibtex-unpublished-year-en = (" ","(",all-return, "%year-doubling)", ", ", ("author","title"), "%year-doubling).")
 
@@ -739,7 +739,7 @@
 // !! この変数はbib_tex.typで使用されているため，変数名を変更しないように注意 !!
 #let bibtex-unpublished-en = (
   ("author", bibtex-unpublished-author-en),
-  ("title", bibtex-unpublished-title-en),
+  ("title", bibtex-unpublished-all-return),
   ("year", bibtex-unpublished-year-en),
   ("note", bibtex-unpublished-note-en)
 )
