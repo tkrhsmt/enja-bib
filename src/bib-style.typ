@@ -372,9 +372,10 @@
     bib-cite-author: (),
     bib-cite-year: (),
     lang: auto,
+    sentence-case-titles: true,
     it
   ) = {
-  let dict = load-bibliography(it).values().at(0)
+  let dict = load-bibliography(it, sentence-case-titles: sentence-case-titles).values().at(0)
   let dict = add-dict-lang(dict, lang)
 
   let output_arr = ()
@@ -496,6 +497,7 @@
   bibtex-unpublished-ja: (),
   bib-cite-author: (),
   bib-cite-year: (),
+  sentence-case-titles: true,
   file_contents
 ) = {
 
@@ -545,6 +547,7 @@
       bibtex-unpublished-ja: bibtex-unpublished-ja,
       bib-cite-author: bib-cite-author,
       bib-cite-year: bib-cite-year,
+      sentence-case-titles: sentence-case-titles,
       value)
     )
   }
