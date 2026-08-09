@@ -16,21 +16,17 @@
 //---------- 文献リストにlang要素を加える関数 ---------- //
 
 #let add-dict-lang(biblist, lang) = {
-
   let output_list = biblist.fields
   let check_exist_lang = output_list.at("lang", default: "")
 
-  if check_exist_lang != "en" and check_exist_lang != "ja"{
-
-    if lang == auto or lang != "ja" or lang != "en"{
-      if check-japanese-tex(biblist.fields){
+  if check_exist_lang != "en" and check_exist_lang != "ja" {
+    if lang == auto or lang != "ja" or lang != "en" {
+      if check-japanese-tex(biblist.fields) {
         output_list.insert("lang", "ja")
-      }
-      else{
+      } else {
         output_list.insert("lang", "en")
       }
-    }
-    else{
+    } else {
       output_list.insert("lang", lang)
     }
   }
@@ -72,128 +68,143 @@
   bibtex-techreport-ja,
   bibtex-unpublished-en,
   bibtex-unpublished-ja,
-  biblist
+  biblist,
 ) = {
-
   let element_function = none
 
-  if biblist.entry_type == "article"{//articleの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  if biblist.entry_type == "article" {
+    //articleの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-article-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-article-ja
     }
-  }
-  else if biblist.entry_type == "book"{//bookの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "book" {
+    //bookの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-book-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-book-ja
     }
-  }
-  else if biblist.entry_type == "booklet"{//bookletの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "booklet" {
+    //bookletの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-booklet-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-booklet-ja
     }
-  }
-  else if biblist.entry_type == "inbook"{//inbookの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "inbook" {
+    //inbookの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-inbook-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-inbook-ja
     }
-  }
-  else if biblist.entry_type == "incollection"{//incollectionの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "incollection" {
+    //incollectionの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-incollection-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-incollection-ja
     }
-  }
-  else if biblist.entry_type == "inproceedings"{//inproceedingsの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "inproceedings" {
+    //inproceedingsの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-inproceedings-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-inproceedings-ja
     }
-  }
-  else if biblist.entry_type == "conference"{//inproceedingsの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "conference" {
+    //inproceedingsの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-conference-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-conference-ja
     }
-  }
-  else if biblist.entry_type == "manual"{//manualの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "manual" {
+    //manualの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-manual-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-manual-ja
     }
-  }
-  else if biblist.entry_type == "mastersthesis"{//mastersthesisの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "mastersthesis" {
+    //mastersthesisの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-mastersthesis-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-mastersthesis-ja
     }
-  }
-  else if biblist.entry_type == "misc"{//miscの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "misc" {
+    //miscの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-misc-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-misc-ja
     }
-  }
-  else if biblist.entry_type == "online"{//onlineの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "online" {
+    //onlineの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-online-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-online-ja
     }
-  }
-  else if biblist.entry_type == "phdthesis"{//phdthesisの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "phdthesis" {
+    //phdthesisの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-phdthesis-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-phdthesis-ja
     }
-  }
-  else if biblist.entry_type == "proceedings"{//proceedingsの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "proceedings" {
+    //proceedingsの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-proceedings-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-proceedings-ja
     }
-  }
-  else if biblist.entry_type == "techreport"{//techreportの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "techreport" {
+    //techreportの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-techreport-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-techreport-ja
     }
-  }
-  else if biblist.entry_type == "unpublished"{//unpublishedの場合
-    if biblist.fields.lang == "en"{//英語の場合
+  } else if biblist.entry_type == "unpublished" {
+    //unpublishedの場合
+    if biblist.fields.lang == "en" {
+      //英語の場合
       element_function = bibtex-unpublished-en
-    }
-    else{//日本語の場合
+    } else {
+      //日本語の場合
       element_function = bibtex-unpublished-ja
     }
   }
@@ -203,27 +214,29 @@
 
 //---------- 文献リストを文献に変換 ---------- //
 #let bibtex-to-bib(year-doubling, biblist, element_function) = {
+  let output_list_bef = () //出力リスト(仮)
+  let interval_str = "" //要素間の文字列
+  let bef_element = "" //前の要素
+  let element_num = 0 //要素の数
+  let element_total_num = 0 //全要素数
 
-  let output_list_bef = ()//出力リスト(仮)
-  let interval_str = ""//要素間の文字列
-  let bef_element = ""//前の要素
-  let element_num = 0//要素の数
-  let element_total_num = 0//全要素数
-
-  for bibitem in element_function{
+  for bibitem in element_function {
     let tmp = biblist.fields.at(bibitem.at(0), default: "")
-    if tmp != ""{//要素が存在する場合
+    if tmp != "" {
+      //要素が存在する場合
       element_total_num += 1
     }
   }
 
-  for bibitem in element_function{// 各要素に対して処理
+  for bibitem in element_function {
+    // 各要素に対して処理
     let tmp = biblist.fields.at(bibitem.at(0), default: none)
-    if tmp != none and tmp != ""{// 要素が存在する場合
+    if tmp != none and tmp != "" {
+      // 要素が存在する場合
       element_num += 1
 
       //条件を満たすとき，前の要素間文字列を新しい文字列に置き換える
-      if bibitem.at(1).at(5).contains(bef_element) and bibitem.at(1).at(0) != none{
+      if bibitem.at(1).at(5).contains(bef_element) and bibitem.at(1).at(0) != none {
         interval_str = bibitem.at(1).at(0)
       }
       //先頭に文字列を追加
@@ -234,11 +247,12 @@
       output_list_bef.push(bibitem.at(1).at(2)(biblist, bibitem.at(0)))
 
       //要素後に文字列を追加
-      if element_num != element_total_num{//最後の要素でないとき
+      if element_num != element_total_num {
+        //最後の要素でないとき
         output_list_bef.push(bibitem.at(1).at(3))
         interval_str = bibitem.at(1).at(4)
-      }
-      else{//最後の要素のとき
+      } else {
+        //最後の要素のとき
         output_list_bef.push(bibitem.at(1).at(6))
       }
 
@@ -248,32 +262,29 @@
   }
 
   element_num = 0
-  let bef_str = false//直前の要素が文字列かどうか
+  let bef_str = false //直前の要素が文字列かどうか
   let contain_str = ""
   let output_list = ()
 
-  for value in output_list_bef{
-    if value != ""{
+  for value in output_list_bef {
+    if value != "" {
       let outputvalue = value
 
-      if bef_str or type(outputvalue) == str{
-        if type(outputvalue) == str{
+      if bef_str or type(outputvalue) == str {
+        if type(outputvalue) == str {
           contain_str += outputvalue
-        }
-        else {
+        } else {
           output_list.push(contain_str)
           output_list.push(outputvalue)
           contain_str = ""
         }
-      }
-      else{
+      } else {
         output_list.push(outputvalue)
       }
 
-      if type(outputvalue) == str{
+      if type(outputvalue) == str {
         bef_str = true
-      }
-      else{
+      } else {
         bef_str = false
       }
     }
@@ -281,27 +292,25 @@
     element_num += 1
   }
 
-  if bef_str{
-      output_list.push(contain_str)
-      contain_str = ""
+  if bef_str {
+    output_list.push(contain_str)
+    contain_str = ""
   }
 
   let outputlist = ()
   output_list_bef = ()
-  for value in output_list{
-    if type(value) == str{
+  for value in output_list {
+    if type(value) == str {
       let tmp = value.split(year-doubling)
-      if tmp.len() == 1{
+      if tmp.len() == 1 {
         output_list_bef.push(eval(value, mode: "markup"))
-      }
-      else{
+      } else {
         output_list_bef.push(eval(tmp.at(0), mode: "markup"))
         outputlist.push(output_list_bef)
         output_list_bef = ()
         output_list_bef.push(eval(tmp.at(1), mode: "markup"))
       }
-    }
-    else{
+    } else {
       output_list_bef.push(value)
     }
   }
@@ -314,9 +323,8 @@
 #let bibtex-to-cite(
   bib-cite-author,
   bib-cite-year,
-  biblist
-  ) = {
-
+  biblist,
+) = {
   let cite_list = ()
 
   //citet
@@ -329,16 +337,15 @@
 
 //---------- 並び替えのための読み仮名 ---------- //
 #let bibtex-yomi(biblist, bib_arr) = {
-
   let yomi = ""
   let bib_str = contents-to-str(bib_arr.sum().sum())
 
   yomi = biblist.fields.at("yomi", default: "")
-  if yomi == ""{
+  if yomi == "" {
     yomi = bib_str
   }
 
-  if type(yomi) == content{
+  if type(yomi) == content {
     yomi = contents-to-str(yomi)
   }
 
