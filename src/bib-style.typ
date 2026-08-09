@@ -546,3 +546,138 @@
 
   return output-bib
 }
+
+#let set-style(
+  style,
+  add-utils: (:)
+) = {
+
+  // tomlファイル内の関数文字列を関数に変換
+  let utils = utils
+  for value in add-utils.pairs(){
+    utils.insert(value.at(0), value.at(1))
+  }
+
+  style.insert("bib-cite-author", utils.at(style.bib-cite-author))
+  style.insert("bib-cite-year", utils.at(style.bib-cite-year))
+  style.insert("bib-vancouver-manual", utils.at(style.bib-vancouver-manual))
+
+  for value in style.cite.pairs() {
+    let tmp = value.at(1)
+    tmp.at(1) = utils.at(tmp.at(1))
+    style.cite.insert(value.at(0), tmp)
+  }
+  for entry in style.entry.pairs() {
+    for value in entry.at(1).en.pairs() {
+      let tmp = value.at(1)
+      tmp.at(2) = utils.at(tmp.at(2))
+      entry.at(1).en.insert(value.at(0), tmp)
+    }
+    for value in entry.at(1).ja.pairs() {
+      let tmp = value.at(1)
+      tmp.at(2) = utils.at(tmp.at(2))
+      entry.at(1).ja.insert(value.at(0), tmp)
+    }
+    style.entry.insert(entry.at(0), entry.at(1))
+  }
+
+  //各関数にスタイルを適用
+  let bib-init = bib-init.with(bib-cite: style.cite.bib-cite)
+  let bibliography-list = bibliography-list.with(
+    year-doubling: style.year-doubling,
+    bib-sort: style.bib-sort,
+    bib-sort-ref: style.bib-sort-ref,
+    bib-full: style.bib-full,
+    bib-vancouver: style.bib-vancouver,
+    vancouver-style: style.vancouver-style,
+    bib-year-doubling: style.bib-year-doubling,
+    bib-vancouver-manual: style.bib-vancouver-manual
+  )
+  let bib-tex = bib-tex.with(
+    year-doubling: style.year-doubling,
+    bibtex-article-en: style.entry.article.en,
+    bibtex-article-ja: style.entry.article.ja,
+    bibtex-book-en: style.entry.book.en,
+    bibtex-book-ja: style.entry.book.ja,
+    bibtex-booklet-en: style.entry.booklet.en,
+    bibtex-booklet-ja: style.entry.booklet.ja,
+    bibtex-inbook-en: style.entry.inbook.en,
+    bibtex-inbook-ja: style.entry.inbook.ja,
+    bibtex-incollection-en: style.entry.incollection.en,
+    bibtex-incollection-ja: style.entry.incollection.ja,
+    bibtex-inproceedings-en: style.entry.inproceedings.en,
+    bibtex-inproceedings-ja: style.entry.inproceedings.ja,
+    bibtex-conference-en: style.entry.conference.en,
+    bibtex-conference-ja: style.entry.conference.ja,
+    bibtex-manual-en: style.entry.manual.en,
+    bibtex-manual-ja: style.entry.manual.ja,
+    bibtex-mastersthesis-en: style.entry.mastersthesis.en,
+    bibtex-mastersthesis-ja: style.entry.mastersthesis.ja,
+    bibtex-misc-en: style.entry.misc.en,
+    bibtex-misc-ja: style.entry.misc.ja,
+    bibtex-online-en: style.entry.online.en,
+    bibtex-online-ja: style.entry.online.ja,
+    bibtex-phdthesis-en: style.entry.phdthesis.en,
+    bibtex-phdthesis-ja: style.entry.phdthesis.ja,
+    bibtex-proceedings-en: style.entry.proceedings.en,
+    bibtex-proceedings-ja: style.entry.proceedings.ja,
+    bibtex-techreport-en: style.entry.techreport.en,
+    bibtex-techreport-ja: style.entry.techreport.ja,
+    bibtex-unpublished-en: style.entry.unpublished.en,
+    bibtex-unpublished-ja: style.entry.unpublished.ja,
+    bib-cite-author: style.bib-cite-author,
+    bib-cite-year: style.bib-cite-year
+  )
+  let bib-file = bib-file.with(
+    year-doubling: style.year-doubling,
+    bibtex-article-en: style.entry.article.en,
+    bibtex-article-ja: style.entry.article.ja,
+    bibtex-book-en: style.entry.book.en,
+    bibtex-book-ja: style.entry.book.ja,
+    bibtex-booklet-en: style.entry.booklet.en,
+    bibtex-booklet-ja: style.entry.booklet.ja,
+    bibtex-inbook-en: style.entry.inbook.en,
+    bibtex-inbook-ja: style.entry.inbook.ja,
+    bibtex-incollection-en: style.entry.incollection.en,
+    bibtex-incollection-ja: style.entry.incollection.ja,
+    bibtex-inproceedings-en: style.entry.inproceedings.en,
+    bibtex-inproceedings-ja: style.entry.inproceedings.ja,
+    bibtex-conference-en: style.entry.conference.en,
+    bibtex-conference-ja: style.entry.conference.ja,
+    bibtex-manual-en: style.entry.manual.en,
+    bibtex-manual-ja: style.entry.manual.ja,
+    bibtex-mastersthesis-en: style.entry.mastersthesis.en,
+    bibtex-mastersthesis-ja: style.entry.mastersthesis.ja,
+    bibtex-misc-en: style.entry.misc.en,
+    bibtex-misc-ja: style.entry.misc.ja,
+    bibtex-online-en: style.entry.online.en,
+    bibtex-online-ja: style.entry.online.ja,
+    bibtex-phdthesis-en: style.entry.phdthesis.en,
+    bibtex-phdthesis-ja: style.entry.phdthesis.ja,
+    bibtex-proceedings-en: style.entry.proceedings.en,
+    bibtex-proceedings-ja: style.entry.proceedings.ja,
+    bibtex-techreport-en: style.entry.techreport.en,
+    bibtex-techreport-ja: style.entry.techreport.ja,
+    bibtex-unpublished-en: style.entry.unpublished.en,
+    bibtex-unpublished-ja: style.entry.unpublished.ja,
+    bib-cite-author: style.bib-cite-author,
+    bib-cite-year: style.bib-cite-year
+  )
+  let bib-item = bib-item
+  let citet = bib-cite-func.with(bib-cite: style.cite.bib-citet)
+  let citep = bib-cite-func.with(bib-cite: style.cite.bib-citep)
+  let citen = bib-cite-func.with(bib-cite: style.cite.bib-citen)
+  let citefull = bib-cite-func.with(bib-cite: style.cite.bib-citefull)
+
+  return (
+    bib-init: bib-init,
+    bibliography-list: bibliography-list,
+    bib-tex: bib-tex,
+    bib-file: bib-file,
+    bib-item: bib-item,
+    citet: citet,
+    citep: citep,
+    citen: citen,
+    citefull: citefull
+  )
+}
