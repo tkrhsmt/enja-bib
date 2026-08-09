@@ -1,6 +1,6 @@
 #import "../src/lib.typ": *
 
-#let (bib-init, bibliography-list, bib-tex, bib-file, bib-item, citet, citep, citen, citefull) = set-style(bib-style.jsme)
+#import bib-setting-jsme: *
 #show: bib-init
 
 #set text(font: ("Times New Roman", "Harano Aji Mincho"))
