@@ -384,3 +384,36 @@
 #let bib-cite-yearonly(bib_cite_contents) = {
   return bib_cite_contents.at(1)
 }
+
+// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+// 前関数辞書
+// % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+#let utils = (
+  contents-to-str: contents-to-str,
+  remove-space-l: remove-space-l,
+  remove-space-r: remove-space-r,
+  remove-space: remove-space,
+  all-return: all-return,
+  all-bold: all-bold,
+  all-emph: all-emph,
+  author-en: author-en,
+  author-en2: author-en2,
+  author-en3: author-en3,
+  author-en4: author-en4,
+  author-ja: author-ja,
+  author-set: author-set,
+  author-set2: author-set2,
+  author-set3: author-set3,
+  author-set-cite: author-set-cite,
+  set-url: set-url,
+  page-set: page-set,
+  page-set-without-p: page-set-without-p,
+  bib-vancouver-manual-default: bib-vancouver-manual-default,
+  bib-citet-default: bib-citet-default,
+  bib-citep-default: bib-citep-default,
+  bib-citen-default: bib-citen-default,
+  bib-citefull-default: bib-citefull-default,
+  bib-cite-authoronly: bib-cite-authoronly,
+  bib-cite-yearonly: bib-cite-yearonly,
+)

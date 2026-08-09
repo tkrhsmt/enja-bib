@@ -331,85 +331,20 @@
 
 // ---------- 文献形式に出力する関数 ---------- //
 #let bib-tex(
-  year-doubling: "",
-  bibtex-article-en: (),
-  bibtex-article-ja: (),
-  bibtex-book-en: (),
-  bibtex-book-ja: (),
-  bibtex-booklet-en: (),
-  bibtex-booklet-ja: (),
-  bibtex-inbook-en: (),
-  bibtex-inbook-ja: (),
-  bibtex-incollection-en: (),
-  bibtex-incollection-ja: (),
-  bibtex-inproceedings-en: (),
-  bibtex-inproceedings-ja: (),
-  bibtex-conference-en: (),
-  bibtex-conference-ja: (),
-  bibtex-manual-en: (),
-  bibtex-manual-ja: (),
-  bibtex-mastersthesis-en: (),
-  bibtex-mastersthesis-ja: (),
-  bibtex-misc-en: (),
-  bibtex-misc-ja: (),
-  bibtex-online-en: (),
-  bibtex-online-ja: (),
-  bibtex-phdthesis-en: (),
-  bibtex-phdthesis-ja: (),
-  bibtex-proceedings-en: (),
-  bibtex-proceedings-ja: (),
-  bibtex-techreport-en: (),
-  bibtex-techreport-ja: (),
-  bibtex-unpublished-en: (),
-  bibtex-unpublished-ja: (),
-  bib-cite-author: (),
-  bib-cite-year: (),
   lang: auto,
-  sentence-case-titles: true,
+  style: (:),
   it,
 ) = {
-  let dict = load-bibliography(it, sentence-case-titles: sentence-case-titles).values().at(0)
+  let dict = load-bibliography(it, sentence-case-titles: style.sentence-case-titles).values().at(0)
   let dict = add-dict-lang(dict, lang)
 
   let output_arr = ()
-  let bib_element_function = get-element-function(
-    bibtex-article-en,
-    bibtex-article-ja,
-    bibtex-book-en,
-    bibtex-book-ja,
-    bibtex-booklet-en,
-    bibtex-booklet-ja,
-    bibtex-inbook-en,
-    bibtex-inbook-ja,
-    bibtex-incollection-en,
-    bibtex-incollection-ja,
-    bibtex-inproceedings-en,
-    bibtex-inproceedings-ja,
-    bibtex-conference-en,
-    bibtex-conference-ja,
-    bibtex-manual-en,
-    bibtex-manual-ja,
-    bibtex-mastersthesis-en,
-    bibtex-mastersthesis-ja,
-    bibtex-misc-en,
-    bibtex-misc-ja,
-    bibtex-online-en,
-    bibtex-online-ja,
-    bibtex-phdthesis-en,
-    bibtex-phdthesis-ja,
-    bibtex-proceedings-en,
-    bibtex-proceedings-ja,
-    bibtex-techreport-en,
-    bibtex-techreport-ja,
-    bibtex-unpublished-en,
-    bibtex-unpublished-ja,
-    dict,
-  )
-  output_arr.push(bibtex-to-bib(year-doubling, dict, bib_element_function))
+  let bib_element_function = get-element-function(style, dict)
+  output_arr.push(bibtex-to-bib(style.year-doubling, dict, bib_element_function))
 
   let element_cite_list = bibtex-to-cite(
-    bib-cite-author,
-    bib-cite-year,
+    style.bib-cite-author,
+    style.bib-cite-year,
     dict,
   )
   output_arr.push(element_cite_list)
@@ -453,40 +388,7 @@
 }
 
 #let bib-file(
-  year-doubling: "",
-  bibtex-article-en: (),
-  bibtex-article-ja: (),
-  bibtex-book-en: (),
-  bibtex-book-ja: (),
-  bibtex-booklet-en: (),
-  bibtex-booklet-ja: (),
-  bibtex-inbook-en: (),
-  bibtex-inbook-ja: (),
-  bibtex-incollection-en: (),
-  bibtex-incollection-ja: (),
-  bibtex-inproceedings-en: (),
-  bibtex-inproceedings-ja: (),
-  bibtex-conference-en: (),
-  bibtex-conference-ja: (),
-  bibtex-manual-en: (),
-  bibtex-manual-ja: (),
-  bibtex-mastersthesis-en: (),
-  bibtex-mastersthesis-ja: (),
-  bibtex-misc-en: (),
-  bibtex-misc-ja: (),
-  bibtex-online-en: (),
-  bibtex-online-ja: (),
-  bibtex-phdthesis-en: (),
-  bibtex-phdthesis-ja: (),
-  bibtex-proceedings-en: (),
-  bibtex-proceedings-ja: (),
-  bibtex-techreport-en: (),
-  bibtex-techreport-ja: (),
-  bibtex-unpublished-en: (),
-  bibtex-unpublished-ja: (),
-  bib-cite-author: (),
-  bib-cite-year: (),
-  sentence-case-titles: true,
+  style: (:),
   file_contents,
 ) = {
   let file_arr = file_contents.split(regex("(^|[^\\\\])@"))
@@ -506,43 +408,77 @@
 
   for value in output-arr {
     output-bib.push(bib-tex(
-      year-doubling: year-doubling,
-      bibtex-article-en: bibtex-article-en,
-      bibtex-article-ja: bibtex-article-ja,
-      bibtex-book-en: bibtex-book-en,
-      bibtex-book-ja: bibtex-book-ja,
-      bibtex-booklet-en: bibtex-booklet-en,
-      bibtex-booklet-ja: bibtex-booklet-ja,
-      bibtex-inbook-en: bibtex-inbook-en,
-      bibtex-inbook-ja: bibtex-inbook-ja,
-      bibtex-incollection-en: bibtex-incollection-en,
-      bibtex-incollection-ja: bibtex-incollection-ja,
-      bibtex-inproceedings-en: bibtex-inproceedings-en,
-      bibtex-inproceedings-ja: bibtex-inproceedings-ja,
-      bibtex-conference-en: bibtex-conference-en,
-      bibtex-conference-ja: bibtex-conference-ja,
-      bibtex-manual-en: bibtex-manual-en,
-      bibtex-manual-ja: bibtex-manual-ja,
-      bibtex-mastersthesis-en: bibtex-mastersthesis-en,
-      bibtex-mastersthesis-ja: bibtex-mastersthesis-ja,
-      bibtex-misc-en: bibtex-misc-en,
-      bibtex-misc-ja: bibtex-misc-ja,
-      bibtex-online-en: bibtex-online-en,
-      bibtex-online-ja: bibtex-online-ja,
-      bibtex-phdthesis-en: bibtex-phdthesis-en,
-      bibtex-phdthesis-ja: bibtex-phdthesis-ja,
-      bibtex-proceedings-en: bibtex-proceedings-en,
-      bibtex-proceedings-ja: bibtex-proceedings-ja,
-      bibtex-techreport-en: bibtex-techreport-en,
-      bibtex-techreport-ja: bibtex-techreport-ja,
-      bibtex-unpublished-en: bibtex-unpublished-en,
-      bibtex-unpublished-ja: bibtex-unpublished-ja,
-      bib-cite-author: bib-cite-author,
-      bib-cite-year: bib-cite-year,
-      sentence-case-titles: sentence-case-titles,
+      style: style,
       value,
     ))
   }
 
   return output-bib
+}
+
+#let set-style(
+  style,
+  add-utils: (:),
+) = {
+  // tomlファイル内の関数文字列を関数に変換
+  let utils = utils
+  for value in add-utils.pairs() {
+    utils.insert(value.at(0), value.at(1))
+  }
+
+  style.insert("bib-cite-author", utils.at(style.bib-cite-author))
+  style.insert("bib-cite-year", utils.at(style.bib-cite-year))
+  style.insert("bib-vancouver-manual", utils.at(style.bib-vancouver-manual))
+
+  for value in style.cite.pairs() {
+    let tmp = value.at(1)
+    tmp.at(1) = utils.at(tmp.at(1))
+    style.cite.insert(value.at(0), tmp)
+  }
+
+  for entry in style.entry.pairs() {
+    for value in entry.at(1).en.pairs() {
+      let tmp = value.at(1)
+      tmp.at(2) = utils.at(tmp.at(2))
+      entry.at(1).en.insert(value.at(0), tmp)
+    }
+    for value in entry.at(1).ja.pairs() {
+      let tmp = value.at(1)
+      tmp.at(2) = utils.at(tmp.at(2))
+      entry.at(1).ja.insert(value.at(0), tmp)
+    }
+    style.entry.insert(entry.at(0), entry.at(1))
+  }
+
+  //各関数にスタイルを適用
+  let bib-init = bib-init.with(bib-cite: style.cite.bib-cite)
+  let bibliography-list = bibliography-list.with(
+    year-doubling: style.year-doubling,
+    bib-sort: style.bib-sort,
+    bib-sort-ref: style.bib-sort-ref,
+    bib-full: style.bib-full,
+    bib-vancouver: style.bib-vancouver,
+    vancouver-style: style.vancouver-style,
+    bib-year-doubling: style.bib-year-doubling,
+    bib-vancouver-manual: style.bib-vancouver-manual,
+  )
+  let bib-tex = bib-tex.with(style: style)
+  let bib-file = bib-file.with(style: style)
+  let bib-item = bib-item
+  let citet = bib-cite-func.with(bib-cite: style.cite.bib-citet)
+  let citep = bib-cite-func.with(bib-cite: style.cite.bib-citep)
+  let citen = bib-cite-func.with(bib-cite: style.cite.bib-citen)
+  let citefull = bib-cite-func.with(bib-cite: style.cite.bib-citefull)
+
+  return (
+    bib-init: bib-init,
+    bibliography-list: bibliography-list,
+    bib-tex: bib-tex,
+    bib-file: bib-file,
+    bib-item: bib-item,
+    citet: citet,
+    citep: citep,
+    citen: citen,
+    citefull: citefull,
+  )
 }
