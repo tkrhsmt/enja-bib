@@ -25,10 +25,10 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-      # 0.15.x は Typst 0.15 系と対応する Tinymist の安定版系列。
+      # GitHub Releases のタグをそのまま指定する（v 接頭辞が必要）。
       - name: Install Tinymist
         env:
-          TINYMIST_VERSION: 0.15.x
+          TINYMIST_VERSION: v0.15.2
         run: |
           curl --proto '=https' --tlsv1.2 -LsSf "https://github.com/Myriad-Dreamin/tinymist/releases/download/${TINYMIST_VERSION}/tinymist-installer.sh" | sh
           # インストーラの配置先を後続ステップの PATH に追加する。
