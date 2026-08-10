@@ -1,0 +1,50 @@
+name: Typst tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# 依存関係の読み取りと Actions の成果物アップロードだけを許可する。
+permissions:
+  contents: read
+
+# 同じ PR / ブランチで新しいコミットが来た場合は古い実行を停止する。
+concurrency:
+  group: typst-tests-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: Tinymist test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      # GitHub Releases のタグをそのまま指定する（v 接頭辞が必要）。
+      - name: Install Tinymist
+        env:
+          TINYMIST_VERSION: v0.15.2
+        run: |
+          curl --proto '=https' --tlsv1.2 -LsSf "https://github.com/Myriad-Dreamin/tinymist/releases/download/${TINYMIST_VERSION}/tinymist-installer.sh" | sh
+          # インストーラの配置先を後続ステップの PATH に追加する。
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/tinymist" --version
+
+      # テスト関数（test-*）を実行し、coverage.json も生成する。
+      # システムフォントを除外して OS 間で再現可能な描画結果にする。
+      - name: Run Typst tests
+        run: tinymist test test/runtest.typ --root . --ignore-system-fonts --coverage --print-coverage=full
+
+      # 失敗時にもカバレッジ情報を確認できるよう常にアップロードする。
+      - name: Upload coverage report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tinymist-coverage
+          path: target/coverage.json
+          if-no-files-found: warn
