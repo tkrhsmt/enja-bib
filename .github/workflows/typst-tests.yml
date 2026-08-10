@@ -38,7 +38,7 @@ jobs:
       # テスト関数（test-*）を実行し、coverage.json も生成する。
       # システムフォントを除外して OS 間で再現可能な描画結果にする。
       - name: Run Typst tests
-        run: tinymist test src/runtest.typ --root . --ignore-system-fonts --coverage --print-coverage=full
+        run: tinymist test test/runtest.typ --root . --ignore-system-fonts --coverage --print-coverage=full
 
       # 失敗時にもカバレッジ情報を確認できるよう常にアップロードする。
       - name: Upload coverage report

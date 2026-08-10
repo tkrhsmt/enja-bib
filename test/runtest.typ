@@ -1,6 +1,6 @@
-#import "bib-setting-function.typ": *
-#import "bib-tex.typ": *
-#import "bib-style.typ": *
+#import "../src/bib-setting-function.typ": *
+#import "../src/bib-tex.typ": *
+#import "../src/bib-style.typ": *
 
 // content 型と文字列を同じ方法で比較するための補助関数。
 #let text-of(value) = if type(value) == str { value } else { contents-to-str(value) }
@@ -155,18 +155,18 @@
   assert(text-of(bib-item("Text entry").at(0).sum().sum()) == "Text entry")
 
   // TOML 内の関数名が callable な関数へ置き換えられることを確認する。
-  let style = toml("bib-setting-custom/plain.toml")
+  let style = toml("../src/bib-setting-custom/plain.toml")
   let configured = set-style(style)
   assert(type(configured.bib-init) == function)
   assert(type(configured.bib-file) == function)
   assert(type(configured.citet) == function)
   assert(get-element-function(style, (entry_type: "article", fields: (lang: "en"))) != none)
-  let style-with-utils = toml("bib-setting-custom/plain.toml")
+  let style-with-utils = toml("../src/bib-setting-custom/plain.toml")
   assert(type(set-style(style-with-utils, add-utils: (custom: all-return)).bib-tex) == function)
 }
 
 #let test-bibtex-integration() = {
-  let style = toml("bib-setting-custom/plain.toml")
+  let style = toml("../src/bib-setting-custom/plain.toml")
   let configured = set-style(style)
   // @comment を無視し、article エントリだけを読み込む結合テスト。
   let source = "@comment{ignored}\n@article{sample, author = {John Smith}, title = {Sample Title}, journal = {Journal}, year = {2024}, pages = {1-2}}"
