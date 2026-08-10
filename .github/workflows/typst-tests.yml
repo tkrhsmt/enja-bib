@@ -29,7 +29,11 @@ jobs:
       - name: Install Tinymist
         env:
           TINYMIST_VERSION: 0.15.x
-        run: curl --proto '=https' --tlsv1.2 -LsSf "https://github.com/Myriad-Dreamin/tinymist/releases/download/${TINYMIST_VERSION}/tinymist-installer.sh" | sh
+        run: |
+          curl --proto '=https' --tlsv1.2 -LsSf "https://github.com/Myriad-Dreamin/tinymist/releases/download/${TINYMIST_VERSION}/tinymist-installer.sh" | sh
+          # インストーラの配置先を後続ステップの PATH に追加する。
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+          "$HOME/.local/bin/tinymist" --version
 
       # テスト関数（test-*）を実行し、coverage.json も生成する。
       # システムフォントを除外して OS 間で再現可能な描画結果にする。
