@@ -1,4 +1,5 @@
 #import "bib-setting-function.typ": *
+#import "bib-yomi.typ": *
 #import "@preview/citegeist:0.3.1": load-bibliography
 
 //---------- 文字列に日本語が含まれるかを判定する関数 ---------- //
@@ -166,9 +167,9 @@
 //---------- 並び替えのための読み仮名 ---------- //
 #let bibtex-yomi(biblist, bib_arr) = {
   let bib_str = contents-to-str(bib_arr.sum().sum())
-  let yomi = biblist.fields.at("yomi", default: bib_str)
+  let yomi = biblist.fields.at("yomi", default: "")
   if yomi == "" {
-    yomi = bib_str
+    yomi = auto-make-yomi(biblist, bib_str)
   }
 
   if type(yomi) == content {
