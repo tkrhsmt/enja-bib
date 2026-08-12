@@ -45,7 +45,15 @@ Licensed under MIT.
 
 > 現在すぐに使用可能なスタイル一覧
 > - `bib-setting-plain`：bibtexの`jplain`を再現したスタイル
+> - `bib-setting-junsrt`：標準日本語スタイル `junsrt`（引用順）
+> - `bib-setting-jabbrv`：標準日本語スタイル `jabbrv`（欧文著者名を省略）
+> - `bib-setting-jalpha`：標準日本語スタイル `jalpha`（著者・年ラベル）
+> - `bib-setting-jname`：標準日本語スタイル `jname`（著者名ラベル）
+> - `bib-setting-jipsj`：情報処理学会欧文論文誌スタイル `jipsj`
+> - `bib-setting-jorsj`：日本オペレーションズ・リサーチ学会論文誌スタイル `jorsj`
 > - `bib-setting-jsme`：日本機械学会の引用を再現したスタイル
+> - `bib-setting-tieice`：電子情報通信学会論文誌スタイル `tieice`
+> - `bib-setting-tipsj`：情報処理学会論文誌スタイル `tipsj`
 
 ## それぞれの関数の使い方
 

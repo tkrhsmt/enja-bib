@@ -102,7 +102,7 @@
   return (given, author_arr.prefix, author_arr.family, suffix).filter(x => x != "").join(" ")
 }
 
-// ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Reynolds)に変換 ---------- //
+// ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：RAYNOLDS O)に変換 ---------- //
 #let author-en6(author_arr) = {
   let given = author_arr.at("given")
   let suffix = author_arr.at("suffix")
@@ -116,6 +116,22 @@
   }
 
   return (smallcaps(author_arr.family), smallcaps(author_arr.prefix), given, suffix).filter(x => x != "").join(" ")
+}
+
+// ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Reynolds, O.)に変換 ---------- //
+#let author-en7(author_arr) = {
+  let family = author_arr.at("family")
+  let given = author_arr.at("given")
+
+  if family != "" {
+    family = family + ", "
+  }
+
+  if given != "" {
+    given = given.split(" ").map(x => upper(x.at(0)) + ".").join(" ")
+  }
+
+  return (author_arr.prefix, family, given, author_arr.suffix).filter(x => x != "").join(" ")
 }
 
 // ---------- 日本語の著者名はそのまま繋げて出力 ---------- //
@@ -169,6 +185,11 @@
 // ---------- 項目を著者型にして返す関数(author-en6型) ---------- //
 #let author-set5(biblist, name) = {
   return make-author-set(biblist, name, author-ja, author-en6)
+}
+
+// ---------- 項目を著者型にして返す関数(author-en7型) ---------- //
+#let author-set6(biblist, name) = {
+  return make-author-set(biblist, name, author-ja, author-en7)
 }
 
 // ---------- 項目をciteの著者型にして返す関数 ---------- //
@@ -249,7 +270,7 @@
 
 #let bib-vancouver-manual-default(bib_cite_contents) = {
   if bib_cite_contents.at(0) == none {
-    bib_cite_contents.at(0) = "??"
+    bib_cite_contents.at(0) = ""
   }
 
   let tmp = bib_cite_contents.at(0).split(regex("and|, ")).map(x => remove-space(x))
@@ -295,7 +316,7 @@
 
   let year = bib_cite_contents.at(1)
   if year == "" {
-    year = "??"
+    year = ""
   } else {
     year = year.slice(2, 4)
   }
@@ -377,12 +398,14 @@
   author-en4: author-en4,
   author-en5: author-en5,
   author-en6: author-en6,
+  author-en7: author-en7,
   author-ja: author-ja,
   author-set: author-set,
   author-set2: author-set2,
   author-set3: author-set3,
   author-set4: author-set4,
   author-set5: author-set5,
+  author-set6: author-set6,
   author-set-cite: author-set-cite,
   set-url: set-url,
   page-set: page-set,
