@@ -67,7 +67,7 @@
 
 // ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：O Reynolds)に変換 ---------- //
 #let author-en3(author_arr) = {
-  let prefix = author_arr.at("prefix")
+  let given = author_arr.at("given")
   let suffix = author_arr.at("suffix")
 
   if given != "" {
