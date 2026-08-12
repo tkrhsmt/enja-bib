@@ -20,35 +20,17 @@
 
 // ---------- 文字列の左側のスペースを削除する関数 ---------- //
 #let remove-space-l(text) = {
-  let output_str = text
-  for value in text {
-    if value == " " {
-      output_str = output_str.slice(1)
-    } else {
-      break
-    }
-  }
-  return output_str
+  return text.trim(regex("^\\s+"))
 }
 
 // ---------- 文字列の右側のスペースを削除する関数 ---------- //
 #let remove-space-r(text) = {
-  let output_str = text
-  for value in text.rev() {
-    if value == " " {
-      output_str = output_str.slice(0, -1)
-    } else {
-      break
-    }
-  }
-  return output_str
+  return text.trim(regex("\\s+$"))
 }
 
 // ---------- 文字列の両側のスペースを削除する関数 ---------- //
 #let remove-space(text) = {
-  let output_str = remove-space-l(text)
-  output_str = remove-space-r(output_str)
-  return output_str
+  return text.trim()
 }
 
 // ---------- 項目内をそのまま返す関数 ---------- //
@@ -68,31 +50,23 @@
 
 // ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Reynolds O.)に変換 ---------- //
 #let author-en(author_arr) = {
-  let family = author_arr.at("family")
   let given = author_arr.at("given")
-  let prefix = author_arr.at("prefix")
-  let suffix = author_arr.at("suffix")
 
   if given != "" {
     given = given.split(" ").map(x => upper(x.at(0)) + ".").join(" ")
   }
 
-  return (prefix, family, given, suffix).filter(x => x != "").join(" ")
+  return (author_arr.prefix, author_arr.family, given, author_arr.suffix).filter(x => x != "").join(" ")
 }
 
 // ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Reynolds)に変換 ---------- //
 #let author-en2(author_arr) = {
-  let family = author_arr.at("family")
-  let prefix = author_arr.at("prefix")
-
-  return (prefix, family).filter(x => x != "").join(" ")
+  return (author_arr.prefix, author_arr.family).filter(x => x != "").join(" ")
 }
 
 
 // ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：O Reynolds)に変換 ---------- //
 #let author-en3(author_arr) = {
-  let family = author_arr.at("family")
-  let given = author_arr.at("given")
   let prefix = author_arr.at("prefix")
   let suffix = author_arr.at("suffix")
 
@@ -104,97 +78,56 @@
     suffix = upper(suffix.at(0))
   }
 
-  return (prefix, family, given, suffix).filter(x => x != "").join(" ")
+  return (author_arr.prefix, author_arr.family, given, suffix).filter(x => x != "").join(" ")
 }
 
 
 // ---------- 英語の著者名(例：Reynolds, Osborne)を型(例：Osborne Reynolds)に変換 ---------- //
 #let author-en4(author_arr) = {
-  let family = author_arr.at("family")
-  let given = author_arr.at("given")
-  let prefix = author_arr.at("prefix")
-  let suffix = author_arr.at("suffix")
-
-  return (prefix, given, family, suffix).filter(x => x != "").join(" ")
+  return (author_arr.prefix, author_arr.given, author_arr.family, author_arr.suffix).filter(x => x != "").join(" ")
 }
 
 // ---------- 日本語の著者名はそのまま繋げて出力 ---------- //
 #let author-ja(author_arr) = {
-  let family = author_arr.at("family")
-  let given = author_arr.at("given")
-  let prefix = author_arr.at("prefix")
-  let suffix = author_arr.at("suffix")
-  return prefix + family + given + suffix
+  return author_arr.prefix + author_arr.family + author_arr.given + author_arr.suffix
 }
 
-// ---------- 項目を著者型にして返す関数 ---------- //
-#let author-set(biblist, name) = {
-  let author_arr = ()
-  let author_arr2 = biblist.parsed_names.at(name, default: ())
+// ---------- 項目を著者型にして返す関数の共通部分 ---------- //
+#let make-author-set(biblist, name, author-ja-func, author-en-func) = {
+  let author_arr = biblist
+    .parsed_names
+    .at(name, default: ())
+    .map(author => {
+      let authorsum = author.values().sum()
+      let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
 
-  for author in author_arr2 {
-    let authorsum = author.values().sum()
-    let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
-
-    if check {
-      author_arr.push(author-ja(author))
-    } else {
-      author_arr.push(author-en(author))
-    }
-  }
+      if check {
+        return author-ja-func(author)
+      } else {
+        return author-en-func(author)
+      }
+    })
 
   if biblist.fields.lang == "ja" {
     return author_arr.join(", ")
   } else {
     return author_arr.join(", ", last: " and ")
   }
+}
+
+// ---------- 項目を著者型にして返す関数(author-en型) ---------- //
+#let author-set(biblist, name) = {
+  return make-author-set(biblist, name, author-ja, author-en)
 }
 
 // ---------- 項目を著者型にして返す関数(author-en3型) ---------- //
 #let author-set2(biblist, name) = {
-  let author_arr = ()
-  let author_arr2 = biblist.parsed_names.at(name, default: ())
-
-  for author in author_arr2 {
-    let authorsum = author.values().sum()
-    let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
-
-    if check {
-      author_arr.push(author-ja(author))
-    } else {
-      author_arr.push(author-en3(author))
-    }
-  }
-
-  if biblist.fields.lang == "ja" {
-    return author_arr.join(", ")
-  } else {
-    return author_arr.join(", ", last: " and ")
-  }
+  return make-author-set(biblist, name, author-ja, author-en3)
 }
-
 
 // ---------- 項目を著者型にして返す関数(author-en4型) ---------- //
 #let author-set3(biblist, name) = {
-  let author_arr = ()
-  let author_arr2 = biblist.parsed_names.at(name, default: ())
-
-  for author in author_arr2 {
-    let authorsum = author.values().sum()
-    let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
-
-    if check {
-      author_arr.push(author-ja(author))
-    } else {
-      author_arr.push(author-en4(author))
-    }
-  }
-
-  if biblist.fields.lang == "ja" {
-    return author_arr.join(", ")
-  } else {
-    return author_arr.join(", ", last: " and ")
-  }
+  return make-author-set(biblist, name, author-ja, author-en4)
 }
 
 // ---------- 項目をciteの著者型にして返す関数 ---------- //
@@ -206,50 +139,31 @@
     author_arr2 = ((family: "", given: "", prefix: "", suffix: ""),)
   }
 
-  let author_arr = ()
-
-  for author in author_arr2 {
-    let family = author.at("family")
-    let given = author.at("given")
-    let prefix = author.at("prefix")
-    let suffix = author.at("suffix")
-
+  let author_arr = author_arr2.map(author => {
     let authorsum = author.values().sum()
     let check = (regex("[\p{scx:Han}\p{scx:Hira}\p{scx:Kana}]") in authorsum)
 
     if check {
-      author_arr.push(prefix + family)
+      return author.prefix + author.family
     } else {
-      author_arr.push(author-en2(author))
+      return author-en2(author)
     }
+  })
+
+  let author-joint = (" and ", " et al.")
+  if biblist.fields.lang == "ja" {
+    author-joint = (", ", "他")
   }
 
-  if biblist.fields.lang == "ja" {
-    // 日本語の場合
-    if author_arr.len() == 1 {
-      // 著者が1人の場合
-      return author_arr.sum()
-    } else if author_arr.len() == 2 {
-      // 著者が2人の場合
-      return author_arr.join(", ")
-    } else {
-      // 著者が3人以上の場合
-      let tmp = (author_arr.at(0), "他")
-      return tmp.sum()
-    }
+  if author_arr.len() == 1 {
+    // 著者が1人の場合
+    return author_arr.sum()
+  } else if author_arr.len() == 2 {
+    // 著者が2人の場合
+    return author_arr.join(author-joint.at(0))
   } else {
-    // 英語の場合
-    if author_arr.len() == 1 {
-      // 著者が1人の場合
-      return author_arr.sum()
-    } else if author_arr.len() == 2 {
-      // 著者が2人の場合
-      return author_arr.join(" and ")
-    } else {
-      // 著者が3人以上の場合
-      let tmp = (author_arr.at(0), " et al.")
-      return tmp.sum()
-    }
+    // 著者が3人以上の場合
+    return (author_arr.at(0), author-joint.at(1)).sum()
   }
 }
 
@@ -270,31 +184,22 @@
 }
 
 // ---------- ページ形式にして返す関数 ---------- //
-#let page-set(biblist, name) = {
+#let page-set(biblist, name, prefix: ("pp.~", "p.~")) = {
   let pagestr = biblist.fields.at(name)
 
   if pagestr.contains("--") or pagestr.contains("–") {
-    return "pp.~" + pagestr
+    return prefix.at(0) + pagestr
   } else if pagestr.contains("-") {
     pagestr = pagestr.replace("-", "--")
-    return "pp.~" + pagestr
+    return prefix.at(0) + pagestr
   } else {
-    return "p.~" + pagestr
+    return prefix.at(1) + pagestr
   }
 }
 
 // ---------- ページ形式にして返す関数(ppを表示しない) ---------- //
 #let page-set-without-p(biblist, name) = {
-  let pagestr = biblist.fields.at(name)
-
-  if pagestr.contains("--") or pagestr.contains("–") {
-    return pagestr
-  } else if pagestr.contains("-") {
-    pagestr = pagestr.replace("-", "--")
-    return pagestr
-  } else {
-    return pagestr
-  }
+  return page-set(biblist, name, prefix: ("", ""))
 }
 
 // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
