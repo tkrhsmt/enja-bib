@@ -19,51 +19,29 @@
   },
 )
 
+#let format-bib-cite(label, bib-cite) = {
+  let entry = query(label).at(0)
+  let cite-arr = eval(entry.supplement.text)
+  update-bib-cite-turn(cite-arr)
+  cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), entry.body)
+  link(label, bib-cite.at(1)(cite-arr))
+}
+
 #let bib-cite-func(
   bib-cite: (),
   ..label_argument,
 ) = context {
-  let label_arr = label_argument.pos()
-  if label_arr.len() == 1 {
-    //ラベルが1つのとき
+  let labels = label_argument.pos()
 
-    let label = label_arr.at(0)
-    let contents = query(label)
-    let cite-arr = eval(contents.at(0).supplement.text)
-    update-bib-cite-turn(cite-arr)
-
-    cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
-
-    //出力
-    bib-cite.at(0) + link(label, bib-cite.at(1)(cite-arr)) + bib-cite.at(3)
+  if labels.len() == 1 {
+    bib-cite.at(0) + format-bib-cite(labels.at(0), bib-cite) + bib-cite.at(3)
   } else {
-    //ラベルが2つ以上のとき
-
-    let label = label_arr.remove(0)
-    let contents = query(label)
-    let cite-arr = eval(contents.at(0).supplement.text)
-    update-bib-cite-turn(cite-arr)
-    cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
-    let output1 = bib-cite.at(0) + link(label, bib-cite.at(1)(cite-arr)) + bib-cite.at(2)
-
-    label = label_arr.remove(-1)
-    contents = query(label)
-    cite-arr = eval(contents.at(0).supplement.text)
-    update-bib-cite-turn(cite-arr)
-    cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
-    let output2 = link(label, bib-cite.at(1)(cite-arr)) + bib-cite.at(3)
-
     let output = ""
-    for label in label_arr {
-      contents = query(label)
-      cite-arr = eval(contents.at(0).supplement.text)
-      update-bib-cite-turn(cite-arr)
-      cite-arr = (cite-arr.at(0), cite-arr.at(1), cite-arr.at(3), contents.at(0).body)
-      output += link(label, bib-cite.at(1)(cite-arr)) + bib-cite.at(2)
+    for (index, label) in labels.enumerate() {
+      output += format-bib-cite(label, bib-cite)
+      output += if index == labels.len() - 1 { bib-cite.at(3) } else { bib-cite.at(2) }
     }
-
-    //出力
-    output1 + output + output2
+    bib-cite.at(0) + output
   }
 }
 
@@ -179,47 +157,24 @@
       }
     }
 
-    // ----- 重複文献に記号を挿入 ----- //
-    for value in output_contents {
-      if type(value.at(1).at(1)) != str {
-        value.at(1)
-      }
-    }
-
     if vancouver-style == false {
       //ハーバード方式のとき
-      let cite-arr = ()
-      for value in output_contents {
-        cite-arr.push(value.at(1).join(", "))
+      let duplicate_indices = (:)
+      for (index, value) in output_contents.enumerate() {
+        let cite = value.at(1).join(", ")
+        let indices = duplicate_indices.at(cite, default: ())
+        indices.push(index)
+        duplicate_indices.insert(cite, indices)
       }
-      let num = 0
-      let remove-num = ()
-      for value in cite-arr {
-        let num2 = num + 1
-        let double_arr = ()
-        for value2 in cite-arr.slice(num2) {
-          if value == value2 and remove-num.contains(num2) == false {
-            remove-num.push(num2)
-            double_arr.push(num2)
-          }
-          num2 += 1
-        }
 
-        if double_arr != () {
-          //重複があるとき
-
-          double_arr.insert(0, num)
-          let num2 = 1
-
-          for value2 in double_arr {
-            let add_character = numbering(bib-year-doubling, num2)
-            output_contents.at(value2).at(0).insert(1, (add_character,))
-            output_contents.at(value2).at(1).at(1) = output_contents.at(value2).at(1).at(1) + add_character
-            num2 += 1
+      for indices in duplicate_indices.values() {
+        if indices.len() > 1 {
+          for (number, index) in indices.enumerate() {
+            let suffix = numbering(bib-year-doubling, number + 1)
+            output_contents.at(index).at(0).insert(1, (suffix,))
+            output_contents.at(index).at(1).at(1) += suffix
           }
         }
-
-        num += 1
       }
     }
 
@@ -238,7 +193,6 @@
         num += 1
       }
     } else {
-      let bibnum = output_contents.len()
       for value in output_contents {
         let cite-arr = value.at(1)
         cite-arr.push(value.at(4))
@@ -300,7 +254,7 @@
   bib-year-doubling: "a",
   bib-vancouver-manual: "",
   hanging-indent: 2em,
-  title: [文　　　献],
+  title: context if (text.lang == "ja") { [参考文献] } else { [Bibliography] },
   ..body,
 ) = {
   if title != none {
@@ -314,7 +268,6 @@
     align(left, it)
   }
 
-  let bib_content = body
   from-content-to-output(
     year-doubling,
     bib-sort,
@@ -325,7 +278,7 @@
     bib-year-doubling,
     bib-vancouver-manual,
     hanging-indent,
-    bib_content,
+    body,
   )
 }
 
@@ -359,11 +312,7 @@
   let bib_str = ""
   if type(it) == content or type(it) == str {
     output_arr.push(((it,),))
-    if type(it) == content {
-      bib_str = contents-to-str(it)
-    } else {
-      bib_str = it
-    }
+    bib_str = if type(it) == content { contents-to-str(it) } else { it }
   } else {
     let output_bib = ()
     for v in it {
@@ -377,11 +326,7 @@
   }
 
   output_arr.push((author, year))
-  if yomi == none {
-    output_arr.push(bib_str)
-  } else {
-    output_arr.push(yomi)
-  }
+  output_arr.push(if yomi == none { bib_str } else { yomi })
   output_arr.push(label)
 
   return output_arr
@@ -394,12 +339,7 @@
   let file_arr = file_contents.split(regex("(^|[^\\\\])@"))
   let output-arr = ()
   for value in file_arr {
-    let tmp = value.starts-with("comment")
-    if value.starts-with(
-      regex(
-        "article|book|booklet|inbook|incollection|inproceedings|conference|manual|mastersthesis|misc|online|phdthesis|proceedings|techreport|unpublished",
-      ),
-    ) {
+    if not value.starts-with("comment") and value != "" {
       output-arr.push("@" + value)
     }
   }
