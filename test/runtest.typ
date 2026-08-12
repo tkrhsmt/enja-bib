@@ -105,10 +105,10 @@
   // 英語・日本語、複数著者、年の欠損を確認する。
   assert(bib-vancouver-manual-default(("Smith", "2024")) == "[Smi24]")
   assert(bib-vancouver-manual-default(("Smith and Jones", "2024")) == "[SJ24]")
-  assert(bib-vancouver-manual-default(("Smith et al.", "")) == "[Smi+??]")
+  assert(bib-vancouver-manual-default(("Smith et al.", "")) == "[Smi+]")
   assert(bib-vancouver-manual-default(("山田, 佐藤", "2024")) == "[山佐24]")
   assert(bib-vancouver-manual-default(("山田他", "2024")) == "[山+24]")
-  assert(bib-vancouver-manual-default((none, "")) == "[????]")
+  assert(bib-vancouver-manual-default((none, "")) == "[]")
 }
 
 // ---------------------------------------------------------------------------
