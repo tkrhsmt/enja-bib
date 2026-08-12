@@ -134,7 +134,10 @@
   let bib = english-bib(fields: (author: "Smith", year: "2024"))
   assert(text-of(bibtex-to-bib("%year", bib, elements).sum().sum()) == "Smith 2024")
   assert(bibtex-to-cite(author-set-cite, all-return, bib) == ("de Smith et al.", "2024"))
-  // yomi の既定値と、明示した content 型 yomi の両方を確認する。
+  // yomi がない日本語文献では、著者名から読みを自動生成する。
+  assert(bibtex-yomi(japanese-bib(), (([日本語文献],),)) == "yamada,taro,sato,hanako,suzuki,jiro")
+
+  // 英語文献の既定値と、明示した content 型 yomi の両方を確認する。
   assert(bibtex-yomi(bib, (([Alpha],),)) == "alpha")
   assert(bibtex-yomi(english-bib(fields: (yomi: [\{Beta\}])), (([Alpha],),)) == "beta")
 }
