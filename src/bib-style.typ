@@ -300,7 +300,7 @@
   bib-year-doubling: "a",
   bib-vancouver-manual: "",
   hanging-indent: 2em,
-  title: [文　　　献],
+  title: context if (text.lang == "ja") { [参考文献] } else { [Bibliography] },
   ..body,
 ) = {
   if title != none {
@@ -395,11 +395,7 @@
   let output-arr = ()
   for value in file_arr {
     let tmp = value.starts-with("comment")
-    if value.starts-with(
-      regex(
-        "article|book|booklet|inbook|incollection|inproceedings|conference|manual|mastersthesis|misc|online|phdthesis|proceedings|techreport|unpublished",
-      ),
-    ) {
+    if value.starts-with("comment") == false and value != "" {
       output-arr.push("@" + value)
     }
   }

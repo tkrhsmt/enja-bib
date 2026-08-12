@@ -3,7 +3,7 @@
 #import bib-setting-jsme: *
 #show: bib-init
 
-#set text(font: ("Times New Roman", "Harano Aji Mincho"))
+#set text(font: ("Times New Roman", "Harano Aji Mincho"), lang: "ja")
 
 #heading(numbering: none)[引用例]
 
@@ -21,7 +21,6 @@
 #block(width: 100%, stroke: black, inset: 10pt, [
   ```typst
   #bibliography-list(
-    title: [参考文献],
     ..bib-file(read("mybib_jp.bib")),
     ..bib-file(read("mybib_en.bib"))
   )
@@ -29,7 +28,6 @@
 ])
 
 #bibliography-list(
-  title: [参考文献],
   ..bib-file(read("mybib_jp.bib")),
   ..bib-file(read("mybib_en.bib")),
 )
