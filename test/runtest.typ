@@ -124,6 +124,7 @@
   assert(add-dict-lang((fields: (title: "日本語")), auto).fields.lang == "ja")
   assert(add-dict-lang((fields: (title: "English")), auto).fields.lang == "en")
   assert(add-dict-lang((fields: (lang: "ja", title: "English")), auto).fields.lang == "ja")
+  assert(add-dict-lang((fields: (title: "English")), "ja").fields.lang == "ja")
 
   // bibtex-to-bib 用の最小スタイル。author の後に year を連結する。
   let elements = (
@@ -187,4 +188,17 @@
     bib-vancouver-manual: bib-vancouver-manual-default,
     bib-item([Gamma], author: "Smith", year: "2024", label: <gamma>),
   )
+}
+
+#let test-multiple-citations() = {
+  // 単一・複数ラベルの共通処理と、引用順ソートの経路を確認する。
+  let style = toml("../src/bib-setting-custom/plain.toml")
+  let configured = set-style(style)
+  assert((configured.bib-init)[
+    #(configured.citep)(<first>, <second>)
+    #(configured.bibliography-list)(title: none, bib-sort-ref: true,
+      (configured.bib-item)([First], author: "First", year: "2024", label: <first>),
+      (configured.bib-item)([Second], author: "Second", year: "2024", label: <second>),
+    )
+  ] != none)
 }

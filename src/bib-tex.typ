@@ -17,10 +17,10 @@
 
 #let add-dict-lang(biblist, lang) = {
   let output_list = biblist.fields
-  let check_exist_lang = output_list.at("lang", default: "")
+  let current_lang = output_list.at("lang", default: "")
 
-  if check_exist_lang != "en" and check_exist_lang != "ja" {
-    if lang == auto or lang != "ja" or lang != "en" {
+  if current_lang != "en" and current_lang != "ja" {
+    if lang == auto or (lang != "ja" and lang != "en") {
       if check-japanese-tex(biblist.fields) {
         output_list.insert("lang", "ja")
       } else {
@@ -32,7 +32,6 @@
   }
 
   biblist.insert("fields", output_list)
-
   return biblist
 }
 
@@ -166,10 +165,8 @@
 
 //---------- 並び替えのための読み仮名 ---------- //
 #let bibtex-yomi(biblist, bib_arr) = {
-  let yomi = ""
   let bib_str = contents-to-str(bib_arr.sum().sum())
-
-  yomi = biblist.fields.at("yomi", default: "")
+  let yomi = biblist.fields.at("yomi", default: bib_str)
   if yomi == "" {
     yomi = bib_str
   }
