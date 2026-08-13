@@ -176,6 +176,10 @@
     yomi = contents-to-str(yomi)
   }
 
+  if check-japanese-tex-str(yomi){
+    yomi = romaji(yomi)
+  }
+
   yomi = yomi.replace("{", "")
   yomi = yomi.replace("}", "")
   yomi = lower(yomi)
