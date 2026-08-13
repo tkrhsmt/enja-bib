@@ -240,6 +240,7 @@ Licensed under MIT.
 - `bib-year-doubling`：重複著者・年号文献を区別するために表示する文字列（例：`"a"`）
 - `sentence-case-titles`：文献タイトルを文頭大文字にするかどうか（`true` or `false`）
 
+---
 `cite`スタイルの設定
 
 - `bib-cite-author`：citeで出力する著者名を出力する関数名（例：`"author-set-cite"`）
@@ -252,6 +253,7 @@ Licensed under MIT.
 > `bib-vancouver-manual`は，`bib-vancouver = "manual"`出ない場合でも定義が必須である．
 > この場合は，`"bib-vancouver-manual-default"`を指定しておけば良い．
 
+---
 各引用の表示形式設定
 
 ```toml
@@ -275,6 +277,7 @@ Licensed under MIT.
     - 3つ目：2つ以上引用された場合，その間に付与する文字列（例：`, `）
     - 4つ目：引用の後に付与する文字列（例：`]`）
 
+---
 各要素の表示形式設定
 
 ```toml
@@ -345,3 +348,18 @@ Licensed under MIT.
 - `set-url`： URLかDOIのリンク付きで返す関数
 - `page-set`： 頁数を`pp.`付きで返す関数
 - `page-set-without-p`： 頁数を`pp.`なしで返す関数
+
+---
+
+自ら定義する関数を追加する場合は，作成した関数と名前を辞書配列にして，`set-style`関数の引数`add-utils`に渡すことで，独自の関数を追加することが可能．
+
+```typst
+#let (bib-init, bibliography-list, bib-tex, bib-file, bib-item, citet, citep, citen, citefull) = set-style(
+  toml("custom.toml"),
+  add-utils: (
+      "my-func1": my-func1,
+      "my-func2": my-func2,
+      //...複数の関数を追加可能
+  )
+)
+```
