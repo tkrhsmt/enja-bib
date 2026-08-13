@@ -38,9 +38,9 @@ bib-vancouver-manual = "bib-vancouver-manual-default"
 
 [cite]
     bib-cite = ["[", "bib-cite-alpha", ", ", "]"]
-    bib-citet = ["[", "bib-cite-alpha", ", ", "]"]
-    bib-citep = ["[", "bib-cite-alpha", ", ", "]"]
-    bib-citen = ["[", "bib-cite-alpha", ", ", "]"]
+    bib-citet = ["", "bib-citet-default", ", ", ""]
+    bib-citep = ["[", "bib-citep-default", ", ", "]"]
+    bib-citen = ["[", "bib-citen-default", ", ", "]"]
     bib-citefull = ["", "bib-citefull-default", "; ", ""]
 
 # %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

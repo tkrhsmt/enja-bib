@@ -364,7 +364,7 @@
   }
 
   let year = bib_cite_contents.at(1)
-  if year == "" { year = "??" } else { year = year.slice(2, 4) }
+  if year == "" { year = "" } else { year = year.slice(2, 4) }
   label + year
 }
 
