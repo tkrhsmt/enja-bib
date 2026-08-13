@@ -63,6 +63,7 @@ jobs:
         shell: bash
         run: |
           set -o pipefail
+          mkdir -p target
           tinymist test test/runtest.typ --root . --ignore-system-fonts --coverage --print-coverage=full 2>&1 | tee target/tinymist-test.log
 
       # 失敗時にもカバレッジ情報を確認できるよう常にアップロードする。
