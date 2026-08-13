@@ -35,10 +35,35 @@ jobs:
           echo "$HOME/.local/bin" >> "$GITHUB_PATH"
           "$HOME/.local/bin/tinymist" --version
 
+      # Tinymist v0.15.2 の test サブコマンドは、未キャッシュの Typst
+      # パッケージを自動取得しない。そのため CI では依存を先に配置する。
+      - name: Install Typst packages
+        env:
+          TYPST_PACKAGE_CACHE_PATH: ${{ runner.temp }}/typst-packages
+        run: |
+          set -euo pipefail
+          install_package() {
+            local name="$1"
+            local version="$2"
+            local destination="$TYPST_PACKAGE_CACHE_PATH/preview/$name/$version"
+            mkdir -p "$destination"
+            curl --proto '=https' --tlsv1.2 -LsSf \
+              "https://packages.typst.org/preview/${name}-${version}.tar.gz" \
+              | tar -xz -C "$destination"
+          }
+          install_package auto-jrubby 0.3.4
+          install_package rubby 0.10.2
+          install_package citegeist 0.3.1
+
       # テスト関数（test-*）を実行し、coverage.json も生成する。
       # システムフォントを除外して OS 間で再現可能な描画結果にする。
       - name: Run Typst tests
-        run: tinymist test test/runtest.typ --root . --ignore-system-fonts --coverage --print-coverage=full
+        env:
+          TYPST_PACKAGE_CACHE_PATH: ${{ runner.temp }}/typst-packages
+        shell: bash
+        run: |
+          set -o pipefail
+          tinymist test test/runtest.typ --root . --ignore-system-fonts --coverage --print-coverage=full 2>&1 | tee target/tinymist-test.log
 
       # 失敗時にもカバレッジ情報を確認できるよう常にアップロードする。
       - name: Upload coverage report
@@ -46,5 +71,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: tinymist-coverage
-          path: target/coverage.json
+          path: |
+            target/coverage.json
+            target/tinymist-test.log
           if-no-files-found: warn
