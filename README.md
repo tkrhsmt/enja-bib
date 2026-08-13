@@ -4,13 +4,69 @@
 A package for handling BibTeX that includes both English and Japanese.
 Licensed under MIT.
 
+![](figure/fig1.png)
+
+<details><summary>コード</summary>
+
+```typst
+#import "@preview/js:0.1.3": *
+#import "@preview/enja-bib:0.2.0": *
+
+#show: js
+#import bib-setting-plain: *
+#show: bib-init
+
+
+#let bib-text = "
+@article{Reynolds:PhilTransRoySoc1883,
+    author  = {Reynolds, Osborne},
+    title   = {An experimental investigation of the circumstances which determine whether the motion of water shall be direct or sinuous, and of the law of resistance in parallel channels},
+    journal = {Philosophical Transactions of the Royal Society of London},
+    volume  = {174},
+    number  = {},
+    pages   = {935--982},
+    year    = {1883},
+    doi     = {10.1098/rstl.1883.0029},
+    url     = {https://royalsocietypublishing.org/doi/abs/10.1098/rstl.1883.0029}
+}
+
+@article{塚原:ながれ2023,
+    author  = {塚原, 隆裕},
+    yomi    = {Tsukahara, Takahiro},
+    title   = {私の「ながれを学ぶ」使命感},
+    journal = {ながれ：日本流体力学会誌},
+    volume  = {42},
+    number  = {3},
+    pages   = {222},
+    year    = {2023},
+    url     = {https://www.nagare.or.jp/publication/nagare/archive/2023/3.html},
+}
+
+@book{日野:朝倉2020,
+    author      = {日野, 幹雄},
+    yomi        = {Hino, Mikio},
+    title       = {乱流の科学 ---構造と制御---},
+    publisher   = {朝倉書店},
+    year        = {2020}
+}
+"
+
+#bibliography-list(
+  ..bib-file(bib-text)
+)
+
+
+```
+
+</details>
+
 ## 本パッケージの特徴
 
 - 日本語文献と英語文献が混在した文書に対応
     - 日本語文献と英語文献で異なる設定が可能
-    - yomiフィールドの利用で，日本語文献のアルファベット順に並び替えが可能
-- typstで使用される`bibliography`関数を使用しないため，CSLファイルによる設定が不要（代わりに`bib-style/bib-setting-custom/bib-setting-〇〇.typ`ファイル内で設定）
-- 文中のどこでも引用が可能（`citet`，`citep`関数が利用可能）
+    - yomiフィールドの利用で，日本語文献のアルファベット順に並び替えが可能．フィールドがない場合でも自動判定可能
+- typstで使用される`bibliography`関数を使用しないため，CSLファイルによる設定が不要（代わりに`toml`ファイルで設定）
+- 文中のどこでも引用が可能（`citet`，`citep`関数などが利用可能）
 - 「アルファベット順並び替え／リスト順」「引用文献のみ／全て表示」「バンクーバー／ハーバード方式表示」の切り替えが可能
 
 > それぞれの関数に引数を加えることで，デフォルトのスタイルの一部を簡単に変更できます．
@@ -22,7 +78,7 @@ Licensed under MIT.
 
 1. 自分のtypstファイルの最初の方に以下を追記
     ```typst
-    #import "@preview/enja-bib:0.1.0": *
+    #import "@preview/enja-bib:0.2.0": *
     #import bib-setting-plain: *
     #show: bib-init
     ```
@@ -45,15 +101,25 @@ Licensed under MIT.
 
 > 現在すぐに使用可能なスタイル一覧
 > - `bib-setting-plain`：bibtexの`jplain`を再現したスタイル
+>   ![](figure/fig2_plain.png)
 > - `bib-setting-junsrt`：標準日本語スタイル `junsrt`（引用順）
+>   ![](figure/fig2_junsrt.png)
 > - `bib-setting-jabbrv`：標準日本語スタイル `jabbrv`（欧文著者名を省略）
+>   ![](figure/fig2_jabbrv.png)
 > - `bib-setting-jalpha`：標準日本語スタイル `jalpha`（著者・年ラベル）
+>   ![](figure/fig2_jalpha.png)
 > - `bib-setting-jname`：標準日本語スタイル `jname`（著者名ラベル）
+>   ![](figure/fig2_jname.png)
 > - `bib-setting-jipsj`：情報処理学会欧文論文誌スタイル `jipsj`
+>  ![](figure/fig2_jipsj.png)
 > - `bib-setting-jorsj`：日本オペレーションズ・リサーチ学会論文誌スタイル `jorsj`
+> ![](figure/fig2_jorsj.png)
 > - `bib-setting-jsme`：日本機械学会の引用を再現したスタイル
+> ![](figure/fig2_jsme.png)
 > - `bib-setting-tieice`：電子情報通信学会論文誌スタイル `tieice`
+> ![](figure/fig2_tieice.png)
 > - `bib-setting-tipsj`：情報処理学会論文誌スタイル `tipsj`
+> ![](figure/fig2_tipsj.png)
 
 ## それぞれの関数の使い方
 
@@ -80,7 +146,16 @@ Licensed under MIT.
 ```
 
 任意引数
-- `title` : 文献タイトル（デフォルト：`文　　献`）
+- `title` : 文献タイトル（デフォルト：日本語環境：`参考文献`，英語環境：`Bibliography`）
+- `bib-sort` : 文献をアルファベット順にソートするか（デフォルト：`false`）
+- `bib-sort-ref` : 文献を引用順にソートするか（デフォルト：`false`）
+- `bib-full` : 引用されている文献だけでなく全ての文献を表示するか（デフォルト：`false`）
+- `bib-vancouver` : vancouverスタイル設定時の番号付け（デフォルト：`(1)`）
+- `vancouver-style` : vancouverスタイルにするか（デフォルト：`false`）
+- `bib-year-doubling` : 重複著者・年号文献を区別するために表示する文字列（デフォルト：`a`）
+- `bib-vancouver-manual` : `bib-vancouver = "manual"`のときの設定（デフォルト：`""`）
+- `hanging-indent` : 文献リストのインデント（デフォルト：`2em`）
+- `year-doubling` : 文献リストの年号の後に付与する特殊文字列（デフォルト：`""`）
 
 
 ### `bib-file`関数
@@ -142,193 +217,131 @@ Licensed under MIT.
 
 ## 独自のスタイルを適用する方法
 
-`bib-setting-plain`や`bib-setting-jsme`以外の独自のスタイルを設定，或いは一部を変更するには，それぞれの関数に引数を設定します．
-
-### 全体設定
+上記に示したスタイル以外の独自スタイルを適用する場合は，カスタムした`.toml`ファイルを作成し，`set-style`関数で読み込む．
 
 ```typst
-#bibliography-list(
-  year-doubling,
-  bib-sort,
-  bib-sort-ref,
-  bib-full,
-  bib-vancouver,
-  vancouver-style,
-  bib-year-doubling,
-  bib-vancouver-manual,
-  ...
-)
+#let (bib-init, bibliography-list, bib-tex, bib-file, bib-item, citet, citep, citen, citefull) = set-style(toml("custom.toml"))
 ```
 
-- `year-doubling`：著者・年が同じ文献がある場合に番号を付与するため，その番号を付与する位置を指定する特殊文字列（`string`型）
-- `bib-sort`：アルファベット順にソートを行うか（`bool`型）
-- `bib-sort-ref`：引用されている順番にソートを行うか（`bool`型）
-- `bib-full`：引用されている文献だけでなく全ての文献を表示するか（`bool`型）
-- `bib-vancouver`：vancouverスタイル設定時の番号付け（`string`型）
-- `vancouver-style`：vancouverスタイルにするか（`bool`型）
-- `bib-year-doubling`：重複著者・年号文献の year-doubling に表示する文字列（`string`型）
-- `bib-vancouver-manual`：`bib-vancouver = "manual"`のときの設定
+### `toml`ファイルの書き方
 
-### 参照設定
+`toml`ファイルは，`src/bib-setting-custom/*.toml`を参考にして作成すると良い．
 
-```typst
-#bib-init(
-  bib-cite
-)
+#### 項目
+
+パラメータ
+
+- `year-doubling` : 著者・年が同じ文献がある場合に番号を付与するため，その番号を付与する位置を指定する特殊文字列（例：`"%year-doubling"`）
+- `bib-sort`：アルファベット順に並び替えるかどうか（`true` or `false`）
+- `bib-sort-ref`：引用順に並び替えるかどうか（`true` or `false`）
+- `bib-full`：引用されていない文献も表示するかどうか（`true` or `false`）
+- `bib-vancouver`：vancouverスタイルの番号付けの形式（例：`"[1]"`）
+- `vancouver-style`：vancouverスタイルにするかどうか（`true` or `false`）
+- `bib-year-doubling`：重複著者・年号文献を区別するために表示する文字列（例：`"a"`）
+- `sentence-case-titles`：文献タイトルを文頭大文字にするかどうか（`true` or `false`）
+
+`cite`スタイルの設定
+
+- `bib-cite-author`：citeで出力する著者名を出力する関数名（例：`"author-set-cite"`）
+- `bib-cite-year`：citeで出力する年を出力する関数名（例：`"year-set-cite"`）
+
+`bib-vancouver = "manual"`のときの設定
+
+- `bib-vancouver-manual`：`bib-vancouver = "manual"`の番号付けをする関数名（例：`"bib-vancouver-manual-default"`）
+
+> `bib-vancouver-manual`は，`bib-vancouver = "manual"`出ない場合でも定義が必須である．
+> この場合は，`"bib-vancouver-manual-default"`を指定しておけば良い．
+
+各引用の表示形式設定
+
+```toml
+[cite]
+    bib-cite = ["[", "bib-citen-default", ", ", "]"]
+    bib-citet = ["", "bib-citet-default", "; ", ""]
+    bib-citep = ["(", "bib-citep-default", "; ", ")"]
+    bib-citen = ["[", "bib-citen-default", ", ", "]"]
+    bib-citefull = ["", "bib-citefull-default", "; ", ""]
 ```
 
-- `bib-cite`：citeを設定する配列(`array`型)
+- 各項目の意味は以下の通り
+    - `bib-cite`：`@...`形式の出力形式設定
+    - `bib-citet`：`citet`関数の出力形式設定
+    - `bib-citep`：`citep`関数の出力形式設定
+    - `bib-citen`：`citen`関数の出力形式設定
+    - `bib-citefull`：`citefull`関数の出力形式設定
+- 各項目は，4つの要素を持つ配列で定義する
+    - 1つ目：引用の前に付与する文字列（例：`[`）
+    - 2つ目：引用に用いる関数名（例：`"bib-citen-default"`）
+    - 3つ目：2つ以上引用された場合，その間に付与する文字列（例：`, `）
+    - 4つ目：引用の後に付与する文字列（例：`]`）
 
-  ```typst
-  ([], bib-citet-default, [; ], [])
-  ```
+各要素の表示形式設定
 
-  **配列の構造**
-  1. 参照時の一番最初に出力する文字(`content`型)
-  2. 出力する文字列を生成する関数(`function`型)
-  3. 2つ以上の文献で，文献間に出力する文字(`content`型)
-  4. 参照時の一番最後に出力する文字(`content`型)
-
-  > 上の例では，`Reynolds (1883); Reynolds (1883)`のように出力されます
-
-  2番目の要素である`function`型には，
-  - `bib-citet-default`：文中引用形式
-  - `bib-citep-default`：文末引用形式
-  - `bib-citen-default`：番号引用形式
-  - `bib-citefull-default`：文献スタイルで引用する形式
-  - `bib-cite-authoronly`：著者名のみ引用する形式
-  - `bib-cite-yearonly`：年のみ引用する形式
-
-  が選択できますが，以下のように独自に設定が可能です．
-  以下は，`bib-citet-default`の例です．
-
-  ```typst
-  #let bib-citet-default(bib_cite_contents) = {
-    return bib_cite_contents.at(0) + [~(] + bib_cite_contents.at(1) + [)]
-  }
-  ```
-
-  **引数**
-  1. `bib_cite_contents`：`cite`を構成する要素．
-     (`著者名`, `年号`, `引用番号`, `文献`)が入っている
-
-### `cite`系関数
-
-デフォルトで使用できる引用スタイルは，`citet`，`citep`，`citen`，`citefull`です．
-これらを書き換えるには，以下の引数を設定します．
-
-```typst
-#citet(
-  bib-citet,
-)
+```toml
+[entry.article]
+    [entry.article.en]
+        author = ["", "", "author-set3", "", ". ", [], "."]
+        title = ["", "", "all-return", "", ". ", [], "."]
+        journal = ["", "", "all-emph", "", ", ", [], "."]
+        volume = ["", "Vol. ", "all-return", "", ", ", [], "."]
+        number = ["", "No. ", "all-return", "", ", ", [], ")."]
+        pages = ["", "", "page-set", "", ", ", [], "."]
+        month = ["", "", "all-return", "", ". ", [], "."]
+        year = [" ", "", "all-return", "%year-doubling", ". ", ["month"], "%year-doubling."]
+        note = ["", "", "all-return", "", ", ", [], "."]
+    [entry.article.ja]
+        author = ["", "", "author-set3", "", ". ", [], "."]
+        title = ["", "", "all-return", "", ". ", [], "."]
+        journal = ["", "", "all-return", "", ", ", [], "."]
+        volume = ["", "Vol. ", "all-return", "", ", ", [], "."]
+        number = ["", "No. ", "all-return", "", ", ", [], ")."]
+        pages = ["", "", "page-set", "", ", ", [], "."]
+        month = ["", "", "all-return", "", ". ", [], "."]
+        year = [" ", "", "all-return", "%year-doubling", ". ", ["month"], "%year-doubling."]
+        note = ["", "", "all-return", "", ", ", [], "."]
 ```
 
-- `bib-citet`：上記の`bib-cite`と同様
+- `entry.article`：article型の文献の表示形式設定．`article`型以外の文献は，`entry.book`，`entry.inproceedings`などを自身で定義することで，設定可能
+- 各エントリ内には`en`と`ja`の2つの設定を入れる
+  - `[entry.article.en]`：article型の英語文献の表示形式設定
+  - `[entry.article.ja]`：article型の日本語文献の表示形式
+- `[entry.article.en]`や`[entry.article.ja]`の中には，文献の各要素（author，title，journal...）などのフィールドを定義する．定義順がそのまま表示順になる
+  - 各フィールドは，7つの要素を持つ配列で定義する
+    - 1つ目：直前の項目がフィールド名Aのとき，直前の語尾文字列Bを削除して置き換える文字列（例：`" "`）
+    - 2つ目：必ず出力する先頭文字列（例：`"("`）
+    - 3つ目：項目を出力する関数名（例：`"all-return"`）
+    - 4つ目：最後の項目でない限り必ず出力される語尾文字列（例：`"%year-doubling)"`）
+    - 5つ目：語尾文字列B（例：`", "`）
+    - 6つ目：フィールド名A（例：`["month"]`）
+    - 7つ目：最後の項目のとき出力される語尾文字列（例：`"%year-doubling)."`）
 
-### `bib-file`の設定
+#### 関数名
 
+事前に定義されている関数は，以下の通り．
 
-```typst
-#bib-file((
-  year-doubling,
-  bibtex-article-en,
-  bibtex-article-ja,
-  bibtex-book-en,
-  bibtex-book-ja,
-  bibtex-booklet-en,
-  bibtex-booklet-ja,
-  bibtex-inbook-en,
-  bibtex-inbook-ja,
-  bibtex-incollection-en,
-  bibtex-incollection-ja,
-  bibtex-inproceedings-en,
-  bibtex-inproceedings-ja,
-  bibtex-conference-en,
-  bibtex-conference-ja,
-  bibtex-manual-en,
-  bibtex-manual-ja,
-  bibtex-mastersthesis-en,
-  bibtex-mastersthesis-ja,
-  bibtex-misc-en,
-  bibtex-misc-ja,
-  bibtex-online-en,
-  bibtex-online-ja,
-  bibtex-phdthesis-en,
-  bibtex-phdthesis-ja,
-  bibtex-proceedings-en,
-  bibtex-proceedings-ja,
-  bibtex-techreport-en,
-  bibtex-techreport-ja,
-  bibtex-unpublished-en,
-  bibtex-unpublished-ja,
-  bib-cite-author,
-  bib-cite-year,
-)
-```
+引用の表示形式設定に用いる関数
+- `bib-vancouver-manual-default`：`manual`のときのvancouverスタイル番号付け標準形式
+- `bib-citet-default`：`citet`関数の標準形式
+- `bib-citep-default`：`citep`関数の標準形式
+- `bib-citen-default`：`citen`関数の標準形式
+- `bib-cite-alpha`：`manual`のときのアルファベット順番号付け標準形式
+- `bib-citefull-default`：`citefull`関数の標準形式
+- `bib-cite-authoronly`：著者名のみ返す関数
+- `bib-cite-yearonly`：年号のみ返す関数
 
-- `year-doubling`：全体設定と同様（`string`型）
-- `bibtex-...`：各フィールドの設定（`array`型）
+---
 
-    **命名規則**
-
-    `bibtex-(フィールド名)-(言語)`
-
-    **例**
-
-    ```typst
-    #let bibtex-article-en = (
-        ("author", (none,"",author-set3, "", ". ", (), ".")),
-        ("title", (none,"",title-en, "", ". ", (), ".")),
-        ("journal", (none,"",all-emph, "", ", ", (), ".")),
-        //...出力する項目を順に並べる
-    )
-    ```
-
-    - 各配列は，出力する項目の順に並べる（上の例では，`author`，`title`，`journal`の順に出力される）
-    - `bibtex`内に無い項目は飛ばされる（上の場合，`title`の項目が`bibtex`内にない場合は`author`と`journal`のみが出力される）
-    - `bibtex`内にあっても，配列の中に含まれない場合は出力されない（上の例では，`author`，`title`，`journal`のみ出力される）
-
-    **各項目の書き方**
-
-    ```typst
-    ("author", (none,"",author-set3, "", ". ", (), "."))
-    ```
-
-    1. 項目名（`string`型）
-    2. 出力形式を決定する配列（`array`型）
-
-        1. 1つ前の項目がAのとき，前の語尾文字列を削除して置き換える先頭文字列（`content`,`string`型）
-        2. 必ず出力される文字列（`content`,`string`型）
-        3. 出力される文字列を出力する関数（`function`型）
-        4. 最後でない限り必ず出力される語尾文字列（`content`,`string`型）
-        5. 1つ後の項目のAに書かれていない，かつ最後でない場合に出力される語尾文字列（`content`,`string`型）
-        6. 場合A（`array`型）
-        7. 最後の場合に出力される文字列（`content`,`string`型）
-
-- `bib-cite-author`：`cite`の`author`を返す関数（`function`型）
-
-- `bib-cite-year`：`cite`の`year`を返す関数（`function`型）
-
-> それぞれの`function`型には，以下のものがすぐに使用できます．
-> - `all-return`：要素の全てを返す関数
-> - `all-bold`：要素を太字にして全て返す関数
-> - `all-emph`：要素を斜体にして全て返す関数
-> - `author-set`：項目を著者型にして返す関数 (例：英語著者名`Reynolds, Osborne` を `Reynolds O.` に変換)
-> - `author-set2`：項目を著者型にして返す関数 (例：英語著者名`Reynolds, Osborne` を `O Reynolds` に変換)
-> - `author-set3`：項目を著者型にして返す関数 (例：英語著者名`Reynolds, Osborne` を `Osborne Reynolds` に変換)
-> - `author-set-cite`：項目をciteの著者型にして返す関数 (例：英語著者名`Reynolds, Osborne` を `Reynolds` に変換)
-> - `title-en`：英語のタイトルを先頭だけ大文字にしてそれ以外を小文字にして返す関数
-> - `set-url`：URLを付与して返す関数（引数に`color`を設定可能．デフォルトは`blue`）
-> - `page-set`：ページ形式にして返す関数（`p.`や`pp.`をつける）
-> - `page-set-without-p`：ページ形式にして返す関数（`p.`や`pp.`をつけない）
->
-> これらの関数は，独自に作ることもできます．例えば，`all-emph`関数は次のように実装されています．
->
-> ```
-> #let all-emph(biblist, name) = {
->   return emph(biblist.at(name).sum())
-> }
-> ```
->
-> - `biblist`：`bibtex`形式の文献エントリーの`dictionary`型
-> - `name`：今呼ばれている文献エントリー名
+フィールドの表示形式設定に用いる関数
+- `all-return`：フィールドの内容をそのまま返す関数
+- `all-bold`： フィールドの内容を太字にして返す関数
+- `all-emph`： フィールドの内容を斜体にして返す関数
+- `author-set`： 項目を著者型にして返す関数(英語：`Reynolds, Osborne` → `Reynolds O.`)
+- `author-set2`： 項目を著者型にして返す関数(英語：`Reynolds, Osborne` → `O, Reynolds`)
+- `author-set3`： 項目を著者型にして返す関数(英語：`Reynolds, Osborne` → `Osborne, Reynolds`)
+- `author-set4`： 項目を著者型にして返す関数(英語：`Reynolds, Osborne` → `O. Reynolds`)
+- `author-set5`： 項目を著者型にして返す関数(英語：`Reynolds, Osborne` → `REYNOLDS O`)
+- `author-set6`： 項目を著者型にして返す関数(英語：`Reynolds, Osborne` → `Reynolds, O.`)
+- `author-set-cite`： 項目を`cite`の著者型にして返す関数
+- `set-url`： URLかDOIのリンク付きで返す関数
+- `page-set`： 頁数を`pp.`付きで返す関数
+- `page-set-without-p`： 頁数を`pp.`なしで返す関数

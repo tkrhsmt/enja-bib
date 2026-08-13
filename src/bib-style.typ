@@ -327,7 +327,7 @@
 
   output_arr.push((author, year))
   output_arr.push(if yomi == none { bib_str } else { yomi })
-  output_arr.push(label)
+  output_arr.push(str(label))
 
   return output_arr
 }
