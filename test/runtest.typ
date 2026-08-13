@@ -152,7 +152,7 @@
   assert(text-of(item.at(0).sum().sum()) == "Entry")
   assert(item.at(1) == ("Author", "2024"))
   assert(item.at(2) == "Entry")
-  assert(item.at(3) == <entry>)
+  assert(item.at(3) == str(<entry>))
   let split = bib-item(("Before", "After"), yomi: "custom")
   assert(text-of(split.at(0).sum().sum()) == "BeforeAfter")
   assert(split.at(2) == "custom")

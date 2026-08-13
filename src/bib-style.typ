@@ -307,7 +307,7 @@
   return output_arr
 }
 
-#let bib-item(it, author: "", year: "", yomi: none, label: none) = {
+#let bib-item(it, author: "", year: "", yomi: none, label: "") = {
   let output_arr = ()
   let bib_str = ""
   if type(it) == content or type(it) == str {
@@ -327,7 +327,7 @@
 
   output_arr.push((author, year))
   output_arr.push(if yomi == none { bib_str } else { yomi })
-  output_arr.push(label)
+  output_arr.push(str(label))
 
   return output_arr
 }
